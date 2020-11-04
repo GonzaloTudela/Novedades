@@ -1,0 +1,138 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;700&family=Roboto:ital,wght@0,300;0,400;0,700;1,400&display=swap');
+
+:root {
+    --rojo: rgb(220, 0, 27);
+    --rojo-claro: rgb(237, 128, 141);
+    --gris: rgb(81, 98, 111);
+    --gris-claro: rgb(170, 180, 186);
+}
+
+* {
+    box-sizing: border-box; /* margenes y bordes crecen hacia dentro del box*/
+    font-family: 'Roboto', sans-serif;
+}
+
+@media (max-height: 550px) {
+    .g-recaptcha {
+        display: none;
+    }
+}
+
+#fondo {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-width: 320px;
+    height: 100%;
+    background-image: linear-gradient(180deg, var(--gris-claro), var(--gris));
+}
+
+#login_form {
+    position: absolute;
+    height: 80%;
+    width: 80%;
+    max-width: 375px;
+    min-width: 295px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 5px red;
+}
+
+.g-recaptcha {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+form {
+    text-align: center;
+}
+
+
+h1 {
+    margin: 50px 0 20px 0;
+    color: white;
+    font-family: 'Barlow', sans-serif;
+    font-weight: 300;
+    font-size: 45px;
+}
+
+input {
+    font-family: 'Roboto', sans-serif;
+    display: inline-block;
+    width: 80%;
+    height: 10mm;
+    text-align: center;
+    margin: 0 0 20px 0;
+    padding-bottom: 10px;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 1px solid white;
+    font-size: 4mm;
+    background-color: transparent;
+    color: white;
+    outline: none;
+}
+
+input:focus::placeholder {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+::placeholder {
+    color: white;
+    font-size: 4mm;
+}
+
+a {
+    display: inline-block;
+    width: 100px;
+    text-decoration: none;
+    color: white;
+    background-color: rgba(0, 0, 0, .2);
+    line-height: 10mm;
+    font-size: 4mm;
+    margin-top: 10px;
+    border: 1px solid gray;
+}
+
+a:hover {
+    background-color: rgba(0, 0, 0, .5);
+    border: 1px solid white;
+}
+
+button {
+    font-family: 'Barlow', sans-serif;
+    display: inline-block;
+    width: 80%;
+    height: 10mm;
+    color: white;
+    background-color: rgba(0, 0, 0, .2);
+    font-size: 4mm;
+    outline: none;
+    margin-top: 10px;
+    border: 1px solid var(--gris-claro);
+    border-radius: 8px;
+}
+
+button:hover {
+    background-color: rgba(0, 0, 0, .5);
+    border: 1px solid gray;
+}
+
+.error {
+    color: red;
+}
+
+#datos {
+    text-align: center;
+    position: absolute;
+    width: 300px;
+    height: 380px;
+    left: calc(50% - 175px);
+    top: calc(50% - 240px);
+    background-color: dimgray;
+}
