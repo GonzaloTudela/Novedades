@@ -6,12 +6,14 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Novedades</title>
+    <link rel="icon" href="img/favicon.png">
     <link rel="stylesheet" href="css/general.css">
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script type="text/javascript" src="librerias/funcionesJS.js" async></script>
 </head>
 <body>
 <div id="fondo">
-    <form id="login_form" method="POST" action="#">
-        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <form id="login_form" method="POST" action="">
         <h1>NOVEDADES</h1>
         <label for="login"></label>
         <input type="text" id="login" name="login" placeholder="Usuario"><br>
@@ -26,40 +28,19 @@
 </div>
 </body>
 </html>
-<script>
-    // Funcion que al pasarle un texto muestra un mensaje de error y al hacer focus en login o pass lo quita...
-    // ... asi evitamos repetir este codigo para cada error.
-    function errores(texto) {
-        let form = document.getElementById("form");
-        let error = document.createElement("p");
-        error.innerText = texto;
-        error.setAttribute("id", "error");
-        error.setAttribute("class", "error");
-        form.appendChild(error);
-        let login = document.getElementById("login");
-        let pass = document.getElementById("pass");
-        login.addEventListener("focus", function () {
-            error.style.display = "none";
-        });
-        pass.addEventListener("focus", function () {
-            error.style.display = "none";
-        });
-        document.getElementsByTagName("script")[0].remove();
-    }
-</script>
 <?php
 include("librerias/antisqli.php");
 if (isset($_GET["error"])) {
     $error = antiSQLi($_GET["error"]);
     switch ($error) {
         case 'login':
-            $texto = "NOMBRE O CONTRASEÑA INCORRECTOS";
+            $texto = "Usuario o contraseña incorrectos.";
             ?>
             <script>errores("<?=$texto?>")</script>
             <?php
             break;
         case "captcha":
-            $texto = "POR FAVOR VERIFIQUE EL CAPTCHA";
+            $texto = "Por favor, verifique el captcha.";
             ?>
             <script>errores("<?=$texto?>")</script>
             <?php
