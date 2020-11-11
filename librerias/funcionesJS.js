@@ -1,18 +1,25 @@
-// Funcion que al pasarle un texto muestra un mensaje de error y al hacer focus en login o pass lo quita...
-// ... asi evitamos repetir este codigo para cada error.
-function errores(texto) {
-    let form = document.getElementById("login_form");
-    let error = document.createElement("p");
-    error.innerText = texto;
-    error.setAttribute("id", "error");
-    error.setAttribute("class", "error");
-    form.appendChild(error);
-    let login = document.getElementById("login");
-    let pass = document.getElementById("pass");
-    login.addEventListener("focus", function () {
-        error.style.display = "none";
-    });
-    pass.addEventListener("focus", function () {
-        error.style.display = "none";
+// Elimino elementos por nombre de clase.
+function removeClass(clase) {
+    let elemento = document.getElementsByClassName(clase);
+    while (elemento.length > 0) {
+        elemento[0].parentNode.removeChild(elemento[0]);
+    }
+}
+
+// Elimino clases killme (llamadas a scripts), y si hay click en document elimino clases error_text.
+function killme() {
+    // Buscamos suicidas
+    let killme = document.getElementsByClassName("killme");
+    // Buscamos errores
+    let error_text = document.getElementsByClassName("error_text");
+    // Mientras que haya 1 killme (>0), !DESDE EL PADRE! del primer killme (0) vamos eliminando hijos (killme)
+    while (killme.length > 0) {
+        killme[0].parentNode.removeChild(killme[0]);
+    }
+    document.addEventListener("click", function () {
+        // Borramos errores al hacer click.
+        while (error_text.length > 0) {
+            error_text[0].parentNode.removeChild(error_text[0]);
+        }
     });
 }

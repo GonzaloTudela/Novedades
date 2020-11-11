@@ -29,6 +29,7 @@
 }
 
 #login_form {
+    z-index: 50;
     position: absolute;
     height: 80%;
     width: 80%;
@@ -90,15 +91,11 @@ input:focus::placeholder {
 }
 
 a {
-    display: inline-block;
-    width: 100px;
     text-decoration: none;
-    color: white;
+    color: red;
     background-color: rgba(0, 0, 0, .2);
-    line-height: 10mm;
     font-size: 4mm;
     margin-top: 10px;
-    border: 1px solid gray;
 }
 
 a:hover {
@@ -125,11 +122,11 @@ button:hover {
     border: 1px solid gray;
 }
 
-.error {
+.error_text {
     display: inline-block;
     font-family: 'Barlow', sans-serif;
     width: 80%;
-    padding: 1mm 2mm 1mm 2mm;
+    padding: 1mm 2mm 2mm 1mm;
     font-weight: 300;
     font-size: 4mm;
     color: white;
