@@ -1,3 +1,23 @@
+<?php
+session_start();
+if (isset($_SESSION['id_usuario']) &&
+    isset($_SESSION['nombre']) &&
+    isset($_SESSION['apellido1']) &&
+    isset($_SESSION['apellido2']) &&
+    isset($_SESSION['estado_usu']) &&
+    isset($_SESSION['$empresas']) &&
+    isset($_SESSION['$equipos'])) {
+    $id_usuario=$_SESSION['id_usuario'];
+    $nombre =$_SESSION['nombre'];
+    $apellido1=$_SESSION['apellido1'];
+    $apellido2=$_SESSION['apellido2'];
+    $estado_usu=$_SESSION['estado_usu'];
+    $empresas=$_SESSION['$empresas'] ;
+    $equipos=$_SESSION['$equipos'];
+} else {
+    header("location:../index.php");
+}
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -19,11 +39,11 @@
         <div class="scroll">
             <div class="card altura1 sombra2">
                 <div class="izq altura2 sombra3">
-                    <h2 class="txt1">Titulo</h2>
-                    <p class="txt2">Cuerpo</p>
-                    <p class="txt3">Notas</p>
-                    <p class="txt-off">Texto disabled</p>
-                    <p class="txt-r0">Resalte0</p>
+                    <h2 class="txt1">Texto 1</h2>
+                    <p class="txt2">Nombre: <?=$nombre?></p>
+                    <p class="txt3">Apellido 1:<?=$apellido1?></p>
+                    <p class="txt-off">Apellido 2:<?=$apellido2?></p>
+                    <p class="txt-r0">Estado: <?=$estado_usu?></p>
                     <p class="txt-r1">Resalte1</p>
                     <p class="txt-r2">Resalte2</p>
                     <p class="txt-r3">Resalte3</p>

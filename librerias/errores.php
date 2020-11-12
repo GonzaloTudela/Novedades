@@ -37,7 +37,19 @@ function error_get()
                 break;
             case "spam":
                 echo <<< _HTML
-                <p class="error_text">Protección por spam, inténtelo de nuevo.</p>
+                <p class="error_text">Verifique la casilla de recaptcha.</p>
+                <script class="killme">killme();</script>
+                _HTML;
+                break;
+            case "ubaja":
+                echo <<< _HTML
+                <p class="error_text">Su usuario no esta dado de alta, consulte con su reponsable.</p>
+                <script class="killme">killme();</script>
+                _HTML;
+                break;
+            case "ebaja":
+                echo <<< _HTML
+                <p class="error_text">Su usuario no pertenece a ninguna empresa activa.</p>
                 <script class="killme">killme();</script>
                 _HTML;
                 break;
