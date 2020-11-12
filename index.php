@@ -1,5 +1,4 @@
 <?php
-require_once "librerias/recaptchalib.php";
 require_once "librerias/errores.php";
 ?>
 <!DOCTYPE html>

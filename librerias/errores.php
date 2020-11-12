@@ -29,6 +29,18 @@ function error_get()
                 <script class="killme">killme();</script>
                 _HTML;
                 break;
+            case "recaptcha":
+                echo <<< _HTML
+                <p class="error_text">Error en la respuesta de recaptcha.</p>
+                <script class="killme">killme();</script>
+                _HTML;
+                break;
+            case "spam":
+                echo <<< _HTML
+                <p class="error_text">Protección por spam, inténtelo de nuevo.</p>
+                <script class="killme">killme();</script>
+                _HTML;
+                break;
             default:
                 break;
         }
