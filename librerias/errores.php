@@ -31,7 +31,7 @@ function error_get()
                 break;
             case "recaptcha":
                 echo <<< _HTML
-                <p class="error_text">Error en la respuesta de recaptcha.</p>
+                <p class="error_text">Error en la respuesta de reCAPTCHA.</p>
                 <script class="killme">killme();</script>
                 _HTML;
                 break;

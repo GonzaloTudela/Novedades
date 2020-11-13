@@ -12,7 +12,7 @@
     font-family: 'Roboto', sans-serif;
 }
 
-@media (max-height: 550px) {
+@media (max-height: 300px) {
     .g-recaptcha {
         display: none;
     }

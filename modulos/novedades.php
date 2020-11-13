@@ -1,9 +1,9 @@
 <?php
 session_start();
-if (isset($_SESSION['id_usuario']) && isset($_SESSION['nombre']) && isset($_SESSION['apellido1']) &&
-    isset($_SESSION['apellido2']) && isset($_SESSION['estado_usu']) && isset($_SESSION['$empresas'])
-    && isset($_SESSION['$equipos'])) {
+if (isset($_SESSION['id_usuario'], $_SESSION['nombre'], $_SESSION['apellido1'], $_SESSION['apellido2'],
+    $_SESSION['estado_usu'], $_SESSION['$empresas'])) {
     $id_usuario = $_SESSION['id_usuario'];
+    $nivel = $_SESSION['nivel'];
     $nombre = $_SESSION['nombre'];
     $apellido1 = $_SESSION['apellido1'];
     $apellido2 = $_SESSION['apellido2'];
@@ -97,8 +97,12 @@ if (isset($_SESSION['id_usuario']) && isset($_SESSION['nombre']) && isset($_SESS
         <div id="error_container altura1"></div>
     </main>
     <footer class="sombra0f">
-        <button class="button sombra1">+</button>
-        <button class="button sombra1 disabled" disabled>-</button>
+<!--        <img src="../img/plus-circle-outline.svg" alt="">-->
+        <button id="addNew" class="button "><?php echo file_get_contents("../img/plus-circle-outline.svg");?></button>
+        <button id="addNew" class="button "><?php echo file_get_contents("../img/text-box-search-outline.svg");?></button>
+        <button id="addNew" class="button "><?php echo file_get_contents("../img/alert-circle-outline.svg");?></button>
+        <button id="addNew" class="button "><?php echo file_get_contents("../img/office-building.svg");?></button>
+        <button id="addNew" class="button "><?php echo file_get_contents("../img/account-outline.svg");?></button>
     </footer>
 </div>
 </body>
