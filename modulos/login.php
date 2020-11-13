@@ -1,32 +1,35 @@
 <?php
 require_once("../librerias/db_operario.php");
-$captcha = null;
-$responseKeys = null;
-if (isset($_POST['g-recaptcha-response'])) {
-    $captcha = $_POST['g-recaptcha-response'];
-}
-if (!$captcha) {
-    header("location:../index.php?error=captcha");
-}
-$secretKey = "6LciBd8ZAAAAAKBw1fbLuK4vV8SkSJxwgMaBSLEJ";
-$ip = $_SERVER['REMOTE_ADDR'];
-
-// post request to server
-$url = 'https://www.google.com/recaptcha/api/siteverify?secret=' . urlencode($secretKey) . '&response=' . urlencode($captcha);
-$response = file_get_contents($url);
-try {
-    $responseKeys = json_decode($response, true, 512, JSON_THROW_ON_ERROR);
-} catch (JsonException $e) {
-    header("location:../index.php?error=recaptcha");
-}
+$cheat = 1;
+// IMPLEMENTACION RECHAPTCHAv2
+//$captcha = null;
+//$responseKeys = null;
+//if (isset($_POST['g-recaptcha-response'])) {
+//    $captcha = $_POST['g-recaptcha-response'];
+//}
+//if (!$captcha) {
+//    header("location:../index.php?error=captcha");
+//}
+//$secretKey = "6LciBd8ZAAAAAKBw1fbLuK4vV8SkSJxwgMaBSLEJ";
+//$ip = $_SERVER['REMOTE_ADDR'];
+//
+//// Recogemos la respuesta compuesta por los datos necesarios en la string almacenada en $response.
+//$url = 'https://www.google.com/recaptcha/api/siteverify?secret=' . urlencode($secretKey) . '&response=' . urlencode($captcha);
+//$response = file_get_contents($url);
+//try {
+//    $responseKeys = json_decode($response, true, 512, JSON_THROW_ON_ERROR);
+//} catch (JsonException $e) {
+//    header("location:../index.php?error=recaptcha");
+//}
 // Si el captcha responde SUCCESS (correcto)...
-if ($responseKeys["success"]) {
+//if ($responseKeys["success"]) {
+if ($cheat === 1) {
     // Si recibimos login y pass...
     if (isset($_POST["login"], $_POST["pass"]) && $_POST["login"] !== "" && !$_POST["pass"] !== "") {
         $raw_login = ($_POST['login']);
         $raw_pass = ($_POST['pass']);
         // Creamos la conexión.
-        $db_operario = new mysqli('hl793.dinaserver.com', 'gonza_currito', 'NovedadesCurrito!', 'gonza_novedades');
+        $db_operario = new mysqli('localhost', 'gonza_currito', 'NovedadesCurrito!', 'gonza_novedades');
         $db_operario->set_charset('utf8mb4');
 //        // Comprobamos si hay error de conexión.
         if (mysqli_connect_errno()) {
@@ -41,20 +44,20 @@ if ($responseKeys["success"]) {
         // Buscamos el password del usuario (hash).
         $sql_login = "select password from usuarios where usuario=?";
 
-        // Datos usuario basicos si se encuentra de alta
+        // SQL PARA OBTENER LOS DATOS DEL USUARIO SI SU ESTADO 1 (ALTA)
         $sql_info = "select u.id_usuario,c.nivel,u.nombre,u.apellido1,u.apellido2,t.estado_usu from usuarios u
                     left join categorias c on u.id_categoria = c.id_categoria
                     left join trabajar t on u.id_usuario = t.id_usuario
                     left join empresas e on t.id_empresa = e.id_empresa
-                    where usuario = ? and t.estado_usu=1";
+                    where usuario = ?";
 
-        // Empresas del usuario activas
+        // SQL PARA OBTENER LAS EMPRESAS DEL USUARIO CON ESTADO 1 (ALTA)
         $sql_empresas = "select nombre_emp, estado_emp,e.id_empresa from usuarios u
                     left join trabajar t on u.id_usuario = t.id_usuario
                     left join empresas e on t.id_empresa = e.id_empresa
                     where usuario = ? and estado_emp=1";
 
-        // Equipos del usuario
+        // SQL PARA OBTENER LOS EQUIPOS QUE PERTENECE EL USUARIO
         $sql_equipos = "select e.nombre_equ,e.id_equipo from usuarios u
                     left join formar f on u.id_usuario = f.id_usuario
                     left join equipos e on f.id_equipo = e.id_equipo
@@ -79,7 +82,7 @@ if ($responseKeys["success"]) {
             $resultado_info = $stmt_info->fetch();
             $stmt_info->close();
 
-            if ($estado_usu = 0) {
+            if ($estado_usu === 0) {
                 $db_operario->close();
                 header("location:../index.php?error=ubaja");
             }
@@ -93,7 +96,7 @@ if ($responseKeys["success"]) {
             $empresas = $resultado_empresas->fetch_all(MYSQLI_ASSOC);
             $stmt_empresas->close();
 
-            if ($empresas = '') {
+            if (!$empresas) {
                 $db_operario->close();
                 header("location:../index.php?error=ebaja");
             }
@@ -107,15 +110,31 @@ if ($responseKeys["success"]) {
             $equipos = $resultado_equipos->fetch_all(MYSQLI_ASSOC);
             $stmt_equipos->close();
 
-            // PRUEBAS VARIABLES
-//            print_r('$id_usuario ' . $id_usuario);
-//            print_r(' $nivel ' . $nivel);
-//            print_r(' $nombre ' . $nombre);
-//            print_r(' $apellido1 ' . $apellido1);
-//            print_r(' $apellido2 ' . $apellido2);
-//            print_r(' $estado_usu ' . $estado_usu);
-//            print_r($equipos);
-//            print_r($empresas);
+            // TESTS RESULTADOS DE LAS CONSULTAS
+//            echo '<pre>';
+//            print('$id_usuario: ' . $id_usuario);
+//            print(' $nivel: ' . $nivel);
+//            print(' $nombre: ' . $nombre);
+//            print(' $apellido1: ' . $apellido1);
+//            print(' $apellido2: ' . $apellido2);
+//            print(' $estado_usu: ' . $estado_usu);
+//            echo('<br>');
+//            echo('<br>');
+//            print 'Numero de empresas del usuario: ' . count($empresas) . '<br>';
+//            foreach ($empresas as $keyEmpresa) {
+//                foreach ($keyEmpresa as $nomEmp => $valNomEmp) {
+//                    echo "$nomEmp: $valNomEmp\t<br>";
+//                }
+//            }
+//            echo '<br>';
+//            echo '<br>';
+//            print 'Numero de equipos del usuario: ' . count($equipos) . '<br>';
+//            foreach ($equipos as $keyEquipo) {
+//                foreach ($keyEquipo as $nomEquipo => $valNomEquipo) {
+//                    echo "$nomEquipo: $valNomEquipo\t<br>";
+//                }
+//            }
+//            echo '</pre>';
 
             // INICIAMOS LA SESION
             session_start();

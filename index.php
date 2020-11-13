@@ -25,11 +25,11 @@ require_once "librerias/errores.php";
         <input type="password" id="pass" name="pass" placeholder="Contraseña"><br>
         <button>ENTRAR</button>
         <div id="error_container"><?php error_get()?></div>
-        <div class="g-recaptcha"
-             data-sitekey="6LciBd8ZAAAAAGIs59aPs5dgFLoCB72NUmp5CXY-"
-             data-badge="inline"
-             data-theme="light">
-        </div>
+<!--        <div class="g-recaptcha"-->
+<!--             data-sitekey="6LciBd8ZAAAAAGIs59aPs5dgFLoCB72NUmp5CXY-"-->
+<!--             data-badge="inline"-->
+<!--             data-theme="light">-->
+<!--        </div>-->
     </form>
 </div>
 </body>

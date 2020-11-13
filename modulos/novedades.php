@@ -1,20 +1,17 @@
 <?php
 session_start();
-if (isset($_SESSION['id_usuario']) &&
-    isset($_SESSION['nombre']) &&
-    isset($_SESSION['apellido1']) &&
-    isset($_SESSION['apellido2']) &&
-    isset($_SESSION['estado_usu']) &&
-    isset($_SESSION['$empresas']) &&
-    isset($_SESSION['$equipos'])) {
-    $id_usuario=$_SESSION['id_usuario'];
-    $nombre =$_SESSION['nombre'];
-    $apellido1=$_SESSION['apellido1'];
-    $apellido2=$_SESSION['apellido2'];
-    $estado_usu=$_SESSION['estado_usu'];
-    $empresas=$_SESSION['$empresas'] ;
-    $equipos=$_SESSION['$equipos'];
+if (isset($_SESSION['id_usuario']) && isset($_SESSION['nombre']) && isset($_SESSION['apellido1']) &&
+    isset($_SESSION['apellido2']) && isset($_SESSION['estado_usu']) && isset($_SESSION['$empresas'])
+    && isset($_SESSION['$equipos'])) {
+    $id_usuario = $_SESSION['id_usuario'];
+    $nombre = $_SESSION['nombre'];
+    $apellido1 = $_SESSION['apellido1'];
+    $apellido2 = $_SESSION['apellido2'];
+    $estado_usu = $_SESSION['estado_usu'];
+    $empresas = $_SESSION['$empresas'];
+    $equipos = $_SESSION['$equipos'];
 } else {
+    session_destroy();
     header("location:../index.php");
 }
 ?>
@@ -31,99 +28,75 @@ if (isset($_SESSION['id_usuario']) &&
     <script type="text/javascript" src="../librerias/funcionesJS.js" async></script>
 </head>
 <body>
-<div class="grid-container">
-    <header class="altura2 sombra1">
+<div class="container">
+    <header class="sombra0">
         <h1 class="txt0">NOVEDADES</h1>
     </header>
     <main>
-        <div class="scroll">
-            <div class="card altura1 sombra2">
-                <div class="izq altura2 sombra3">
-                    <h2 class="txt1">Texto 1</h2>
-                    <p class="txt2">Nombre: <?=$nombre?></p>
-                    <p class="txt3">Apellido 1:<?=$apellido1?></p>
-                    <p class="txt-off">Apellido 2:<?=$apellido2?></p>
-                    <p class="txt-r0">Estado: <?=$estado_usu?></p>
-                    <p class="txt-r1">Resalte1</p>
-                    <p class="txt-r2">Resalte2</p>
-                    <p class="txt-r3">Resalte3</p>
-                    <p class="txt-r-off">Resalte disabled</p>
-                    <div class="card altura3 sombra4">
-                        <h2 class="txt1">Titulo</h2>
-                        <p class="txt2">Cuerpo</p>
-                        <p class="txt3">Notas</p>
-                        <p class="txt-off">Texto disabled</p>
-                        <p class="txt-r0">Resalte0</p>
-                        <p class="txt-r1">Resalte1</p>
-                        <p class="txt-r2">Resalte2</p>
-                        <p class="txt-r3">Resalte3</p>
-                        <p class="txt-r-off">Resalte disabled</p>
-                    </div>
-                </div>
-                <div class="der altura2 sombra2">
-                    <h2 class="txt1">Titulo</h2>
-                    <p class="txt2">Cuerpo</p>
-                    <p class="txt3">Notas</p>
-                    <p class="txt-off">Texto disabled</p>
-                    <p class="txt-r0">Resalte0</p>
-                    <p class="txt-r1">Resalte1</p>
-                    <p class="txt-r2">Resalte2</p>
-                    <p class="txt-r3">Resalte3</p>
-                    <p class="txt-r-off">Resalte disabled</p>
-                </div>
-            </div>
+        <div class="card altura0 sombra0">
             <div class="card altura1 sombra1">
-                <div class="izq altura2 sombra2">
-                    <h2 class="txt1">Titulo</h2>
-                    <p class="txt2">Cuerpo</p>
-                    <p class="txt3">Notas</p>
-                    <p class="txt-off">Texto disabled</p>
-                    <p class="txt-r0">Resalte0</p>
-                    <p class="txt-r1">Resalte1</p>
-                    <p class="txt-r2">Resalte2</p>
-                    <p class="txt-r3">Resalte3</p>
-                    <p class="txt-r-off">Resalte disabled</p>
-                </div>
-                <div class="der altura2 sombra2">
-                    <h2 class="txt1">Titulo</h2>
-                    <p class="txt2">Cuerpo</p>
-                    <p class="txt3">Notas</p>
-                    <p class="txt-off">Texto disabled</p>
-                    <p class="txt-r0">Resalte0</p>
-                    <p class="txt-r1">Resalte1</p>
-                    <p class="txt-r2">Resalte2</p>
-                    <p class="txt-r3">Resalte3</p>
-                    <p class="txt-r-off">Resalte disabled</p>
-                </div>
+                <h2 class="txt1">Texto 1</h2>
+                <p class="txt2">Nombre: <?= $nombre ?></p>
+                <p class="txt3">Apellido 1:<?= $apellido1 ?></p>
+                <p class="txt-off">Apellido 2:<?= $apellido2 ?></p>
+                <p class="txt-r0">Estado: <?= $estado_usu ?></p>
+                <p class="txt-r1">Resalte1</p>
+                <p class="txt-r2">Resalte2</p>
+                <p class="txt-r3">Resalte3</p>
+                <p class="txt-r-off">Resalte disabled</p>
             </div>
-            <div class="card altura1 sombra1">
-                <div class="izq altura2 sombra2">
-                    <h2 class="txt1">Titulo</h2>
-                    <p class="txt2">Cuerpo</p>
-                    <p class="txt3">Notas</p>
-                    <p class="txt-off">Texto disabled</p>
-                    <p class="txt-r0">Resalte0</p>
-                    <p class="txt-r1">Resalte1</p>
-                    <p class="txt-r2">Resalte2</p>
-                    <p class="txt-r3">Resalte3</p>
-                    <p class="txt-r-off">Resalte disabled</p>
-                </div>
-                <div class="der altura2 sombra2">
-                    <h2 class="txt1">Titulo</h2>
-                    <p class="txt2">Cuerpo</p>
-                    <p class="txt3">Notas</p>
-                    <p class="txt-off">Texto disabled</p>
-                    <p class="txt-r0">Resalte0</p>
-                    <p class="txt-r1">Resalte1</p>
-                    <p class="txt-r2">Resalte2</p>
-                    <p class="txt-r3">Resalte3</p>
-                    <p class="txt-r-off">Resalte disabled</p>
-                </div>
-            </div>
-            <div id="error_container altura1"></div>
         </div>
+        <div class="card altura0 sombra0">
+            <div class="card altura1 sombra1">
+                <h2 class="txt1">Titulo</h2>
+                <p class="txt2">Cuerpo</p>
+                <p class="txt3">Notas</p>
+                <p class="txt-off">Texto disabled</p>
+                <p class="txt-r0">Resalte0</p>
+                <p class="txt-r1">Resalte1</p>
+                <p class="txt-r2">Resalte2</p>
+                <p class="txt-r3">Resalte3</p>
+                <p class="txt-r-off">Resalte disabled</p>
+            </div>
+            <div class="card altura1 sombra1">
+                <h2 class="txt1">Titulo</h2>
+                <p class="txt2">Cuerpo</p>
+                <p class="txt3">Notas</p>
+                <p class="txt-off">Texto disabled</p>
+                <p class="txt-r0">Resalte0</p>
+                <p class="txt-r1">Resalte1</p>
+                <p class="txt-r2">Resalte2</p>
+                <p class="txt-r3">Resalte3</p>
+                <p class="txt-r-off">Resalte disabled</p>
+            </div>
+        </div>
+        <div class="card altura1 sombra1">
+            <div class="card altura1 sombra1">
+                <h2 class="txt1">Titulo</h2>
+                <p class="txt2">Cuerpo</p>
+                <p class="txt3">Notas</p>
+                <p class="txt-off">Texto disabled</p>
+                <p class="txt-r0">Resalte0</p>
+                <p class="txt-r1">Resalte1</p>
+                <p class="txt-r2">Resalte2</p>
+                <p class="txt-r3">Resalte3</p>
+                <p class="txt-r-off">Resalte disabled</p>
+            </div>
+            <div class="card altura1 sombra1">
+                <h2 class="txt1">Titulo</h2>
+                <p class="txt2">Cuerpo</p>
+                <p class="txt3">Notas</p>
+                <p class="txt-off">Texto disabled</p>
+                <p class="txt-r0">Resalte0</p>
+                <p class="txt-r1">Resalte1</p>
+                <p class="txt-r2">Resalte2</p>
+                <p class="txt-r3">Resalte3</p>
+                <p class="txt-r-off">Resalte disabled</p>
+            </div>
+        </div>
+        <div id="error_container altura1"></div>
     </main>
-    <footer class="altura2">
+    <footer class="sombra0f">
         <button class="button sombra1">+</button>
         <button class="button sombra1 disabled" disabled>-</button>
     </footer>
