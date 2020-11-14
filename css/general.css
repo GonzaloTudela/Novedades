@@ -1,10 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;700&family=Roboto:ital,wght@0,300;0,400;0,700;1,400&display=swap');
 
 :root {
-    --rojo: rgba(220, 0, 27, .8);
-    --rojo-claro: rgb(237, 128, 141);
-    --gris: rgb(81, 98, 111);
-    --gris-claro: rgb(170, 180, 186);
     --barras: rgba(37, 37, 37, 1);
     --00dp: #121212;
     --01dp: rgba(255, 255, 255, .05);
@@ -25,83 +21,71 @@
 }
 
 * {
-    box-sizing: border-box; /* margenes y bordes crecen hacia dentro del box*/
-    margin: 0;
+    box-sizing: border-box; /* El tamaño tiene en cuenta los margenes */
+}
+
+*::-webkit-scrollbar {
+    display: none;
 }
 
 body {
     margin: 0;
-}
-
-/*body::-webkit-scrollbar {*/
-/*    display: none;*/
-/*}*/
-
-.container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
     background-color: var(--00dp);
 }
 
 header {
-    position: sticky;
+    z-index: 100;
+    position: fixed;
     top: 0;
     left: 0;
+    height: 10mm;
     width: 100%;
     background-color: var(--barras);
     text-align: center;
     padding: 1mm;
-    margin: 0;
+    -webkit-transition: all 250ms;
+    -moz-transition: all 250ms;
+    transition: all 250ms;
 }
 
 main {
+    position: fixed;
+    z-index: 0;
+    top: 10mm;
+    bottom: 10mm;
+    width: 100%;
+    overflow: auto;
     padding: 3mm 3mm 3mm 3mm;
+    -webkit-transition: all 250ms;
+    -moz-transition: all 250ms;
+    transition: all 250ms;
 }
 
 footer {
-    position: sticky;
-    left: 0;
+    z-index: 100;
+    position: fixed;
     bottom: 0;
+    height: 10mm;
     width: 100%;
     background-color: var(--barras);
     text-align: center;
     padding: 1mm;
+    -webkit-transition: all 250ms;
+    -moz-transition: all 250ms;
+    transition: all 250ms;
 }
 
 .card {
-    /*display: grid;*/
+    position: relative;
+    left: 0;
+    right: 0;
     border-radius: 8px;
-    padding: 2mm;
+    padding: 1.5mm;
     -webkit-transition: all 250ms;
     -moz-transition: all 250ms;
     transition: all 250ms;
-    margin: 0 0 3mm 0;
     place-items: stretch;
-    gap: 0 3mm;
-}
-
-.izq {
-    border-radius: 8px;
-    padding: 2mm;
-    -webkit-transition: all 250ms;
-    -moz-transition: all 250ms;
-    transition: all 250ms;
-    margin: 0 0 3mm 0;
-    grid-column: 1 / 10;
-    grid-row: 2 / 3;
-}
-
-.der {
-    border-radius: 8px;
-    padding: 2mm;
-    -webkit-transition: all 250ms;
-    -moz-transition: all 250ms;
-    transition: all 250ms;
-    margin: 0 0 3mm 0;
-    grid-column: 10 / 13;
-    grid-row: 2 / 3;
+    margin: 1.5mm;
 }
 
 /*.card:hover {*/
@@ -265,10 +249,12 @@ footer {
     /*font-size: 8mm;*/
     /*font-weight: 400;*/
     /*line-height: 10mm;*/
-    color: black;
+    /*color: black;*/
     margin: 0 3vw 0 3vw;
-    transition: 0.3s
-
+    padding: 0;
+    -webkit-transition: all 250ms;
+    -moz-transition: all 250ms;
+    transition: all 250ms;
 }
 
 .button svg {
@@ -291,36 +277,76 @@ footer {
 }
 
 /*MEDIA QUERIES*/
-/*Si la altura es menor de 550px...*/
-@media (max-height: 550px) {
+
+/*Si menos de 414px mobile*/
+@media only screen and (max-width: 425px) {
 
 }
 
-@media (max-width: 414px) {
+/*Si mas de 1280px tablet*/
+@media only screen and (min-width: 425px) and (max-width: 768px) {
+    header {
+        left: 10vw;
+        right: 10vw;
+        width: auto;
+    }
+
+    main {
+        left: 10vw;
+        right: 10vw;
+        width: auto;
+        padding: 3mm 0 3mm 0;
+    }
+
+    footer {
+        left: 10vw;
+        right: 10vw;
+        width: auto;
+    }
+}
+
+/*Si mas de 768px y menos de 1440px portatil*/
+@media only screen and (min-width: 768px) and (max-width: 1440px) {
+    header {
+        left: 20vw;
+        right: 20vw;
+        width: auto;
+    }
+
+    main {
+        left: 20vw;
+        right: 20vw;
+        width: auto;
+        padding: 3mm 0 3mm 0;
+    }
+
+    footer {
+        left: 20vw;
+        right: 20vw;
+        width: auto;
+    }
 
 }
 
-@media (min-width: 414px) {
-
-}
-
-@media (min-width: 1280px) {
-    header, footer, main {
-        grid-column: 2 / 12;
+/*Si mas de 1440px monitor*/
+@media only screen and (min-width: 1440px) {
+    header {
+        left: 25vw;
+        right: 25vw;
+        width: auto;
     }
 
-    .contenido {
-        padding: 0;
+    main {
+        left: 25vw;
+        right: 25vw;
+        width: auto;
+        padding: 3mm 0 3mm 0;
     }
 
-}
-
-@media (min-width: 1920px) {
-    header, footer, main {
-        grid-column: 3 / 11;
+    footer {
+        left: 25vw;
+        right: 25vw;
+        width: auto;
     }
 
-    .contenido {
-        padding: 0;
-    }
 }

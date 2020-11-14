@@ -1,4 +1,5 @@
 <?php
+require_once('../librerias/menu.php');
 session_start();
 if (isset($_SESSION['id_usuario'], $_SESSION['nombre'], $_SESSION['apellido1'], $_SESSION['apellido2'],
     $_SESSION['estado_usu'], $_SESSION['$empresas'])) {
@@ -14,6 +15,7 @@ if (isset($_SESSION['id_usuario'], $_SESSION['nombre'], $_SESSION['apellido1'], 
     session_destroy();
     header("location:../index.php");
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -28,82 +30,68 @@ if (isset($_SESSION['id_usuario'], $_SESSION['nombre'], $_SESSION['apellido1'], 
     <script type="text/javascript" src="../librerias/funcionesJS.js" async></script>
 </head>
 <body>
-<div class="container">
-    <header class="sombra0">
-        <h1 class="txt0">NOVEDADES</h1>
-    </header>
-    <main>
-        <div class="card altura0 sombra0">
-            <div class="card altura1 sombra1">
-                <h2 class="txt1">Texto 1</h2>
-                <p class="txt2">Nombre: <?= $nombre ?></p>
-                <p class="txt3">Apellido 1:<?= $apellido1 ?></p>
-                <p class="txt-off">Apellido 2:<?= $apellido2 ?></p>
-                <p class="txt-r0">Estado: <?= $estado_usu ?></p>
-                <p class="txt-r1">Resalte1</p>
-                <p class="txt-r2">Resalte2</p>
-                <p class="txt-r3">Resalte3</p>
-                <p class="txt-r-off">Resalte disabled</p>
-            </div>
-        </div>
-        <div class="card altura0 sombra0">
-            <div class="card altura1 sombra1">
-                <h2 class="txt1">Titulo</h2>
-                <p class="txt2">Cuerpo</p>
-                <p class="txt3">Notas</p>
-                <p class="txt-off">Texto disabled</p>
-                <p class="txt-r0">Resalte0</p>
-                <p class="txt-r1">Resalte1</p>
-                <p class="txt-r2">Resalte2</p>
-                <p class="txt-r3">Resalte3</p>
-                <p class="txt-r-off">Resalte disabled</p>
-            </div>
-            <div class="card altura1 sombra1">
-                <h2 class="txt1">Titulo</h2>
-                <p class="txt2">Cuerpo</p>
-                <p class="txt3">Notas</p>
-                <p class="txt-off">Texto disabled</p>
-                <p class="txt-r0">Resalte0</p>
-                <p class="txt-r1">Resalte1</p>
-                <p class="txt-r2">Resalte2</p>
-                <p class="txt-r3">Resalte3</p>
-                <p class="txt-r-off">Resalte disabled</p>
-            </div>
-        </div>
+<header class="sombra0">
+    <h1 class="txt0">NOVEDADES</h1>
+</header>
+<main>
+    <div class="card altura0 sombra0">
         <div class="card altura1 sombra1">
-            <div class="card altura1 sombra1">
-                <h2 class="txt1">Titulo</h2>
-                <p class="txt2">Cuerpo</p>
-                <p class="txt3">Notas</p>
-                <p class="txt-off">Texto disabled</p>
-                <p class="txt-r0">Resalte0</p>
-                <p class="txt-r1">Resalte1</p>
-                <p class="txt-r2">Resalte2</p>
-                <p class="txt-r3">Resalte3</p>
-                <p class="txt-r-off">Resalte disabled</p>
-            </div>
-            <div class="card altura1 sombra1">
-                <h2 class="txt1">Titulo</h2>
-                <p class="txt2">Cuerpo</p>
-                <p class="txt3">Notas</p>
-                <p class="txt-off">Texto disabled</p>
-                <p class="txt-r0">Resalte0</p>
-                <p class="txt-r1">Resalte1</p>
-                <p class="txt-r2">Resalte2</p>
-                <p class="txt-r3">Resalte3</p>
-                <p class="txt-r-off">Resalte disabled</p>
-            </div>
+            <h2 class="txt1">Texto 1</h2>
+            <p class="txt2">Nombre: <?= $nombre ?></p>
+            <p class="txt3">Apellido 1:<?= $apellido1 ?></p>
+            <p class="txt-off">Apellido 2:<?= $apellido2 ?></p>
+            <p class="txt-r0">Estado: <?= $estado_usu ?></p>
+            <p class="txt-r1">Nivel: <?= $nivel ?></p>
+            <p class="txt-r2">Resalte2</p>
+            <p class="txt-r3">Resalte3</p>
+            <p class="txt-r-off">Resalte disabled</p>
         </div>
-        <div id="error_container altura1"></div>
-    </main>
-    <footer class="sombra0f">
-<!--        <img src="../img/plus-circle-outline.svg" alt="">-->
-        <button id="addNew" class="button "><?php echo file_get_contents("../img/plus-circle-outline.svg");?></button>
-        <button id="addNew" class="button "><?php echo file_get_contents("../img/text-box-search-outline.svg");?></button>
-        <button id="addNew" class="button "><?php echo file_get_contents("../img/alert-circle-outline.svg");?></button>
-        <button id="addNew" class="button "><?php echo file_get_contents("../img/office-building.svg");?></button>
-        <button id="addNew" class="button "><?php echo file_get_contents("../img/account-outline.svg");?></button>
-    </footer>
-</div>
+    </div>
+    <div class="card altura0 sombra0">
+        <div class="card altura1 sombra1">
+            <h2 class="txt1">Texto 1</h2>
+            <p class="txt2">Nombre: <?= $nombre ?></p>
+            <p class="txt3">Apellido 1:<?= $apellido1 ?></p>
+            <p class="txt-off">Apellido 2:<?= $apellido2 ?></p>
+            <p class="txt-r0">Estado: <?= $estado_usu ?></p>
+            <p class="txt-r1">Nivel: <?= $nivel ?></p>
+            <p class="txt-r2">Resalte2</p>
+            <p class="txt-r3">Resalte3</p>
+            <p class="txt-r-off">Resalte disabled</p>
+        </div>
+    </div>
+    <div class="card altura0 sombra0">
+        <div class="card altura1 sombra1">
+            <h2 class="txt1">Texto 1</h2>
+            <p class="txt2">Nombre: <?= $nombre ?></p>
+            <p class="txt3">Apellido 1:<?= $apellido1 ?></p>
+            <p class="txt-off">Apellido 2:<?= $apellido2 ?></p>
+            <p class="txt-r0">Estado: <?= $estado_usu ?></p>
+            <p class="txt-r1">Nivel: <?= $nivel ?></p>
+            <p class="txt-r2">Resalte2</p>
+            <p class="txt-r3">Resalte3</p>
+            <p class="txt-r-off">Resalte disabled</p>
+        </div>
+    </div>
+    <div class="card altura0 sombra0">
+        <div class="card altura1 sombra1">
+            <h2 class="txt1">Texto 1</h2>
+            <p class="txt2">Nombre: <?= $nombre ?></p>
+            <p class="txt3">Apellido 1:<?= $apellido1 ?></p>
+            <p class="txt-off">Apellido 2:<?= $apellido2 ?></p>
+            <p class="txt-r0">Estado: <?= $estado_usu ?></p>
+            <p class="txt-r1">Nivel: <?= $nivel ?></p>
+            <p class="txt-r2">Resalte2</p>
+            <p class="txt-r3">Resalte3</p>
+            <p class="txt-r-off">Resalte disabled</p>
+        </div>
+    </div>
+    <div id="error_container altura1"></div>
+</main>
+<footer id="mainMenu" class="sombra0f">
+    <?php
+    printMenu();
+    ?>
+</footer>
 </body>
 </html>

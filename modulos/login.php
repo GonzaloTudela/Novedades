@@ -1,35 +1,36 @@
 <?php
-require_once("../librerias/db_operario.php");
 $cheat = 1;
 // IMPLEMENTACION RECHAPTCHAv2
-$captcha = null;
-$responseKeys = null;
-if (isset($_POST['g-recaptcha-response'])) {
-    $captcha = $_POST['g-recaptcha-response'];
-}
-if (!$captcha) {
-    header("location:../index.php?error=captcha");
-}
-$secretKey = "6LciBd8ZAAAAAKBw1fbLuK4vV8SkSJxwgMaBSLEJ";
-$ip = $_SERVER['REMOTE_ADDR'];
+//$captcha = null;
+//$responseKeys = null;
+//if (isset($_POST['g-recaptcha-response'])) {
+//    $captcha = $_POST['g-recaptcha-response'];
+//}
+//if (!$captcha) {
+//    header("location:../index.php?error=captcha");
+//}
+//$secretKey = "6LciBd8ZAAAAAKBw1fbLuK4vV8SkSJxwgMaBSLEJ";
+//$ip = $_SERVER['REMOTE_ADDR'];
 
 // Recogemos la respuesta compuesta por los datos necesarios en la string almacenada en $response.
-$url = 'https://www.google.com/recaptcha/api/siteverify?secret=' . urlencode($secretKey) . '&response=' . urlencode($captcha);
-$response = file_get_contents($url);
-try {
-    $responseKeys = json_decode($response, true, 512, JSON_THROW_ON_ERROR);
-} catch (JsonException $e) {
-    header("location:../index.php?error=recaptcha");
-}
+//$url = 'https://www.google.com/recaptcha/api/siteverify?secret=' . urlencode($secretKey) . '&response='
+//    . urlencode($captcha);
+//$response = file_get_contents($url);
+//try {
+//    $responseKeys = json_decode($response, true, 512, JSON_THROW_ON_ERROR);
+//} catch (JsonException $e) {
+//    header("location:../index.php?error=recaptcha");
+//}
 // Si el captcha responde SUCCESS (correcto)...
-if ($responseKeys["success"]) {
-//if ($cheat === 1) {
+//if ($responseKeys["success"]) {
+if ($cheat === 1) {
     // Si recibimos login y pass...
     if (isset($_POST["login"], $_POST["pass"]) && $_POST["login"] !== "" && !$_POST["pass"] !== "") {
         $raw_login = ($_POST['login']);
         $raw_pass = ($_POST['pass']);
         // Creamos la conexión.
-        $db_operario = new mysqli('hl793.dinaserver.com', 'gonza_currito', 'NovedadesCurrito!', 'gonza_novedades');
+        $db_operario = new mysqli('hl793.dinaserver.com', 'gonza_currito', 'NovedadesCurrito!',
+            'gonza_novedades');
         $db_operario->set_charset('utf8mb4');
 //        // Comprobamos si hay error de conexión.
         if (mysqli_connect_errno()) {

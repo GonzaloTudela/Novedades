@@ -14,23 +14,35 @@
 //    session_destroy();
 //    header("location:../index.php");
 //}
-$nivel='ojete';
-if (is_numeric($nivel)){
-    switch ($nivel) {
-        case $nivel>=0 && $nivel<=499:
-            echo 'eres operario';
-            break;
-        case $nivel>=500 && $nivel<=998:
-            echo 'eres responsable';
-            break;
-        case $nivel===999:
-            echo 'eres admin';
-            break;
-        default:
-            echo 'error';
+function printMenu()
+{
+    $add='../img/add.svg';
+    $search='../img/search.svg';
+    $news='../img/news.svg';
+    $rules='../img/rules.svg';
+    $office='../img/office.svg';
+    $account='../img/account.svg';
+    $menu=array($add,$search,$news,$rules,$account);
+    $menuAdmin=array($add,$search,$news,$rules,$office,$account);
+    if (isset($_SESSION['nivel'])) {
+        $nivel = $_SESSION['nivel'];
+    } else {
+        echo '<p>ERROR IDENTIFICACION PERMISOS USUARIO</p>';
+        exit();
     }
-}else {
-    echo 'no es numero';
+    if ($nivel >= 0 && $nivel <= 998) {
+        foreach ($menu as $icon){
+            echo '<button id="search" class="button ">';
+            echo file_get_contents($icon);
+            echo '</button>';
+        }
+    } elseif ($nivel === 999) {
+        foreach ($menuAdmin as $icon){
+            echo '<button id="search" class="button ">';
+            echo file_get_contents($icon);
+            echo '</button>';
+        }
+    } else {
+        echo '<script>alert ("Algo ocurrió con el valor del nivel de usuario.")</script>';
+    }
 }
-
-

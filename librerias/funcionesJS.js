@@ -23,3 +23,13 @@ function killme() {
         }
     });
 }
+// Dibujo el menu inferior en funcion de los privilegios del usuario.
+/*
+function printMenu(container,nivel){
+    let footer=document.getElementById(container);
+    if (nivel>=0 && nivel<=998){
+        console.log('menu normal')
+    }else if (nivel===999){
+        console.log('menu admin')
+    }
+}*/
