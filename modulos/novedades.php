@@ -95,3 +95,16 @@ if (isset($_SESSION['id_usuario'], $_SESSION['nombre'], $_SESSION['apellido1'], 
 </footer>
 </body>
 </html>
+<script>
+
+/*
+    let botones=document.getElementById('mainMenu').getElementsByTagName('button');
+    let total_bot=botones.length;
+    botones.item(total_bot).innerHTML=('')
+    for (let i = 0; i < botones.length; i++) {
+        botones.item(6)
+    }
+*/
+
+
+</script>

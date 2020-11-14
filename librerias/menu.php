@@ -16,33 +16,64 @@
 //}
 function printMenu()
 {
-    $add='../img/add.svg';
-    $search='../img/search.svg';
-    $news='../img/news.svg';
-    $rules='../img/rules.svg';
-    $office='../img/office.svg';
-    $account='../img/account.svg';
-    $menu=array($add,$search,$news,$rules,$account);
-    $menuAdmin=array($add,$search,$news,$rules,$office,$account);
+    // Iconos para el boton.
+    $iconAdd = '../img/add.svg';
+    $search = '../img/search.svg';
+    $news = '../img/news.svg';
+    $rules = '../img/rules.svg';
+    $office = '../img/office.svg';
+    $account = '../img/account.svg';
+    $quit = '../img/exit.svg';
+    // Links del boton.
+    $webAdd=' ';
+    $webSearch=' ';
+    $webNews=' ';
+    $webRules=' ';
+    $webOffice=' ';
+    $webAccount=' ';
+    $webQuit='./quit.php';
+    // Array menu estandard
+    $menu = array(
+        'add' => array($iconAdd, $webAdd),
+        'search' => array($search,$webSearch),
+        'news' => array($news,$webNews),
+        'rules' => array($rules,$webRules),
+        'account' => array($account, $webAccount),
+        'quit' => array($quit,$webQuit));
+    // Array menu admin
+    $menuAdmin = array(
+        'add' => array($iconAdd, $webAdd),
+        'search' => array($search,$webSearch),
+        'news' => array($news,$webNews),
+        'rules' => array($rules,$webRules),
+        'office' => array($office, $webOffice),
+        'account' => array($account, $webAccount),
+        'quit' => array($quit,$webQuit));
+
     if (isset($_SESSION['nivel'])) {
         $nivel = $_SESSION['nivel'];
     } else {
-        echo '<p>ERROR IDENTIFICACION PERMISOS USUARIO</p>';
+        echo '<script>console.log("Nivel no existe")</script>';
         exit();
     }
     if ($nivel >= 0 && $nivel <= 998) {
-        foreach ($menu as $icon){
-            echo '<button id="search" class="button ">';
+        foreach ($menu as $id) {
+            $icon=$id[0];
+            $web=$id[1];
+            echo '<a href="'. $web .'"><button id="' . $id[0] . '" class="button ">';
             echo file_get_contents($icon);
-            echo '</button>';
+            echo '</button></a>';
         }
-    } elseif ($nivel === 999) {
-        foreach ($menuAdmin as $icon){
-            echo '<button id="search" class="button ">';
+    } elseif
+    ($nivel === 999) {
+        foreach ($menuAdmin as $id) {
+            $icon=$id[0];
+            $web=$id[1];
+            echo '<a href="'. $web .'"><button id="' . $id[0] . '" class="button ">';
             echo file_get_contents($icon);
-            echo '</button>';
+            echo '</button></a>';
         }
     } else {
-        echo '<script>alert ("Algo ocurrió con el valor del nivel de usuario.")</script>';
+        echo '<script>console.log ("El nivel esta fuera de los limites!")</script>';
     }
 }

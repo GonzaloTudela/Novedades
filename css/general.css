@@ -13,11 +13,11 @@
     --txt2: rgba(255, 255, 255, .60);
     --txt3: rgba(255, 255, 255, .40);
     --txt-off: rgba(255, 255, 255, 0.20);
-    --txt-r0: rgba(255, 152, 0, 1);
-    --txt-r1: rgba(255, 152, 0, .80);
-    --txt-r2: rgba(255, 152, 0, .60);
-    --txt-r3: rgba(255, 152, 0, .40);
-    --txt-r-off: rgba(255, 152, 0, 0.20);
+    --txt-r0: rgba(33, 150, 243, 1);
+    --txt-r1: rgba(33, 150, 243, .80);
+    --txt-r2: rgba(33, 150, 243, .60);
+    --txt-r3: rgba(33, 150, 243, .40);
+    --txt-r-off: rgba(33, 150, 243, 0.20);
 }
 
 * {
@@ -250,7 +250,7 @@ footer {
     /*font-weight: 400;*/
     /*line-height: 10mm;*/
     /*color: black;*/
-    margin: 0 3vw 0 3vw;
+    margin: 0 2vw 0 2vw;
     padding: 0;
     -webkit-transition: all 250ms;
     -moz-transition: all 250ms;
