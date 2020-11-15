@@ -76,24 +76,17 @@ footer {
 }
 
 .card {
-    position: relative;
-    left: 0;
-    right: 0;
+    /* REVISAR CUANDO EL CONTENIDO NO SEA INLINE */
+    /*position: relative;*/
+    /*left: 0;*/
+    /*right: 0;*/
     border-radius: 8px;
     padding: 1.5mm;
     -webkit-transition: all 250ms;
     -moz-transition: all 250ms;
     transition: all 250ms;
-    place-items: stretch;
     margin: 1.5mm;
 }
-
-/*.card:hover {*/
-/*    -webkit-transform: translateY(-5px);*/
-/*    -moz-transform: translateY(-5px);*/
-/*    transform: translateY(-5px);*/
-/*    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);*/
-/*}*/
 
 /* Alturas de la interfaz */
 .altura0 {
@@ -234,9 +227,66 @@ footer {
     margin: 1mm;
 
 }
+.answerButton {
+    display: inline-block;
+    background-color: var(--txt-r1);
+    height: 10mm;
+    width: 20mm;
+    border-radius: 8px;
+    outline: none;
+    border: none;
+    font-family: 'Barlow', sans-serif;
+    font-size: 4mm;
+    font-weight: 700;
+
+
+    /*line-height: 10mm;*/
+    color: var(--txt0);
+    margin: 0 2vw 0 2vw;
+    padding: 1mm;
+    -webkit-transition: all 250ms;
+    -moz-transition: all 250ms;
+    transition: all 250ms;
+    animation: answerbutton 0.1s ease-in-out;
+}
+
+@keyframes answerbutton {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+/*Cajas de mensaje*/
+
+#infobox {
+    z-index: 100;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    transform: translate(-50%, -50%);
+    background-color: transparent;
+    font-family: 'Barlow', sans-serif;
+    color: var(--txt2);
+    text-align: center;
+    -webkit-transition: all 250ms;
+    -moz-transition: all 250ms;
+    transition: all 250ms;
+}
+
+.answerButton:hover {
+    -webkit-transform: translateY(-5px);
+    -moz-transform: translateY(-5px);
+    transform: translateY(-5px);
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+}
 
 /*Botones*/
-.button {
+
+.menuButton {
     fill: var(--txt-r1);
     background-color: transparent;
     display: inline-block;
@@ -257,17 +307,17 @@ footer {
     transition: all 250ms;
 }
 
-.button svg {
+.menuButton svg {
     height: 8mm;
     width: 8mm;
 }
 
-.button:hover {
+.menuButton:hover {
     fill: red;
     /*background-color: var(--txt-r0);*/
 }
 
-.button:hover:disabled {
+.menuButton:hover:disabled {
     background-color: var(--txt-r1);
     opacity: .2;
 }

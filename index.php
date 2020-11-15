@@ -11,9 +11,8 @@ require_once "librerias/errores.php";
     <title>Novedades</title>
     <link rel="icon" href="img/favicon.png">
     <link rel="stylesheet" href="css/index.css">
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+<!--    <script src="https://www.google.com/recaptcha/api.js" async defer></script>-->
     <script type="text/javascript" src="librerias/funcionesJS.js"></script>
-    <script type="text/javascript" src="modulos/index.js"></script>
 </head>
 <body>
 <div id="fondo">

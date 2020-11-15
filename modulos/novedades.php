@@ -15,7 +15,6 @@ if (isset($_SESSION['id_usuario'], $_SESSION['nombre'], $_SESSION['apellido1'], 
     session_destroy();
     header("location:../index.php");
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -26,10 +25,10 @@ if (isset($_SESSION['id_usuario'], $_SESSION['nombre'], $_SESSION['apellido1'], 
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Novedades</title>
     <link rel="icon" href="../img/favicon.png">
-    <link rel="stylesheet" href="../css/general.css">
+    <link rel="stylesheet" href="../css/style.css">
     <script type="text/javascript" src="../librerias/funcionesJS.js" async></script>
 </head>
-<body>
+<body id="root">
 <header class="sombra0">
     <h1 class="txt0">NOVEDADES</h1>
 </header>
@@ -96,15 +95,5 @@ if (isset($_SESSION['id_usuario'], $_SESSION['nombre'], $_SESSION['apellido1'], 
 </body>
 </html>
 <script>
-
-/*
-    let botones=document.getElementById('mainMenu').getElementsByTagName('button');
-    let total_bot=botones.length;
-    botones.item(total_bot).innerHTML=('')
-    for (let i = 0; i < botones.length; i++) {
-        botones.item(6)
-    }
-*/
-
-
+    botonSalir();
 </script>

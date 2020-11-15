@@ -18,12 +18,12 @@ function printMenu()
 {
     // Iconos para el boton.
     $iconAdd = '../img/add.svg';
-    $search = '../img/search.svg';
-    $news = '../img/news.svg';
-    $rules = '../img/rules.svg';
-    $office = '../img/office.svg';
-    $account = '../img/account.svg';
-    $quit = '../img/exit.svg';
+    $iconSearch = '../img/search.svg';
+    $iconNews = '../img/news.svg';
+    $iconRules = '../img/rules.svg';
+    $iconOffice = '../img/office.svg';
+    $iconAccount = '../img/account.svg';
+    $iconQuit = '../img/exit.svg';
     // Links del boton.
     $webAdd=' ';
     $webSearch=' ';
@@ -31,24 +31,24 @@ function printMenu()
     $webRules=' ';
     $webOffice=' ';
     $webAccount=' ';
-    $webQuit='./quit.php';
+    $webQuit=' ';
     // Array menu estandard
     $menu = array(
-        'add' => array($iconAdd, $webAdd),
-        'search' => array($search,$webSearch),
-        'news' => array($news,$webNews),
-        'rules' => array($rules,$webRules),
-        'account' => array($account, $webAccount),
-        'quit' => array($quit,$webQuit));
+        0 => array('add',$iconAdd, $webAdd),
+        1 => array('search',$iconSearch,$webSearch),
+        2 => array('news', $iconNews,$webNews),
+        3 => array('rules',$iconRules,$webRules),
+        4 => array('account',$iconAccount, $webAccount),
+        5 => array('quit',$iconQuit,$webQuit));
     // Array menu admin
     $menuAdmin = array(
-        'add' => array($iconAdd, $webAdd),
-        'search' => array($search,$webSearch),
-        'news' => array($news,$webNews),
-        'rules' => array($rules,$webRules),
-        'office' => array($office, $webOffice),
-        'account' => array($account, $webAccount),
-        'quit' => array($quit,$webQuit));
+        0 => array('add',$iconAdd, $webAdd),
+        1 => array('iconSearch',$iconSearch,$webSearch),
+        2 => array('news', $iconNews,$webNews),
+        3 => array('rules',$iconRules,$webRules),
+        4 => array('office',$iconOffice, $webOffice),
+        5 => array('account',$iconAccount, $webAccount),
+        6 => array('quit',$iconQuit,$webQuit));
 
     if (isset($_SESSION['nivel'])) {
         $nivel = $_SESSION['nivel'];
@@ -57,21 +57,27 @@ function printMenu()
         exit();
     }
     if ($nivel >= 0 && $nivel <= 998) {
-        foreach ($menu as $id) {
-            $icon=$id[0];
-            $web=$id[1];
-            echo '<a href="'. $web .'"><button id="' . $id[0] . '" class="button ">';
+        foreach ($menu as $item) {
+            $id=$item[0];
+            $icon=$item[1];
+//            $web=$item[2];
+            echo '<button id="' . $id . '" class="menuButton ">';
+//            echo '<a href="'. $web .'"><button id="' . $id . '" class="button ">';
             echo file_get_contents($icon);
-            echo '</button></a>';
+            echo '</button>';
+//            echo '</button></a>';
         }
     } elseif
     ($nivel === 999) {
-        foreach ($menuAdmin as $id) {
-            $icon=$id[0];
-            $web=$id[1];
-            echo '<a href="'. $web .'"><button id="' . $id[0] . '" class="button ">';
+        foreach ($menuAdmin as $item) {
+            $id=$item[0];
+            $icon=$item[1];
+//            $web=$item[2];
+            echo '<button id="' . $id . '" class="menuButton ">';
+//            echo '<a href="'. $web .'"><button id="' . $id . '" class="button ">';
             echo file_get_contents($icon);
-            echo '</button></a>';
+            echo '</button>';
+//            echo '</button></a>';
         }
     } else {
         echo '<script>console.log ("El nivel esta fuera de los limites!")</script>';

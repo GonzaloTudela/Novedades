@@ -23,13 +23,25 @@ function killme() {
         }
     });
 }
-// Dibujo el menu inferior en funcion de los privilegios del usuario.
-/*
-function printMenu(container,nivel){
-    let footer=document.getElementById(container);
-    if (nivel>=0 && nivel<=998){
-        console.log('menu normal')
-    }else if (nivel===999){
-        console.log('menu admin')
-    }
-}*/
+// Agrega la funcionalidad al boton salir.
+function botonSalir(){
+    let body = document.getElementById('root');
+    let infobox = document.createElement('div');
+    infobox.setAttribute('id','infobox')
+    let botonExit = document.getElementById('quit')
+    botonExit.addEventListener('click', function () {
+        body.prepend(infobox);
+        // infobox.style.display = ('initial')
+        infobox.innerHTML = `
+            <button id="exit" class="txt0 answerButton sombra3">SALIR</button>
+            <button id="close" class="txt0 answerButton sombra3">VOLVER</button>`
+        let close=document.getElementById('close');
+        let exit=document.getElementById('exit');
+        close.addEventListener('click', function (){
+            infobox.remove();
+        })
+        exit.addEventListener('click',function (){
+            window.location.href='./quit.php'
+        })
+    });
+}
