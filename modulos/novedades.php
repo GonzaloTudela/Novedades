@@ -59,7 +59,7 @@ $stmt_novedades->close();
 <main>
     <div class="card altura1 sombra1">
         <?php
-        escribeNovedades();
+        escribeNovedades($novedades);
         ?>
     </div>
     <div class="msg">
