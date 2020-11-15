@@ -1,7 +1,7 @@
 <?php
-function escribeNovedades()
+function escribeNovedades(array $array)
 {
-    foreach ($novedades as $keyNovedades) {
+    foreach ($array as $keyNovedades) {
         $escritura = substr($keyNovedades['timestamp_not'], 0, -3);
         echo '<div class="card altura2 sombra2">';
 //            echo '<p class="card txt3">Autor:</p>';
