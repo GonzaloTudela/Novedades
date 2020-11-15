@@ -227,6 +227,7 @@ footer {
     margin: 1mm;
 
 }
+
 .answerButton {
     display: inline-block;
     background-color: var(--txt-r1);
@@ -282,6 +283,29 @@ footer {
     -moz-transform: translateY(-5px);
     transform: translateY(-5px);
     box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+}
+
+/* Imagenes */
+#robot {
+    position: fixed;
+    width: 25mm;
+    height: 25mm;
+    left: 50%;
+    top: calc(50% - 10mm);
+    transform: translate(-50%, -50% );
+    fill: var(--txt0);
+}
+
+#robot p {
+    position: relative;
+    left: 50%;
+    width: 50mm;
+    transform: translate(-50%,-70%);
+    font-family: 'Barlow', sans-serif;
+    font-weight: 700;
+    font-size: 5mm;
+    text-align: center;
+    color: var(--txt0);
 }
 
 /*Botones*/
