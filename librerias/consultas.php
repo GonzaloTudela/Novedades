@@ -1,6 +1,9 @@
 <?php
 // SECCION NOVEDADES
-/* Noticias que no he escrito yo y no estan en leidas por mi */
+/*
+Noticias de las que el usuario no es autor, que no ha leido, pertenecen a sus grupos y no hayan
+caducado o todavia no han empezado.
+*/
 $sql_novedades = '
 select n.id_usuario,
        n.id_noticia,
@@ -25,7 +28,10 @@ where (n.id_usuario != ?  and curdate()>=n.fecha_inicio and curdate()<=n.fecha_f
              join afectar a on e.id_equipo = a.id_equipo
     where u.id_usuario = ?)';
 
-/*ADMINISTRADORES, noticias el usuario no es autor y que no ha leido que pertenezcan a cualquier grupo*/
+/*
+ADMINISTRADORES, noticias el usuario no es autor, que no ha leido,que pertenezcan a cualquier grupo
+y no haya caducado o todavia no ha empezado.
+*/
 $sql_novedades_admin = '
 select n.id_usuario,
        n.id_noticia,
