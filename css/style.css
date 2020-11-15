@@ -87,6 +87,13 @@ footer {
     transition: all 250ms;
     margin: 1.5mm;
 }
+.titulo {
+    display: inline-block;
+}
+.minifecha {
+    display: block;
+    right: 0;
+}
 
 /* Alturas de la interfaz */
 .altura0 {
@@ -152,29 +159,20 @@ footer {
     margin: 0;
 }
 
-.txt1 {
-    color: var(--txt0);
-    font-family: 'Roboto', sans-serif;
-    font-weight: 400;
-    font-size: 5mm;
-    margin: 2mm 1mm 1mm 1mm;
-}
-
 .txt2 {
     color: var(--txt2);
     font-family: 'Roboto', sans-serif;
-    font-weight: 300;
+    font-weight: 400;
     font-size: 4mm;
-    margin: 1mm;
-
+    margin: 2mm 1mm 1mm 1mm;
 }
 
 .txt3 {
     color: var(--txt3);
     font-family: 'Roboto', sans-serif;
     font-weight: 300;
-    font-size: 4mm;
-    margin: 1mm;
+    font-size: 3mm;
+    margin: 0 0 0 1mm;
 }
 
 .txt-off {
@@ -286,26 +284,26 @@ footer {
 }
 
 /* Imagenes */
-#robot {
-    position: fixed;
+.msg {
+    position: relative;
     width: 25mm;
     height: 25mm;
     left: 50%;
     top: calc(50% - 10mm);
-    transform: translate(-50%, -50% );
-    fill: var(--txt0);
+    transform: translate(-50%, -50%);
+    fill: var(--txt3);
 }
 
-#robot p {
+.msg p {
     position: relative;
     left: 50%;
     width: 50mm;
-    transform: translate(-50%,-70%);
+    transform: translate(-50%, -70%);
     font-family: 'Barlow', sans-serif;
     font-weight: 700;
     font-size: 5mm;
     text-align: center;
-    color: var(--txt0);
+    color: var(--txt3);
 }
 
 /*Botones*/
@@ -319,16 +317,25 @@ footer {
     border-radius: 10mm;
     outline: none;
     border: none;
-    /*font-family: 'Barlow', sans-serif;*/
-    /*font-size: 8mm;*/
-    /*font-weight: 400;*/
-    /*line-height: 10mm;*/
-    /*color: black;*/
-    margin: 0 2vw 0 2vw;
+    margin: 0 2.7vw 0 2.7vw;
     padding: 0;
     -webkit-transition: all 250ms;
     -moz-transition: all 250ms;
     transition: all 250ms;
+}
+
+.hint {
+    position: relative;
+    display: inline-block;
+    font-family: 'Barlow', sans-serif;
+    font-size: 3mm;
+    font-weight: 100;
+    line-height: 2mm;
+    color: white;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    border: 1px solid red;
 }
 
 .menuButton svg {
@@ -377,6 +384,7 @@ footer {
         right: 10vw;
         width: auto;
     }
+
 }
 
 /*Si mas de 768px y menos de 1440px portatil*/
