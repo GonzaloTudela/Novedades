@@ -1,19 +1,5 @@
 <?php
-//session_start();
-//if (isset($_SESSION['id_usuario'], $_SESSION['nombre'], $_SESSION['apellido1'], $_SESSION['apellido2'],
-//    $_SESSION['estado_usu'], $_SESSION['$empresas'])) {
-//    $id_usuario = $_SESSION['id_usuario'];
-//    $nivel = $_SESSION['nivel'];
-//    $nombre = $_SESSION['nombre'];
-//    $apellido1 = $_SESSION['apellido1'];
-//    $apellido2 = $_SESSION['apellido2'];
-//    $estado_usu = $_SESSION['estado_usu'];
-//    $empresas = $_SESSION['$empresas'];
-//    $equipos = $_SESSION['$equipos'];
-//} else {
-//    session_destroy();
-//    header("location:../index.php");
-//}
+// Imprimo el menu utilizando un array con el ID, icono, link y texto descriptivo.
 function printMenu()
 {
     // Iconos para el boton.
@@ -60,7 +46,8 @@ function printMenu()
         foreach ($menu as $item) {
             $id = $item[0];
             $icon = $item[1];
-//            $web=$item[2];
+//          $web=$item[2];
+//          $texto=$item[3];
             echo '<button id="' . $id . '" class="menuButton ">';
 //            echo '<a href="'. $web .'"><button id="' . $id . '" class="button ">';
             echo file_get_contents($icon);
@@ -73,8 +60,8 @@ function printMenu()
         foreach ($menuAdmin as $item) {
             $id = $item[0];
             $icon = $item[1];
-//            $texto=$item[3];
-//            $web=$item[2];
+//          $web=$item[2];
+//          $texto=$item[3];
             echo '<button id="' . $id . '" class="menuButton ">';
 //            echo '<a href="'. $web .'"><button id="' . $id . '" class="button ">';
             echo file_get_contents($icon);
