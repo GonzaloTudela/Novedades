@@ -1,6 +1,7 @@
 <?php
 require_once('../librerias/menu.php');
-require_once ('../librerias/consultas.php');
+require_once('../librerias/consultas.php');
+require_once('../librerias/funcionesPHP.php');
 session_start();
 if (isset($_SESSION['id_usuario'], $_SESSION['nombre'], $_SESSION['apellido1'], $_SESSION['apellido2'],
     $_SESSION['estado_usu'], $_SESSION['$empresas'])) {
@@ -24,10 +25,10 @@ $db_operario->set_charset('utf8mb4');
 if (mysqli_connect_errno()) {
     header("location:../index.php?error=mysql");
 }
-if ($nivel>=0 && $nivel<=998){
+if ($nivel >= 0 && $nivel <= 998) {
     $stmt_novedades = $db_operario->prepare($sql_novedades);
     $stmt_novedades->bind_param('iii', $id_usuario, $id_usuario, $id_usuario);
-} elseif ($nivel===999){
+} elseif ($nivel === 999) {
     $stmt_novedades = $db_operario->prepare($sql_novedades_admin);
     $stmt_novedades->bind_param('ii', $id_usuario, $id_usuario);
 } else {
