@@ -1,0 +1,243 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;700&family=Roboto:ital,wght@0,300;0,400;0,700;1,400&display=swap');
+
+:root {
+    --barras: rgba(37, 37, 37, 1);
+    --00dp: #121212;
+    --01dp: rgba(255, 255, 255, .05);
+    --02dp: rgba(255, 255, 255, .08);
+    --03dp: rgba(255, 255, 255, .11);
+    --04dp: rgba(255, 255, 255, .14);
+    --05dp: rgba(255, 255, 255, .16);
+    --txt0: rgba(255, 255, 255, 1);
+    --txt1: rgba(255, 255, 255, .80);
+    --txt2: rgba(255, 255, 255, .60);
+    --txt3: rgba(255, 255, 255, .40);
+    --txt-off: rgba(255, 255, 255, 0.20);
+    --txt-r0: rgba(33, 150, 243, 1);
+    --txt-r1: rgba(33, 150, 243, .80);
+    --txt-r2: rgba(33, 150, 243, .60);
+    --txt-r3: rgba(33, 150, 243, .40);
+    --txt-r-off: rgba(33, 150, 243, 0.20);
+}
+
+/*Cajas de mensaje*/
+
+#infobox {
+    z-index: 100;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    transform: translate(-50%, -50%);
+    background-color: transparent;
+    font-family: 'Barlow', sans-serif;
+    color: var(--txt2);
+    text-align: center;
+    -webkit-transition: all 250ms;
+    -moz-transition: all 250ms;
+    transition: all 250ms;
+}
+
+.answerButton:hover {
+    -webkit-transform: translateY(-5px);
+    -moz-transform: translateY(-5px);
+    transform: translateY(-5px);
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+}
+
+/* Imagenes */
+.msg {
+    position: relative;
+    width: 25mm;
+    height: 25mm;
+    left: 50%;
+    top: calc(50% - 10mm);
+    transform: translate(-50%, -50%);
+    fill: var(--txt3);
+}
+
+.msg p {
+    position: relative;
+    left: 50%;
+    width: 50mm;
+    transform: translate(-50%, -70%);
+    font-family: 'Barlow', sans-serif;
+    font-weight: 700;
+    font-size: 5mm;
+    text-align: center;
+    color: var(--txt3);
+}
+
+/*Botones*/
+
+.menuButton {
+    fill: var(--txt-r1);
+    background-color: transparent;
+    display: inline-block;
+    width: 8mm;
+    height: 8mm;
+    border-radius: 10mm;
+    outline: none;
+    border: none;
+    margin: 0 2.7vw 0 2.7vw;
+    padding: 0;
+    -webkit-transition: all 250ms;
+    -moz-transition: all 250ms;
+    transition: all 250ms;
+}
+
+.hint {
+    position: relative;
+    display: inline-block;
+    font-family: 'Barlow', sans-serif;
+    font-size: 3mm;
+    font-weight: 100;
+    line-height: 2mm;
+    color: white;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    border: 1px solid red;
+}
+
+.menuButton svg {
+    height: 8mm;
+    width: 8mm;
+}
+
+.menuButton:hover {
+    fill: red;
+    /*background-color: var(--txt-r0);*/
+}
+
+.menuButton:hover:disabled {
+    background-color: var(--txt-r1);
+    opacity: .2;
+}
+
+.disabled {
+    opacity: .2;
+}
+
+/* Alturas de la interfaz */
+.altura0 {
+    background-color: var(--01dp);
+}
+
+.altura1 {
+    background-color: var(--01dp);
+}
+
+.altura2 {
+    background-color: var(--02dp);
+}
+
+.altura3 {
+    background-color: var(--03dp);
+}
+
+.altura4 {
+    background-color: var(--04dp);
+}
+
+.altura5 {
+    background-color: var(--05dp);
+}
+
+/*Tipos de texto*/
+
+.txt0 {
+    color: var(--txt1);
+    font-family: 'Barlow', sans-serif;
+    font-weight: 700;
+    font-size: 6mm;
+    margin: 0;
+}
+
+.txt2 {
+    color: var(--txt2);
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 4mm;
+    margin: 2mm 1mm 1mm 1mm;
+}
+
+.txt3 {
+    color: var(--txt3);
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    font-size: 3mm;
+    margin: 0 0 0 1mm;
+}
+
+.txt-off {
+    color: var(--txt-off);
+    font-family: 'Roboto', sans-serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 4mm;
+    margin: 1mm;
+}
+
+.txt-r0 {
+    color: var(--txt-r0);
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    font-size: 4mm;
+    margin: 1mm;
+}
+
+.txt-r1 {
+    color: var(--txt-r1);
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    font-size: 4mm;
+    margin: 1mm;
+}
+
+.txt-r2 {
+    color: var(--txt-r2);
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    font-size: 4mm;
+    margin: 1mm;
+}
+
+.txt-r3 {
+    color: var(--txt-r3);
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    font-size: 4mm;
+    margin: 1mm;
+}
+
+.txt-r-off {
+    color: var(--txt-r-off);
+    font-family: 'Roboto', sans-serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 4mm;
+    margin: 1mm;
+
+}
+
+.answerButton {
+    display: inline-block;
+    background-color: var(--txt-r1);
+    height: 10mm;
+    width: 20mm;
+    border-radius: 8px;
+    outline: none;
+    border: none;
+    font-family: 'Barlow', sans-serif;
+    font-size: 4mm;
+    font-weight: 700;
+    /*line-height: 10mm;*/
+    color: var(--txt0);
+    margin: 0 2vw 0 2vw;
+    padding: 1mm;
+    -webkit-transition: all 250ms;
+    -moz-transition: all 250ms;
+    transition: all 250ms;
+    animation: answerbutton 0.1s ease-in-out;
+}

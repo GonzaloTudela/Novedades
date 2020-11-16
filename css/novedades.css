@@ -1,0 +1,80 @@
+@import "general-look.css";
+@import "general-effects.css";
+@import "general-queries.css";
+
+* {
+    box-sizing: border-box; /* El tamaño tiene en cuenta los margenes */
+}
+
+*::-webkit-scrollbar {
+    display: none;
+}
+
+body {
+    margin: 0;
+    background-color: var(--00dp);
+}
+
+header {
+    z-index: 100;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 10mm;
+    width: 100%;
+    background-color: var(--barras);
+    text-align: center;
+    padding: 1mm;
+    -webkit-transition: all 250ms;
+    -moz-transition: all 250ms;
+    transition: all 250ms;
+}
+
+main {
+    position: fixed;
+    z-index: 0;
+    top: 10mm;
+    bottom: 10mm;
+    width: 100%;
+    overflow: auto;
+    padding: 3mm 3mm 3mm 3mm;
+    -webkit-transition: all 250ms;
+    -moz-transition: all 250ms;
+    transition: all 250ms;
+}
+
+footer {
+    z-index: 100;
+    position: fixed;
+    bottom: 0;
+    height: 10mm;
+    width: 100%;
+    background-color: var(--barras);
+    text-align: center;
+    padding: 1mm;
+    -webkit-transition: all 250ms;
+    -moz-transition: all 250ms;
+    transition: all 250ms;
+}
+
+.card {
+    /* REVISAR CUANDO EL CONTENIDO NO SEA INLINE */
+    /*position: relative;*/
+    /*left: 0;*/
+    /*right: 0;*/
+    border-radius: 8px;
+    padding: 1.5mm;
+    -webkit-transition: all 250ms;
+    -moz-transition: all 250ms;
+    transition: all 250ms;
+    margin: 1.5mm;
+}
+
+.titulo {
+    display: inline-block;
+}
+
+.minifecha {
+    display: block;
+    right: 0;
+}
