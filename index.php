@@ -11,10 +11,11 @@ require_once "librerias/errores.php";
     <title>Novedades</title>
     <link rel="icon" href="img/favicon.png">
     <link rel="stylesheet" href="css/index.css">
-<!--    <script src="https://www.google.com/recaptcha/api.js" async defer></script>-->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <script type="text/javascript" src="librerias/funcionesJS.js"></script>
 </head>
 <body>
+
 <div id="fondo">
     <form id="login_form" method="POST" action="modulos/login.php">
         <h1>NOVEDADES</h1>
@@ -24,12 +25,23 @@ require_once "librerias/errores.php";
         <input type="password" id="pass" name="pass" placeholder="Contraseña"><br>
         <button>ENTRAR</button>
         <div id="error_container"><?php error_get()?></div>
-<!--        <div class="g-recaptcha"-->
-<!--             data-sitekey="6LciBd8ZAAAAAGIs59aPs5dgFLoCB72NUmp5CXY-"-->
-<!--             data-badge="inline"-->
-<!--             data-theme="light">-->
-<!--        </div>-->
+        <div class="g-recaptcha"
+             data-sitekey="6LciBd8ZAAAAAGIs59aPs5dgFLoCB72NUmp5CXY-"
+             data-badge="inline"
+             data-theme="light">
+        </div>
+        <div id="loading">
+            <h2>...Loading reCAPTCHAv2...</h2>
+        </div>
     </form>
 </div>
 </body>
 </html>
+<script>
+// addEvent(
+//     document.documentElement,
+//     'click',
+//     function (){openFullscreen()}
+// );
+window.onload = function(){ document.getElementById("loading").style.display = "none" }
+</script>
