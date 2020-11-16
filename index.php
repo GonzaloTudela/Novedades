@@ -43,5 +43,5 @@ require_once "librerias/errores.php";
 //     'click',
 //     function (){openFullscreen()}
 // );
-window.onload = function(){ document.getElementById("loading").style.display = "none" }
+window.onload = function(){ document.getElementById("loading").remove() }
 </script>
