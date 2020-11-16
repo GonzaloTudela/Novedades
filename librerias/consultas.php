@@ -1,9 +1,10 @@
 <?php
 // SECCION NOVEDADES
 /*
-Noticias de las que el usuario no es autor, que no ha leido, pertenecen a sus grupos y no hayan
-caducado o todavia no han empezado.
+Noticias de las que el usuario no es autor, que no ha leído, pertenecen a sus grupos,
+no hayan caducado y que han empezado.
 */
+
 $sql_novedades = '
 select n.id_usuario,
        n.id_noticia,
