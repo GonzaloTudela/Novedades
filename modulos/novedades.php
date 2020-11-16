@@ -77,4 +77,9 @@ $stmt_novedades->close();
 </html>
 <script>
     botonSalir();
+    // addEvent(
+    //     document.documentElement,
+    //     'click',
+    //     function (){openFullscreen()}
+    // );
 </script>
