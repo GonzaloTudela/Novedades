@@ -1,3 +1,36 @@
+// Fullscreen on click document.
+/* Get the documentElement (<html>) to display the page in fullscreen */
+/* View in fullscreen W3SCHOOLS */
+function openFullscreen() {
+    let elem=document.documentElement;
+    if (elem.requestFullscreen) {
+        elem.requestFullscreen();
+    } else if (elem.webkitRequestFullscreen) { /* Safari */
+        elem.webkitRequestFullscreen();
+    } else if (elem.msRequestFullscreen) { /* IE11 */
+        elem.msRequestFullscreen();
+    }
+}
+
+/* Close fullscreen W3SCHOOLS*/
+function closeFullscreen() {
+    if (document.exitFullscreen) {
+        document.exitFullscreen();
+    } else if (document.webkitExitFullscreen) { /* Safari */
+        document.webkitExitFullscreen();
+    } else if (document.msExitFullscreen) { /* IE11 */
+        document.msExitFullscreen();
+    }
+}
+// Añade eventos al elemento (elemento, evento, funcion).
+// https://stackoverflow.com/questions/6348494/addeventlistener-vs-onclick
+function addEvent(element, evnt, funct){
+    if (element.attachEvent)
+        return element.attachEvent('on'+evnt, funct);
+    else
+        return element.addEventListener(evnt, funct, false);
+}
+
 // Elimino elementos por nombre de clase.
 function removeClass(clase) {
     let elemento = document.getElementsByClassName(clase);
