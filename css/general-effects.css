@@ -7,6 +7,65 @@
     }
 }
 
+@-webkit-keyframes blink {
+    0% {
+        display: none;
+        opacity: 0;
+    }
+    1% {
+        display: block;
+        opacity: 0;
+    }
+    100% {
+        display: block;
+        opacity: 1;
+    }
+
+}
+
+@-moz-keyframes blink {
+    0% {
+        display: none;
+        opacity: 0;
+    }
+    1% {
+        display: initial;
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+
+}
+
+@-o-keyframes blink {
+    0% {
+        display: none;
+        opacity: 0;
+    }
+    1% {
+        display: initial;
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes blink {
+    0% {
+        display: none;
+        opacity: 0;
+    }
+    1% {
+        display: initial;
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
 /*Sombras de la interfaz*/
 .sombra0f {
     box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.12), 0 -1px 2px rgba(0, 0, 0, 0.24);
