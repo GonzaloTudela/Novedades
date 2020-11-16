@@ -1,3 +1,4 @@
+@import "general-effects.css";
 @import url('https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;700&family=Roboto:ital,wght@0,300;0,400;0,700;1,400&display=swap');
 
 :root {
@@ -13,29 +14,34 @@
 }
 
 #loading {
+    z-index: 1000;
     position: absolute;
     bottom: 0;
     left: 50%;
     height: 20mm;
     width: 80mm;
     transform: translate(-50%, -29%);
-    margin:0;
+    margin: 0;
     padding: 0;
-    border: 1px solid red;
 }
+
 #loading h2 {
     font-family: 'Barlow', sans-serif;
     font-weight: 300;
     font-size: 4mm;
     line-height: 20mm;
     padding: 0;
-    margin:0;
+    margin: 0;
     color: lightgrey;
+    animation: captcha linear .3s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    animation-fill-mode: forwards;
 }
 
 @media (max-height: 300px) {
     .g-recaptcha {
-        opacity: 2%;
+        opacity: .2;
         /*display: none;*/
     }
 }
@@ -67,21 +73,14 @@
 }
 
 .g-recaptcha {
+    z-index: 100;
     position: absolute;
     bottom: -20px;
     left: 50%;
     transform: translate(-50%, -50%);
-    animation: captcha 1s ease-in-out;
 }
-@keyframes captcha {
-    0% {
-        opacity: 0;
-    }
-    100%{
-        opacity: 1;
-    }
 
-}
+
 
 form {
     text-align: center;
