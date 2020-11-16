@@ -49,7 +49,7 @@ $stmt_novedades->close();
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Novedades</title>
     <link rel="icon" href="../img/favicon.png">
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/novedades.css">
     <script type="text/javascript" src="../librerias/funcionesJS.js" async></script>
 </head>
 <body id="root">
