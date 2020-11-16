@@ -12,6 +12,27 @@
     font-family: 'Roboto', sans-serif;
 }
 
+#loading {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    height: 20mm;
+    width: 80mm;
+    transform: translate(-50%, -29%);
+    margin:0;
+    padding: 0;
+    border: 1px solid red;
+}
+#loading h2 {
+    font-family: 'Barlow', sans-serif;
+    font-weight: 300;
+    font-size: 4mm;
+    line-height: 20mm;
+    padding: 0;
+    margin:0;
+    color: lightgrey;
+}
+
 @media (max-height: 300px) {
     .g-recaptcha {
         opacity: 2%;
@@ -50,6 +71,16 @@
     bottom: -20px;
     left: 50%;
     transform: translate(-50%, -50%);
+    animation: captcha 1s ease-in-out;
+}
+@keyframes captcha {
+    0% {
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+
 }
 
 form {
