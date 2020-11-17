@@ -1,12 +1,13 @@
 <?php
-$cheat=1;
+$cheat = 1;
 // IMPLEMENTACION RECHAPTCHAv2
-$captcha = null;
-$responseKeys = null;
+//$captcha = null;
+//$responseKeys = null;
 if (isset($_POST['g-recaptcha-response'])) {
     $captcha = $_POST['g-recaptcha-response'];
 }
 if (!$captcha) {
+    session_destroy();
     header("location:../index.php?error=captcha");
 }
 $secretKey = "6LciBd8ZAAAAAKBw1fbLuK4vV8SkSJxwgMaBSLEJ";
@@ -25,7 +26,7 @@ try {
 if ($responseKeys["success"]) {
 //if ($cheat === 1) {
     // Si recibimos login y pass...
-    if (isset($_POST["login"], $_POST["pass"]) && $_POST["login"] !== "" && !$_POST["pass"] !== "") {
+    if (isset($_POST["login"], $_POST["pass"]) && $_POST["login"] !== "" && $_POST["pass"] !== "") {
         $raw_login = ($_POST['login']);
         $raw_pass = ($_POST['pass']);
         // Creamos la conexión.
