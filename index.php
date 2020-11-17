@@ -1,5 +1,8 @@
 <?php
 require_once "librerias/errores.php";
+//header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+//header("Cache-Control: post-check=0, pre-check=0", false);
+//header("Pragma: no-cache");
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -11,7 +14,7 @@ require_once "librerias/errores.php";
     <title>Novedades</title>
     <link rel="icon" href="img/favicon.png">
     <link rel="stylesheet" href="css/index.css">
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script src="https://www.google.com/recaptcha/api.js?onload=recaptchaLoaded" async defer></script>
     <script type="text/javascript" src="librerias/funcionesJS.js"></script>
 </head>
 <body>
@@ -24,7 +27,7 @@ require_once "librerias/errores.php";
         <label for="pass"></label>
         <input type="password" id="pass" name="pass" placeholder="Contraseña"><br>
         <button>ENTRAR</button>
-        <div id="error_container"><?php error_get()?></div>
+        <div id="error_container"><?php error_get() ?></div>
         <div class="g-recaptcha"
              data-sitekey="6LciBd8ZAAAAAGIs59aPs5dgFLoCB72NUmp5CXY-"
              data-badge="inline"
@@ -38,10 +41,14 @@ require_once "librerias/errores.php";
 </body>
 </html>
 <script>
-// addEvent(
-//     document.documentElement,
-//     'click',
-//     function (){openFullscreen()}
-// );
-window.onload = function(){ document.getElementById("loading").remove() }
+    window.recaptchaLoaded = function () {
+        let loading = document.getElementById("loading")
+        loading.style.transition = '2s';
+        loading.style.opacity = '0';
+        loading.remove();
+        let login = document.getElementById('login');
+        let pass = document.getElementById('pass');
+        login.value = '';
+        pass.value = '';
+    }
 </script>
