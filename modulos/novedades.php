@@ -15,6 +15,7 @@ if (isset($_SESSION['id_usuario'], $_SESSION['nombre'], $_SESSION['apellido1'], 
     $equipos = $_SESSION['$equipos'];
 } else {
     session_destroy();
+    $_SESSION[]=array();
     header("location:../index.php");
 }
 
@@ -50,6 +51,7 @@ $stmt_novedades->close();
     <title>Novedades</title>
     <link rel="icon" href="../img/favicon.png">
     <link rel="stylesheet" href="../css/novedades.css">
+    <link rel="stylesheet" href="../css/general-queries.css">
     <script type="text/javascript" src="../librerias/funcionesJS.js" async></script>
 </head>
 <body id="root">
@@ -77,9 +79,4 @@ $stmt_novedades->close();
 </html>
 <script>
     botonSalir();
-    // addEvent(
-    //     document.documentElement,
-    //     'click',
-    //     function (){openFullscreen()}
-    // );
 </script>
