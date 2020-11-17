@@ -1,7 +1,5 @@
 @import "general-look.css";
 @import "general-effects.css";
-@import "general-queries.css";
-
 * {
     box-sizing: border-box; /* El tamaño tiene en cuenta los margenes */
 }
