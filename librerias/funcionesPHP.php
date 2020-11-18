@@ -11,7 +11,7 @@ function debugFor($ip){
 function escribeNovedades(array $array)
 {
     foreach ($array as $keyNovedades) {
-        $escritura = substr($keyNovedades['timestamp_not'], 0, -3);
+        $escritura = $keyNovedades['timestamp_not'];
         echo '<div class="card altura2 sombra2">';
 //            echo '<p class="card txt3">Autor:</p>';
 //            echo '<p class="card txt3">' .$keyNovedades['id_usuario'].'</p>';
