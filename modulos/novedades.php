@@ -16,7 +16,7 @@ if (isset($_SESSION['id_usuario'], $_SESSION['nombre'], $_SESSION['apellido1'], 
     $equipos = $_SESSION['$equipos'];
 } else {
     session_destroy();
-    $_SESSION[] = array();
+    $_SESSION[]=array();
     header("location:../index.php");
 }
 
