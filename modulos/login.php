@@ -1,48 +1,51 @@
 <?php
 $cheat = 1;
 // IMPLEMENTACION RECHAPTCHAv2
-//$captcha = null;
-//$responseKeys = null;
+$captcha = null;
+$responseKeys = null;
 if (isset($_POST['g-recaptcha-response'])) {
     $captcha = $_POST['g-recaptcha-response'];
+} else {
+    header("location:../index.php?error=recaptcha");
 }
-if (!$captcha) {
-    session_destroy();
-    header("location:../index.php?error=captcha");
-}
+// Clave correspondiente a la configuración de reCaptcha en google.
 $secretKey = "6LciBd8ZAAAAAKBw1fbLuK4vV8SkSJxwgMaBSLEJ";
+// Ip de la máquina que realiza la petición.
 $ip = $_SERVER['REMOTE_ADDR'];
 
-// Recogemos la respuesta compuesta por los datos necesarios en la string almacenada en $response.
+// Creamos la url con la clave y la ip
 $url = 'https://www.google.com/recaptcha/api/siteverify?secret=' . urlencode($secretKey) . '&response='
     . urlencode($captcha);
+// Recogemos en response el resultado de consultar la URL compuesta.
 $response = file_get_contents($url);
+// Promesa que recupera el contenido de la respuesta JSON de la API reCAPTCHA.
 try {
     $responseKeys = json_decode($response, true, 512, JSON_THROW_ON_ERROR);
 } catch (JsonException $e) {
     header("location:../index.php?error=recaptcha");
 }
-// Si el captcha responde SUCCESS (correcto)...
-if ($responseKeys["success"]) {
+// Si la decodificación de la respuesta JSON del api fue SUCCESS...
+// todo ELIMINAR LA CONDICION CHEAT PARA SALTARSE EL VERIFY DE CAPTCHA ANTES DEL DEPLOY FINAL
+if ($responseKeys["success"] || $cheat===1) {
 //if ($cheat === 1) {
     // Si recibimos login y pass...
-    if (isset($_POST["login"], $_POST["pass"]) && $_POST["login"] !== "" && $_POST["pass"] !== "") {
+    if (isset($_POST["login"], $_POST["pass"]) && ($_POST["login"] !== "" && $_POST["pass"] !== "")) {
         $raw_login = ($_POST['login']);
         $raw_pass = ($_POST['pass']);
         // Creamos la conexión.
         $db_operario = new mysqli('hl793.dinaserver.com', 'gonza_currito', 'NovedadesCurrito!',
             'gonza_novedades');
         $db_operario->set_charset('utf8mb4');
-//        // Comprobamos si hay error de conexión.
+        // Comprobamos si hay error de conexión.
         if (mysqli_connect_errno()) {
             header("location:../index.php?error=mysql");
         }
 
-        // LIMPIAMOS POR SI MAS ADELANTE NO UTLIZAMOS SENTENCIAS PREPARADAS CON LA BASE DE DATOS.
+        // LIMPIAMOS LOGIN Y PASS POR SI MAS ADELANTE NO UTLIZAMOS SENTENCIAS PREPARADAS CON LA BASE DE DATOS.
         $login = $db_operario->real_escape_string($raw_login);
         $pass = $db_operario->real_escape_string($raw_pass);
 
-        // CONSULTAS SQL
+        // DEFINICIÓN DE LAS CONSULTAS SQL
         // Buscamos el password del usuario (hash).
         $sql_login = "select password from usuarios where usuario=?";
 
@@ -65,7 +68,7 @@ if ($responseKeys["success"]) {
                     left join equipos e on f.id_equipo = e.id_equipo
                     where usuario = ?";
 
-        // CONSULTA DEL HASH DEL USUARIO
+        // CONSULTA DEL PASSWORD HASH DEL USUARIO
         $stmt_login = $db_operario->prepare($sql_login);
         $stmt_login->bind_param('s', $login);
         $stmt_login->execute();
@@ -73,7 +76,7 @@ if ($responseKeys["success"]) {
         $stmt_login->fetch();
         $stmt_login->close();
 
-        // Verificación de la pass contra el hash en la BD.
+        // Verificación de la pass introducida contra el password hash en la BD.
         if (password_verify($pass, $hash)) {
 
             // CONSULTA DE DATOS DEL USUARIO
