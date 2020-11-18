@@ -1,4 +1,13 @@
 <?php
+debugFor("79.152.7.228");
+// Emito errores dependiendo de la IP que me indican "STRING".
+function debugFor($ip){
+    if ($_SERVER['REMOTE_ADDR'] === $ip) {
+        error_reporting(E_ALL);
+    } else {
+        error_reporting(0);
+    }
+}
 function escribeNovedades(array $array)
 {
     foreach ($array as $keyNovedades) {

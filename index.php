@@ -1,8 +1,10 @@
 <?php
 require_once "librerias/errores.php";
+require_once "librerias/funcionesPHP.php";
 //header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
 //header("Cache-Control: post-check=0, pre-check=0", false);
 //header("Pragma: no-cache");
+debugFor("79.152.7.228");
 ?>
 <!DOCTYPE html>
 <html lang="es">
