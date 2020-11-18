@@ -20,7 +20,6 @@ debugFor("79.152.7.228");
     <script type="text/javascript" src="librerias/funcionesJS.js"></script>
 </head>
 <body>
-
 <div id="fondo">
     <form id="login_form" method="POST" action="modulos/login.php">
         <h1>NOVEDADES</h1>
