@@ -1,34 +1,57 @@
 <?php
-debugFor("79.152.7.228");
+//debugFor("79.152.7.228");
 // Emito errores dependiendo de la IP que me indican "STRING".
-function debugFor($ip){
+function debugFor($ip)
+{
     if ($_SERVER['REMOTE_ADDR'] === $ip) {
         error_reporting(E_ALL);
     } else {
         error_reporting(0);
     }
 }
+
+// Recorro el array $keyNovedades y extraigo el contenido.
 function escribeNovedades(array $array)
 {
-    foreach ($array as $keyNovedades) {
-        $escritura = $keyNovedades['timestamp_not'];
-        echo '<div class="card altura2 sombra2">';
-//            echo '<p class="card txt3">Autor:</p>';
-//            echo '<p class="card txt3">' .$keyNovedades['id_usuario'].'</p>';
-//            echo '<p class="card txt2">Titulo:</p>';
-        echo '<p class="titulo txt2">' . $keyNovedades['titulo'] . '</p>';
-//            echo '<p class="card txt3">Cuerpo:</p>';
-//            echo '<p class="card txt3">' .$keyNovedades['cuerpo'].'</p>';
-//            echo '<p class="card txt3">Fecha Inicio:</p>';
-//            echo '<p class="card txt3">' .$keyNovedades['fecha_inicio'].'</p>';
-//            echo '<p class="card txt3">Fecha Fin:</p>';
-//            echo '<p class="card txt3">' .$keyNovedades['fecha_fin'].'</p>';
-//            echo '<p class="card txt3">Escrita el:</p>';
-        echo '<p class="minifecha txt3">' . $escritura . '</p>';
-//            echo '<p class="txt1">Version:</p><br>';
-//            printf ($keyNovedades['num_version']);
+    if (empty($array)) {
+        echo '<div class="msg">';
+        echo file_get_contents("../img/robot.svg");
+        echo '<p>SIN NOVEDADES</p>';
         echo '</div>';
+    } else {
+        foreach ($array as $keyNovedades) {
+            $escritura = $keyNovedades['timestamp_not'];
+            // ICONO DE LA NOTICIA
+            echo '<div class="noticiaIcono altura2 sombra2">';
+            if ($keyNovedades['fecha_fin'] == '') {
+                echo file_get_contents("../img/rules.svg");
+            } else {
+                echo file_get_contents("../img/news.svg");
+            }
+            echo '</div>';
+            // TITULO Y FECHAS
+            echo '<div class="noticiaTitulo altura2 sombra2">';
+            echo '<form method="post" action="../modulos/leer.php">';
+//            echo '<label for="id_noticia">';
+            echo '<input type="hidden" name="id_noticia" value="' . $keyNovedades['id_noticia'] . '">';
+            echo '<button class="txt-r1 fs2">'.'<p>'.$keyNovedades['titulo'].'</p>';
+//        echo '<p class="txt1 fs2">' . $keyNovedades['titulo'] . '</p>';
+            if ($keyNovedades['fecha_fin'] == '') {
+                echo '<p class="txt3 fs3">' . 'Norma desde: ' . $keyNovedades['fecha_inicio'] . '</p>';
+            } else {
+                echo '<p class="txt3 fs4">' . $keyNovedades['fecha_inicio'] . ' hasta ' . $keyNovedades['fecha_fin'] . '</p>';
+            }
+            echo '</button>';
+            echo '</form>';
+            echo '</div>';
+            // AUTOR Y TIMESTAMP
+            echo '<div class="noticiaAutor altura2 sombra2">';
+            echo '<p class="txt-r1 fs3">' . $keyNovedades['nombre'] . ' ' . $keyNovedades['apellido1'] . '</p>';
+            echo '<p class="txt3 fs4">' . $escritura . '</p>';
+            echo '</div>';
+        }
     }
+
 }
 
 /*
