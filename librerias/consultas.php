@@ -10,9 +10,9 @@ select n.id_usuario,
        n.id_noticia,
        n.titulo,
        n.cuerpo,
-       n.fecha_inicio,
-       n.fecha_fin,
-       n.timestamp_not,
+       date_format(n.fecha_inicio, "%d/%m/%Y") as fecha_inicio,
+       date_format(n.fecha_fin, "%d/%m/%Y") as fecha_fin,
+       from_unixtime(unix_timestamp(n.timestamp_not), "%d/%m/%Y-%H:%i") as timestamp_not,
        n.num_version
 from noticias n
 where (n.id_usuario != ?  and curdate()>=n.fecha_inicio and curdate()<=n.fecha_fin)
@@ -38,9 +38,9 @@ select n.id_usuario,
        n.id_noticia,
        n.titulo,
        n.cuerpo,
-       n.fecha_inicio,
-       n.fecha_fin,
-       n.timestamp_not,
+       date_format(n.fecha_inicio, "%d/%m/%Y") as fecha_inicio,
+       date_format(n.fecha_fin, "%d/%m/%Y") as fecha_fin,
+       from_unixtime(unix_timestamp(n.timestamp_not), "%d/%m/%Y-%H:%i") as timestamp_not,
        n.num_version
 from noticias n
 where (n.id_usuario != ?  and curdate()>=n.fecha_inicio and curdate()<=n.fecha_fin)
