@@ -2,6 +2,7 @@
 require_once "../librerias/funcionesPHP.php";
 //debugFor("79.152.7.228");
 $cheat = 1;
+$reset = 1;
 // IMPLEMENTACION RECHAPTCHAv2
 $captcha = null;
 $responseKeys = null;
@@ -28,6 +29,9 @@ try {
 }
 // Si la decodificación de la respuesta JSON del api fue SUCCESS...
 // todo ELIMINAR LA CONDICION CHEAT PARA SALTARSE EL VERIFY DE CAPTCHA ANTES DEL DEPLOY FINAL
+if ($reset ===1){
+    resetAllSessions();
+}
 if ($responseKeys["success"] || $cheat===1) {
 //if ($cheat === 1) {
     // Si recibimos login y pass...
