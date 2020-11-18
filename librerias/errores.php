@@ -13,7 +13,7 @@ function error_get()
                 break;
             case "captcha":
                 echo <<< _HTML
-                <p class="error_text">Verifique la casilla del captcha.</p>
+                <p class="error_text">Problemas en la api reCaptcha.</p>
                 <script class="killme">killme();</script>
                 _HTML;
                 break;
