@@ -7,6 +7,11 @@
 *::-webkit-scrollbar {
     display: none;
 }
+p {
+    margin: 0;
+    padding: 0;
+    text-align: left;
+}
 
 body {
     margin: 0;
@@ -33,9 +38,11 @@ main {
     z-index: 0;
     top: 10mm;
     bottom: 10mm;
-    width: 100%;
+    /*left: 3mm;*/
+    /*right: 3mm;*/
+    /*width: 100%;*/
     overflow: auto;
-    padding: 3mm 3mm 3mm 3mm;
+    padding: 4px;
     -webkit-transition: all 250ms;
     -moz-transition: all 250ms;
     transition: all 250ms;
@@ -55,24 +62,83 @@ footer {
     transition: all 250ms;
 }
 
-.card {
-    /* REVISAR CUANDO EL CONTENIDO NO SEA INLINE */
-    /*position: relative;*/
-    /*left: 0;*/
-    /*right: 0;*/
+.noticiaGrid {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    grid-gap: 4px;
     border-radius: 8px;
-    padding: 1.5mm;
-    -webkit-transition: all 250ms;
-    -moz-transition: all 250ms;
-    transition: all 250ms;
-    margin: 1.5mm;
 }
 
-.titulo {
-    display: inline-block;
+.noticiaIcono {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    fill: var(--txt-r1);
+    width: 10mm;
+    border-radius: 8px;
+    margin: 0;
+    padding: 1mm;
 }
 
-.minifecha {
-    display: block;
-    right: 0;
+.noticiaTitulo{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 8px;
+    margin: 0;
+    padding: 2mm;
+    text-align: left;
+}
+.noticiaTitulo button {
+    background-color: transparent;
+    width: 100%;
+    height: 100%;
+    border: none;
+    margin:0;
+    padding: 0;
+    transition: 0.2s;
+    border-radius: 8px
+}
+.noticiaTitulo button:hover {
+    color: rgb(255,186,85);
+}
+
+.noticiaTitulo button:focus {
+    outline: none;
+}
+.noticiaAutor {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 8px;
+    margin: 0;
+    padding: 1mm;
+}
+
+.noticiaAutor p {
+    text-align: center;
+    margin: 0;
+}
+
+/* Imagenes */
+.msg {
+    position: absolute;
+    width: 25mm;
+    height: 25mm;
+    left: 50%;
+    top: calc(50% - 10mm);
+    transform: translate(-50%, -50%);
+    fill: var(--txt3);
+}
+
+.msg p {
+    position: relative;
+    left: 50%;
+    width: 50mm;
+    transform: translate(-50%, -70%);
+    font-family: 'Barlow', sans-serif;
+    font-weight: 700;
+    font-size: 5mm;
+    text-align: center;
+    color: var(--txt3);
 }
