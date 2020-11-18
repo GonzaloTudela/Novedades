@@ -2,7 +2,8 @@
 require_once('../librerias/menu.php');
 require_once('../librerias/consultas.php');
 require_once('../librerias/funcionesPHP.php');
-debugFor("79.152.7.228");
+//debugFor("79.152.7.228");
+//<editor-fold desc="Variables y lógica de session.">
 session_start();
 if (isset($_SESSION['id_usuario'], $_SESSION['nombre'], $_SESSION['apellido1'], $_SESSION['apellido2'],
     $_SESSION['estado_usu'], $_SESSION['$empresas'])) {
@@ -19,7 +20,9 @@ if (isset($_SESSION['id_usuario'], $_SESSION['nombre'], $_SESSION['apellido1'], 
     $_SESSION[]=array();
     header("location:../index.php");
 }
+//</editor-fold>
 
+//<editor-fold desc="Conexion BD y recuperacion">
 $db_operario = new mysqli('hl793.dinaserver.com', 'gonza_currito', 'NovedadesCurrito!',
     'gonza_novedades');
 $db_operario->set_charset('utf8mb4');
@@ -44,6 +47,7 @@ $stmt_novedades->execute();
 $res_novedades = $stmt_novedades->get_result();
 $novedades = $res_novedades->fetch_all(MYSQLI_ASSOC);
 $stmt_novedades->close();
+//</editor-fold>
 
 ?>
 <!DOCTYPE html>
@@ -60,28 +64,25 @@ $stmt_novedades->close();
     <script type="text/javascript" src="../librerias/funcionesJS.js" async></script>
 </head>
 <body id="root">
-<header class="sombra0">
-    <h1 class="txt0">NOVEDADES</h1>
-</header>
-<main>
-    <div class="card altura1 sombra1">
+    <header class="sombra0">
+        <h1 class="txt0 fs0" style="color:var(--txt-r1)"><?php echo $nombre?>! tus NOVEDADES v.01</h1>
+    </header>
+    <main class="altura0">
+        <div class="noticiaGrid altura0">
+            <?php
+            escribeNovedades($novedades);
+            ?>
+        </div>
+        <div id="error_container altura5"></div>
+    </main>
+    <footer id="mainMenu" class="sombra0f">
         <?php
-        escribeNovedades($novedades);
+        printMenu();
         ?>
-    </div>
-    <div class="msg">
-        <?php echo file_get_contents("../img/robot.svg") ?>
-        <p>SIN NOVEDADES</p>
-    </div>
-    <div id="error_container altura1"></div>
-</main>
-<footer id="mainMenu" class="sombra0f">
-    <?php
-    printMenu();
-    ?>
-</footer>
+    </footer>
 </body>
 </html>
 <script>
     botonSalir();
+    let noticia
 </script>
