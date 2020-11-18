@@ -34,7 +34,7 @@ function escribeNovedades(array $array)
             echo '<form method="post" action="../modulos/leer.php">';
 //            echo '<label for="id_noticia">';
             echo '<input type="hidden" name="id_noticia" value="' . $keyNovedades['id_noticia'] . '">';
-            echo '<button class="txt-r1 fs2">'.'<p>'.$keyNovedades['titulo'].'</p>';
+            echo '<button class="txt-r1 fs2">' . '<p>' . $keyNovedades['titulo'] . '</p>';
 //        echo '<p class="txt1 fs2">' . $keyNovedades['titulo'] . '</p>';
             if ($keyNovedades['fecha_fin'] == '') {
                 echo '<p class="txt3 fs3">' . 'Norma desde: ' . $keyNovedades['fecha_inicio'] . '</p>';
@@ -51,6 +51,31 @@ function escribeNovedades(array $array)
             echo '</div>';
         }
     }
+
+}
+
+function resetAllSessions()
+{
+// Finds all server sessions
+    session_start();
+// Stores in Array
+    $_SESSION = array();
+// Swipe via memory
+    if (ini_get("session.use_cookies")) {
+        // Prepare and swipe cookies
+        $params = session_get_cookie_params();
+        // clear cookies and sessions
+        setcookie(session_name(), '', time() - 42000,
+            $params["path"], $params["domain"],
+            $params["secure"], $params["httponly"]
+        );
+    }
+// Just in case.. swipe these values too
+    ini_set('session.gc_max_lifetime', 0);
+    ini_set('session.gc_probability', 1);
+    ini_set('session.gc_divisor', 1);
+// Completely destroy our server sessions..
+    session_destroy();
 
 }
 
