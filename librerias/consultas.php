@@ -10,12 +10,16 @@ select n.id_usuario,
        n.id_noticia,
        n.titulo,
        n.cuerpo,
-       date_format(n.fecha_inicio, "%d/%m/%Y") as fecha_inicio,
-       date_format(n.fecha_fin, "%d/%m/%Y") as fecha_fin,
-       from_unixtime(unix_timestamp(n.timestamp_not), "%d/%m/%Y-%H:%i") as timestamp_not,
-       n.num_version
+       date_format(n.fecha_inicio, "%d/%m/%y") as fecha_inicio,
+       date_format(n.fecha_fin, "%d/%m/%y") as fecha_fin,
+       from_unixtime(unix_timestamp(n.timestamp_not), "%d/%m/%y %H:%i") as timestamp_not,
+       n.num_version,
+       u.nombre,
+       u.apellido1
 from noticias n
-where (n.id_usuario != ?  and curdate()>=n.fecha_inicio and curdate()<=n.fecha_fin)
+join usuarios u using (id_usuario)
+where n.id_usuario != ?  
+  and ((curdate()>=n.fecha_inicio and curdate()<=n.fecha_fin) or (curdate()>=n.fecha_inicio and n.fecha_fin is null))
   and n.id_noticia not in (
     select l.id_noticia as noticias_leidas
     from leer l
@@ -38,12 +42,16 @@ select n.id_usuario,
        n.id_noticia,
        n.titulo,
        n.cuerpo,
-       date_format(n.fecha_inicio, "%d/%m/%Y") as fecha_inicio,
-       date_format(n.fecha_fin, "%d/%m/%Y") as fecha_fin,
-       from_unixtime(unix_timestamp(n.timestamp_not), "%d/%m/%Y-%H:%i") as timestamp_not,
-       n.num_version
+       date_format(n.fecha_inicio, "%d/%m/%y") as fecha_inicio,
+       date_format(n.fecha_fin, "%d/%m/%y") as fecha_fin,
+       from_unixtime(unix_timestamp(n.timestamp_not), "%d/%m/%y %H:%i") as timestamp_not,
+       n.num_version,
+       u.nombre,
+       u.apellido1
 from noticias n
-where (n.id_usuario != ?  and curdate()>=n.fecha_inicio and curdate()<=n.fecha_fin)
+join usuarios u using (id_usuario)
+where n.id_usuario != ?  
+  and ((curdate()>=n.fecha_inicio and curdate()<=n.fecha_fin) or (curdate()>=n.fecha_inicio and n.fecha_fin is null))
   and n.id_noticia not in (
     select l.id_noticia as noticias_leidas
     from leer l
