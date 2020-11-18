@@ -2,22 +2,37 @@
 
 :root {
     --barras: rgba(37, 37, 37, 1);
-    --00dp: #121212;
-    --01dp: rgba(255, 255, 255, .05);
-    --02dp: rgba(255, 255, 255, .08);
-    --03dp: rgba(255, 255, 255, .11);
-    --04dp: rgba(255, 255, 255, .14);
-    --05dp: rgba(255, 255, 255, .16);
-    --txt0: rgba(255, 255, 255, 1);
-    --txt1: rgba(255, 255, 255, .80);
-    --txt2: rgba(255, 255, 255, .60);
-    --txt3: rgba(255, 255, 255, .40);
-    --txt-off: rgba(255, 255, 255, 0.20);
-    --txt-r0: rgba(33, 150, 243, 1);
-    --txt-r1: rgba(33, 150, 243, .80);
-    --txt-r2: rgba(33, 150, 243, .60);
-    --txt-r3: rgba(33, 150, 243, .40);
-    --txt-r-off: rgba(33, 150, 243, 0.20);
+    --00dp: rgba(18,18,18,1);
+    /*COLOR PROFUNDIDAD*/
+    --dpR: 255;
+    --dpG: 255;
+    --dpB: 255;
+    --dpO: 1;
+    --01dp: rgba(var(--dpR), var(--dpG), var(--dpB), calc(var(--dpO) * 0.05));
+    --02dp: rgba(var(--dpR), var(--dpG), var(--dpB), calc(var(--dpO) * 0.08));
+    --03dp: rgba(var(--dpR), var(--dpG), var(--dpB), calc(var(--dpO) * 0.11));
+    --04dp: rgba(var(--dpR), var(--dpG), var(--dpB), calc(var(--dpO) * 0.14));
+    --05dp: rgba(var(--dpR), var(--dpG), var(--dpB), calc(var(--dpO) * 0.16));
+    /*COLOR TEXTOS*/
+    --txtR: 255;
+    --txtG: 255;
+    --txtB: 255;
+    --txtO: 1;
+    --txt0: rgba(var(--txtR), var(--txtG), var(--txtB), var(--txtO));
+    --txt1: rgba(var(--txtR), var(--txtG), var(--txtB), calc(var(--txtO) * 0.8));
+    --txt2: rgba(var(--txtR), var(--txtG), var(--txtB), calc(var(--txtO) * 0.6));
+    --txt3: rgba(var(--txtR), var(--txtG), var(--txtB), calc(var(--txtO) * 0.4));
+    --txt-off: rgba(var(--txtR), var(--txtG), var(--txtB), calc(var(--txtO) * 0.2));
+    /*COLOR RESALTES*/
+    --resR: 255;
+    --resG: 152;
+    --resB: 0;
+    --resO: 1;
+    --txt-r0: rgba(var(--resR), var(--resG), var(--resB), var(--resO));
+    --txt-r1: rgba(var(--resR), var(--resG), var(--resB), calc(var(--resO) * 0.8));
+    --txt-r2: rgba(var(--resR), var(--resG), var(--resB), calc(var(--resO) * 0.6));
+    --txt-r3: rgba(var(--resR), var(--resG), var(--resB), calc(var(--resO) * 0.4));
+    --txt-r-off: rgba(var(--resR), var(--resG), var(--resB), calc(var(--resO) * 0.2));
 }
 
 /*Cajas de mensaje*/
