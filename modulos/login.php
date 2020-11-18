@@ -1,6 +1,6 @@
 <?php
 require_once "../librerias/funcionesPHP.php";
-debugFor("79.152.7.228");
+//debugFor("79.152.7.228");
 $cheat = 1;
 // IMPLEMENTACION RECHAPTCHAv2
 $captcha = null;
