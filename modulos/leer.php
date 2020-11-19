@@ -1,16 +1,12 @@
 <?php
-require_once('../librerias/menu.php');
 require_once('../librerias/consultas.php');
 require_once('../librerias/funcionesPHP.php');
 //debugFor("79.152.7.228");
 
-//<editor-fold desc="Variables y lógica de session.">
 session_start();
-if (isset($_POST['id_noticia'])) {
-    $id_noticia = $_POST['id_noticia'];
-} else {
-    header("location:../noticias.php");
-}
+
+//<editor-fold desc="RECOGIDA VARIABLES DE SESSION TRAS LOGIN">
+// DATOS RECOGIDOS EN LOGIN - SI NO ESTÁN, ACCESO NO AUTENTIFICADO -> LOGIN.PHP.
 if (isset($_SESSION['id_usuario'], $_SESSION['nombre'], $_SESSION['apellido1'], $_SESSION['apellido2'],
     $_SESSION['estado_usu'], $_SESSION['$empresas'])) {
     $id_usuario = $_SESSION['id_usuario'];
@@ -24,40 +20,23 @@ if (isset($_SESSION['id_usuario'], $_SESSION['nombre'], $_SESSION['apellido1'], 
 } else {
     session_destroy();
     $_SESSION[] = array();
-    header("location:../index.php");
+    header("location:login.php");
 }
 //</editor-fold>
 
-// CONEXIÓN CON LA BASE DE DATOS
-//<editor-fold desc="Conexion BD y recuperacion">
-$db_operario = new mysqli('hl793.dinaserver.com', 'gonza_currito', 'NovedadesCurrito!',
-    'gonza_novedades');
-//$db_operario->set_charset('utf8mb4');
-// COMPROBACIÓN ERROR CONEXION BD
-if (mysqli_connect_errno()) {
-    header("location:../index.php?error=mysql");
+//<editor-fold desc="RECOGIDA VARIABLES ** POST o SESSION ** TRAS ELEGIR NOTICIA">
+// SI VENIMOS DE HACER CLICK EN UN TITULO EN NOVEDADES O NORMAS, POST TENDRA ID_NOTICIAS Y LO RECOJO,
+// EN CASO CONTRARIO ES QUE VENIMOS DE OTRO LUGAR Y RECUPERAMOS LA ULTIMA NOTICIA VISITADA EN LEER.
+if (isset($_POST['id_noticia'])) {
+    $id_noticia = $_POST['id_noticia'];
+    $_SESSION['id_noticia_ultima'] = $id_noticia;
+} elseif (isset($_SESSION['id_noticia_ultima'])) {
+    $id_noticia = $_SESSION['id_noticia_ultima'];
 }
-// COMPROBACIÓN NIVEL DEL USUARIO
-//if ($nivel >= 0 && $nivel <= 998) {
-//    if (isset($sql_novedades)) {
-//        $stmt_novedades = $db_operario->prepare($sql_novedades);
-//        $stmt_novedades->bind_param('iii', $id_usuario, $id_usuario, $id_usuario);
-//    }
-//} elseif ($nivel === 999) {
-//    if (isset($sql_novedades_admin)) {
-//        $stmt_novedades = $db_operario->prepare($sql_novedades_admin);
-//        $stmt_novedades->bind_param('ii', $id_usuario, $id_usuario);
-//    }
-//} else {
-//    die('error nivel usuario');
-//}
-
-//$stmt_novedades->execute();
-//$res_novedades = $stmt_novedades->get_result();
-//$novedades = $res_novedades->fetch_all(MYSQLI_ASSOC);
-//$stmt_novedades->close();
 //</editor-fold>
-// Recuperamos las noticias de Novedades y Normas, las unimos en un único array ordenado.
+
+//<editor-fold desc="RECOGIDA VARIABLES SESSION DE NOVEDADES Y NORMAS.">
+// Recuperamos de SESSION las noticias de Novedades y Normas, las unimos en un único array ordenado.
 if (isset($_SESSION['novedades'])) {
     $novedades = $_SESSION['novedades'];
     foreach ($novedades as $item) {
@@ -71,10 +50,26 @@ if (isset($_SESSION['normas'])) {
     }
 }
 ksort($noticias);
-$hora=substr($noticias[$id_noticia]['timestamp_not'],-5);
-$fecha=substr($noticias[$id_noticia]['timestamp_not'],1,7);
-debugConsole($hora);
-debugConsole($fecha);
+//</editor-fold>
+
+// RECORTAMOS EL TIMESTAMP Y GUARDAMOS PARA SU USO EN HTML
+$hora = substr($noticias[$id_noticia]['timestamp_not'], -5);
+$fecha = substr($noticias[$id_noticia]['timestamp_not'], 1, 7);
+
+// SI VENIMOS DE NOVEDADES O NORMAS PREPARAMOS URL PARA EL DESTINO DEL BOTON "LEER MAS TARDE"
+if ($_SESSION['webOrigen'] === 'novedades') {
+    $urlTarde = './novedades.php';
+} elseif ($_SESSION['webOrigen'] === 'normas') {
+    $urlTarde = './normas.php';
+}
+
+// PREPARAMOS LA FECHA FIN DEPENDIENDO DE SU VALOR
+if (empty($noticias[$id_noticia]['fecha_fin'])) {
+    $fechaFin = 'indefinida';
+} else {
+    $fechaFin = $noticias[$id_noticia]['fecha_fin'];
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -87,7 +82,7 @@ debugConsole($fecha);
     <link rel="icon" href="../img/favicon.png">
     <link rel="stylesheet" href="../css/leer.css">
     <link rel="stylesheet" href="../css/general-queries.css">
-    <script type="text/javascript" src="../librerias/funcionesJS.js" async></script>
+    <script type="text/javascript" src="../librerias/funcionesJS.js"></script>
 </head>
 <body id="root">
 <header class="sombra0">
@@ -96,41 +91,37 @@ debugConsole($fecha);
 <main class="altura0">
     <div class="mainGrid altura0">
         <div class="titulo center altura1">
-            <p class="txt1 fs1"><?= $noticias[$id_noticia]['titulo'] ?></p>
+            <p class="txt1 fs1" style="text-align: center"><?= $noticias[$id_noticia]['titulo'] ?></p>
         </div>
         <div class="fechaini center altura1">
             <p class="txt1 fs1"><?= $noticias[$id_noticia]['fecha_inicio'] ?></p>
         </div>
         <div class="fechafin center altura1">
-            <p class="txt1 fs1 ">
-                <?php
-                if (empty($noticias[$id_noticia]['fecha_fin'])) {
-                    echo 'indefinida';
-                } else {
-                    echo $noticias[$id_noticia]['fecha_fin'];
-                }
-                ?>
-            </p>
+            <p class="txt1 fs1 "><?= $fechaFin ?></p>
         </div>
         <div class="contenido justified altura1">
-            <p class="txt2 fs1"><?= $noticias[$id_noticia]['cuerpo'] ?></p>
+            <p class="txt2 fs1" style="white-space: pre-wrap"><?= $noticias[$id_noticia]['cuerpo'] ?></p>
         </div>
         <div class="autor center altura1">
-                <p class="txt2 fs1"><?= $noticias[$id_noticia]['nombre'] . ' ' . $noticias[$id_noticia]['apellido1'] ?>
-                    el <?= $fecha ?> a las <?=$hora?></p>
+            <p class="txt2 fs1"><?= $noticias[$id_noticia]['nombre'] . ' ' . $noticias[$id_noticia]['apellido1'] ?>
+                el <?= $fecha ?> a las <?= $hora ?></p>
         </div>
-        <div class="noleer center altura1">
-            <button><a href="">LEER MAS TARDE</a></button>
-        </div>
-        <div class="leer center altura1">
-            <button><a href="">CONFIRMAR LECTURA</a></button>
-        </div>
-        <div class="actualizar center altura1">
-            <button><a href="">ACTUALIZAR</a></button>
-        </div>
-        <div class="caduca center altura1">
-            <button><a href="">ELIMINAR</a></button>
-        </div>
+        <form class="noleer webButton" action="<?= $urlTarde ?>" method="post">
+            <input type="hidden" name="id_noticia" value="<?=$id_noticia?>">
+            <input type="submit" id="mastarde" class="webButton txt-r2 fs1" value="LEER MAS TARDE">
+        </form>
+        <form class="leer webButton" action="leerLogic.php" method="post">
+            <input type="hidden" name="id_noticia" value="<?=$id_noticia?>">
+            <input type="submit" id="leer" class="webButton txt-r2 fs1" value="CONFIRMAR LECTURA">
+        </form>
+        <form class="actualizar webButton" action="actualizarLogic.php" method="post">
+            <input type="hidden" name="id_noticia" value="<?=$id_noticia?>">
+            <input type="submit" id="actualizar" class="webButton txt-r2 fs1" value="ACTUALIZAR">
+        </form>
+        <form class="caduca webButton" action="finalizarLogic.php" method="post">
+            <input type="hidden" name="id_noticia" value="<?=$id_noticia?>">
+            <input type="submit" id="caduca" class="webButton txt-r2 fs1" value="FINALIZAR NOTICIA">
+        </form>
     </div>
     <!--        <div id="error_container" class="altura1"></div>-->
 </main>
@@ -143,16 +134,4 @@ debugConsole($fecha);
 </html>
 <script>
     botonSalir();
-    //let contenedor = document.getElementById('error_container');
-    //// Access the array elements
-    //let id_noticia = <?//=$id?>//;
-    //let noticias = JSON.parse('<?php //echo json_encode($noticias); ?>//');
-    //// Display the array elements
-    //
-    //for (let i = 0; i < noticias.length; i++) {
-    //    if (noticias[i]['id_noticia'] === id_noticia) {
-    //        contenedor.insert
-    //        console.log(noticias[i])
-    //    }
-    //}
 </script>
