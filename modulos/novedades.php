@@ -1,14 +1,12 @@
 <?php
-require_once('../librerias/menu.php');
 require_once('../librerias/consultas.php');
 require_once('../librerias/funcionesPHP.php');
-header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
-header("Cache-Control: post-check=0, pre-check=0", false);
-header("Pragma: no-cache");
 //debugFor("79.152.7.228");
-//<editor-fold desc="Variables y lógica de session.">
-// DATOS RECOGIDOS EN LOGIN.
+
 session_start();
+
+//<editor-fold desc="RECOGIDA VARIABLES DE SESSION TRAS LOGIN">
+// DATOS RECOGIDOS EN LOGIN - SI NO ESTÁN, ACCESO NO AUTENTIFICADO -> LOGIN.PHP.
 if (isset($_SESSION['id_usuario'], $_SESSION['nombre'], $_SESSION['apellido1'], $_SESSION['apellido2'],
     $_SESSION['estado_usu'], $_SESSION['$empresas'])) {
     $id_usuario = $_SESSION['id_usuario'];
@@ -22,11 +20,11 @@ if (isset($_SESSION['id_usuario'], $_SESSION['nombre'], $_SESSION['apellido1'], 
 } else {
     session_destroy();
     $_SESSION[] = array();
-    header("location:../index.php");
+    header("location:login.php");
 }
 //</editor-fold>
 
-//<editor-fold desc="Conexion BD y recuperacion">
+//<editor-fold desc="CONEXIÓN BD Y CONSULTA DE NOVEDADES">
 $db_operario = new mysqli('hl793.dinaserver.com', 'gonza_currito', 'NovedadesCurrito!',
     'gonza_novedades');
 $db_operario->set_charset('utf8mb4');
@@ -51,7 +49,9 @@ $stmt_novedades->execute();
 $res_novedades = $stmt_novedades->get_result();
 $novedades = $res_novedades->fetch_all(MYSQLI_ASSOC);
 $stmt_novedades->close();
+$db_operario->close();
 $_SESSION['novedades'] = $novedades;
+$_SESSION['webOrigen']='novedades';
 //</editor-fold>
 ?>
 <!DOCTYPE html>
@@ -65,7 +65,7 @@ $_SESSION['novedades'] = $novedades;
     <link rel="icon" href="../img/favicon.png">
     <link rel="stylesheet" href="../css/novedades.css">
     <link rel="stylesheet" href="../css/general-queries.css">
-    <script type="text/javascript" src="../librerias/funcionesJS.js" async></script>
+    <script type="text/javascript" src="../librerias/funcionesJS.js"></script>
 </head>
 <body id="root">
 <header class="sombra0">
