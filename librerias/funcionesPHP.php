@@ -9,8 +9,10 @@ function debugFor($ip)
         error_reporting(0);
     }
 }
-
-// Recorro el array $keyNovedades y extraigo el contenido.
+function debugConsole($datos) {
+    echo "<script>console.log(".json_encode($datos).")</script>";
+}
+// Recorro el array $keyNovedades y escribo el contenido en la pagina.
 function escribeNovedades(array $array)
 {
     if (empty($array)) {
