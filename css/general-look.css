@@ -33,7 +33,10 @@
     --txt-r2: rgba(var(--resR), var(--resG), var(--resB), calc(var(--resO) * 0.6));
     --txt-r3: rgba(var(--resR), var(--resG), var(--resB), calc(var(--resO) * 0.4));
     --txt-r-off: rgba(var(--resR), var(--resG), var(--resB), calc(var(--resO) * 0.2));
+    --btn: rgba(var(--resR), var(--resG), var(--resB), calc(var(--resO) * 0.3));
+    --btnH: rgba(var(--resR), var(--resG), var(--resB), calc(var(--resO) + 1));
 }
+
 /* ESTRUCTURA GENERAL */
 body {
     margin: 0;
@@ -137,7 +140,6 @@ a {
 }
 
 
-
 /*Botones*/
 
 .menuButton {
@@ -188,6 +190,30 @@ a {
 
 .disabled {
     opacity: .2;
+}
+
+/* Robot :) */
+.msg {
+    position: fixed;
+    width: 25mm;
+    height: 25mm;
+    left: 50%;
+    top: calc(50% - 10mm);
+    transform: translate(-50%, -50%);
+    fill: var(--txt-r1);
+}
+
+.msg p {
+    position: relative;
+    left: 50%;
+    width: 50mm;
+    transform: translate(-50%, -70%);
+    font-family: 'Barlow', sans-serif;
+    font-weight: 700;
+    font-size: 5mm;
+    text-align: center;
+    color: var(--txt-r1);
+    margin-top: 3mm;
 }
 
 /* Alturas de la interfaz */
@@ -245,7 +271,7 @@ a {
     color: var(--txt2);
     font-family: 'Roboto', sans-serif;
     font-weight: 300;
-    margin: 0;
+    margin: 1mm;
 }
 
 .txt3 {
@@ -298,7 +324,30 @@ a {
     font-style: italic;
     font-weight: 300;
     margin: 0;
+}
 
+.webButton {
+    background-color: transparent;
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+    outline: none;
+    font-family: 'Barlow', sans-serif;
+    font-weight: 700;
+    -webkit-transition: all 250ms;
+    -moz-transition: all 250ms;
+    transition: all 250ms;
+    margin: 0;
+    padding: 0;
+}
+
+.webButton input {
+    border: 2px solid var(--btn);
+}
+
+.webButton:hover {
+    background-color: var(--btnH);
+    color: black;
 }
 
 .answerButton {
@@ -312,7 +361,7 @@ a {
     font-family: 'Barlow', sans-serif;
     font-size: 4mm;
     font-weight: 700;
-    /*line-height: 10mm;*/
+    line-height: 10mm;
     color: var(--txt0);
     margin: 0 2vw 0 2vw;
     padding: 1mm;
