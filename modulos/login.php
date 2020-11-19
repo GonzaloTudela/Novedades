@@ -28,7 +28,7 @@ try {
     header("location:../index.php?error=recaptcha");
 }
 // Si la decodificación de la respuesta JSON del api fue SUCCESS...
-// todo ELIMINAR LA CONDICION CHEAT PARA SALTARSE EL VERIFY DE CAPTCHA ANTES DEL DEPLOY FINAL
+// todo ELIMINAR LA CONDICION CHEAT PARA SALTARSE EL VERIFY DE CAPTCHA ANTES DEL DEPLOY FINAL, OJO CON RESET=1.
 if ($reset ===1){
     resetAllSessions();
 }
@@ -120,6 +120,7 @@ if ($responseKeys["success"] || $cheat===1) {
             $resultado_equipos = $stmt_equipos->get_result();
             $equipos = $resultado_equipos->fetch_all(MYSQLI_ASSOC);
             $stmt_equipos->close();
+            $db_operario->close();
 
             // TESTS RESULTADOS DE LAS CONSULTAS
 //            echo '<pre>';
