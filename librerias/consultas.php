@@ -18,7 +18,7 @@ select n.id_usuario,
 from noticias n
 join usuarios u using (id_usuario)
 where n.id_usuario != ?  
-  and ((curdate()>=n.fecha_inicio and curdate()<=n.fecha_fin) or (curdate()>=n.fecha_inicio and n.fecha_fin is null))
+  and (curdate()>=n.fecha_inicio and (curdate()<=n.fecha_fin or fecha_fin is null))
   and n.id_noticia not in (
     select l.id_noticia as noticias_leidas
     from leer l
@@ -50,7 +50,7 @@ select n.id_usuario,
 from noticias n
 join usuarios u using (id_usuario)
 where n.id_usuario != ?  
-  and ((curdate()>=n.fecha_inicio and curdate()<=n.fecha_fin) or (curdate()>=n.fecha_inicio and n.fecha_fin is null))
+  and (curdate()>=n.fecha_inicio and (curdate()<=n.fecha_fin or fecha_fin is null))
   and n.id_noticia not in (
     select l.id_noticia as noticias_leidas
     from leer l
@@ -68,12 +68,13 @@ select n.id_usuario,
        date_format(n.fecha_fin, "%d/%m/%y") as fecha_fin,
        from_unixtime(unix_timestamp(n.timestamp_not), "%d/%m/%y %H:%i") as timestamp_not,
        n.num_version,
+       n.tipo,
        u.nombre,
        u.apellido1
 from noticias n
 join usuarios u using (id_usuario)
 where n.id_usuario != ?  
-  and (curdate()>=n.fecha_inicio and curdate()<=n.fecha_fin)
+  and (curdate()>=n.fecha_inicio and (curdate()<=n.fecha_fin or fecha_fin is null)) and n.tipo=0
   and n.id_noticia not in (
     select l.id_noticia as noticias_leidas
     from leer l
@@ -100,12 +101,13 @@ select n.id_usuario,
        date_format(n.fecha_fin, "%d/%m/%y") as fecha_fin,
        from_unixtime(unix_timestamp(n.timestamp_not), "%d/%m/%y %H:%i") as timestamp_not,
        n.num_version,
+       n.tipo,
        u.nombre,
        u.apellido1
 from noticias n
 join usuarios u using (id_usuario)
 where n.id_usuario != ?  
-  and (curdate()>=n.fecha_inicio and curdate()<=n.fecha_fin)
+  and (curdate()>=n.fecha_inicio and (curdate()<=n.fecha_fin or fecha_fin is null)) and n.tipo=0
   and n.id_noticia not in (
     select l.id_noticia as noticias_leidas
     from leer l
@@ -123,12 +125,13 @@ select n.id_usuario,
        date_format(n.fecha_fin, "%d/%m/%y") as fecha_fin,
        from_unixtime(unix_timestamp(n.timestamp_not), "%d/%m/%y %H:%i") as timestamp_not,
        n.num_version,
+       n.tipo,
        u.nombre,
        u.apellido1
 from noticias n
 join usuarios u using (id_usuario)
 where n.id_usuario != ?  
-  and (curdate()>=n.fecha_inicio and n.fecha_fin is null)
+  and (curdate()>=n.fecha_inicio and (curdate()<=n.fecha_fin or fecha_fin is null)) and n.tipo=1
   and n.id_noticia not in (
     select l.id_noticia as noticias_leidas
     from leer l
@@ -155,18 +158,18 @@ select n.id_usuario,
        date_format(n.fecha_fin, "%d/%m/%y") as fecha_fin,
        from_unixtime(unix_timestamp(n.timestamp_not), "%d/%m/%y %H:%i") as timestamp_not,
        n.num_version,
+       n.tipo,
        u.nombre,
        u.apellido1
 from noticias n
-join usuarios u using (id_usuario)
-where n.id_usuario != ?  
-  and (curdate()>=n.fecha_inicio and n.fecha_fin is null)
+         join usuarios u using (id_usuario)
+where n.id_usuario != ?
+  and (curdate()>=n.fecha_inicio and (curdate()<=n.fecha_fin or fecha_fin is null)) and n.tipo=1
   and n.id_noticia not in (
     select l.id_noticia as noticias_leidas
     from leer l
     where id_usuario = ?)';
 
-// Consulta de todos los datos de la consulta
-$sql_leer = '
-
-';
+// INSERT PARA LEER LA NOTICIA
+$sql_leer = 'insert into leer (id_usuario, id_noticia) values (?,?)';
+$sql_finalizar= 'update noticias set fecha_fin=date_sub(curdate(), interval 1 day) where id_noticia=?';
