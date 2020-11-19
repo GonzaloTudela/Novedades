@@ -1,0 +1,93 @@
+@import "general-look.css";
+@import "general-effects.css";
+
+* {
+    box-sizing: border-box; /* El tamaño tiene en cuenta los margenes */
+}
+
+*::-webkit-scrollbar {
+    display: none;
+}
+
+.mainGrid {
+    display: grid;
+    width: 100%;
+    height: 100%;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: minmax(10mm, auto) minmax(10mm, auto) 1fr minmax(10mm, auto) minmax(10mm, auto) minmax(10mm, auto);
+    grid-template-areas:
+    "titulo titulo"
+    "fechaini fechafin"
+    "contenido contenido"
+    "autor autor"
+    "noleer leer"
+    "actualizar caduca";
+    grid-gap: 4px;
+    border-radius: 8px;
+}
+
+.center {
+    align-items: center;
+    justify-content: center;
+    /*flex-direction: column;*/
+}
+
+.left {
+    align-items: center;
+    justify-content: left;
+}
+
+.right {
+    align-items: center;
+    justify-content: right;
+}
+
+.justified {
+    align-items: stretch;
+    justify-content: stretch;
+}
+
+.titulo {
+    display: flex;
+    grid-area: titulo;
+}
+
+.fechaini {
+    display: flex;
+    grid-area: fechaini;
+}
+
+.fechafin {
+    display: flex;
+    grid-area: fechafin;
+}
+
+.contenido {
+    display: flex;
+    grid-area: contenido;
+}
+
+.autor {
+    display: flex;
+    grid-area: autor;
+}
+
+.noleer {
+    display: flex;
+    grid-area: noleer;
+}
+
+.leer {
+    display: flex;
+    grid-area: leer;
+}
+
+.actualizar {
+    display: flex;
+    grid-area: actualizar;
+}
+
+.caduca {
+    display: flex;
+    grid-area: caduca;
+}
