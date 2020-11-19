@@ -2,8 +2,12 @@
 require_once('../librerias/menu.php');
 require_once('../librerias/consultas.php');
 require_once('../librerias/funcionesPHP.php');
+header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+header("Cache-Control: post-check=0, pre-check=0", false);
+header("Pragma: no-cache");
 //debugFor("79.152.7.228");
 //<editor-fold desc="Variables y lógica de session.">
+// DATOS RECOGIDOS EN LOGIN.
 session_start();
 if (isset($_SESSION['id_usuario'], $_SESSION['nombre'], $_SESSION['apellido1'], $_SESSION['apellido2'],
     $_SESSION['estado_usu'], $_SESSION['$empresas'])) {
@@ -17,7 +21,7 @@ if (isset($_SESSION['id_usuario'], $_SESSION['nombre'], $_SESSION['apellido1'], 
     $equipos = $_SESSION['$equipos'];
 } else {
     session_destroy();
-    $_SESSION[]=array();
+    $_SESSION[] = array();
     header("location:../index.php");
 }
 //</editor-fold>
@@ -47,8 +51,8 @@ $stmt_novedades->execute();
 $res_novedades = $stmt_novedades->get_result();
 $novedades = $res_novedades->fetch_all(MYSQLI_ASSOC);
 $stmt_novedades->close();
+$_SESSION['novedades'] = $novedades;
 //</editor-fold>
-
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -64,25 +68,24 @@ $stmt_novedades->close();
     <script type="text/javascript" src="../librerias/funcionesJS.js" async></script>
 </head>
 <body id="root">
-    <header class="sombra0">
-        <h1 class="txt0 fs0" style="color:var(--txt-r1)"><?php echo $nombre?>! tus NOVEDADES v.01</h1>
-    </header>
-    <main class="altura0">
-        <div class="noticiaGrid altura0">
-            <?php
-            escribeNovedades($novedades);
-            ?>
-        </div>
-        <div id="error_container altura5"></div>
-    </main>
-    <footer id="mainMenu" class="sombra0f">
+<header class="sombra0">
+    <h1 class="txt0 fs0" style="color:var(--txt-r1)">NOVEDADES</h1>
+</header>
+<main class="altura0">
+    <div class="mainGrid altura0">
         <?php
-        printMenu();
+        escribeNovedades($novedades);
         ?>
-    </footer>
+    </div>
+    <div id="error_container" class="altura1"></div>
+</main>
+<footer id="mainMenu" class="sombra0f">
+    <?php
+    printMenu();
+    ?>
+</footer>
 </body>
 </html>
 <script>
     botonSalir();
-    let noticia
 </script>
