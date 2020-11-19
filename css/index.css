@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;700&family=Roboto:ital,wght@0,300;0,400;0,700;1,400&display=swap');
 @import "general-effects.css";
+
 :root {
     --rojo: rgb(220, 0, 27);
     --rojo-claro: rgb(237, 128, 141);
@@ -38,13 +39,6 @@
     animation-fill-mode: forwards;
 }
 
-@media (max-height: 300px) {
-    .g-recaptcha {
-        opacity: .2;
-        /*display: none;*/
-    }
-}
-
 #fondo {
     position: fixed;
     top: 50%;
@@ -78,7 +72,6 @@
     left: 50%;
     transform: translate(-50%, -50%);
 }
-
 
 
 form {
@@ -178,4 +171,10 @@ button:hover {
     left: calc(50% - 175px);
     top: calc(50% - 240px);
     background-color: dimgray;
+}
+
+@media (max-height: 514px) {
+    .g-recaptcha {
+        display: none;
+    }
 }
