@@ -1,12 +1,12 @@
 <?php
-require_once('../librerias/menu.php');
 require_once('../librerias/consultas.php');
 require_once('../librerias/funcionesPHP.php');
 //debugFor("79.152.7.228");
 
-//<editor-fold desc="Variables y lógica de session.">
 session_start();
-// DATOS RECOGIDOS EN LOGIN.
+
+//<editor-fold desc="RECOGIDA VARIABLES DE SESSION TRAS LOGIN">
+// DATOS RECOGIDOS EN LOGIN - SI NO ESTÁN, ACCESO NO AUTENTIFICADO -> LOGIN.PHP.
 if (isset($_SESSION['id_usuario'], $_SESSION['nombre'], $_SESSION['apellido1'], $_SESSION['apellido2'],
     $_SESSION['estado_usu'], $_SESSION['$empresas'])) {
     $id_usuario = $_SESSION['id_usuario'];
@@ -20,11 +20,11 @@ if (isset($_SESSION['id_usuario'], $_SESSION['nombre'], $_SESSION['apellido1'], 
 } else {
     session_destroy();
     $_SESSION[] = array();
-    header("location:../index.php");
+    header("location:login.php");
 }
 //</editor-fold>
 
-//<editor-fold desc="Conexion BD y recuperacion">
+//<editor-fold desc="CONEXIÓN BD Y CONSULTA DE NORMAS">
 $db_operario = new mysqli('hl793.dinaserver.com', 'gonza_currito', 'NovedadesCurrito!',
     'gonza_novedades');
 $db_operario->set_charset('utf8mb4');
@@ -49,8 +49,13 @@ $stmt_normas->execute();
 $res_novedades = $stmt_normas->get_result();
 $normas = $res_novedades->fetch_all(MYSQLI_ASSOC);
 $stmt_normas->close();
-$_SESSION['normas'] = $normas;
+$db_operario->close();
 //</editor-fold>
+
+// AÑADIRMOS A SESSION LAS NORMAS;
+$_SESSION['normas'] = $normas;
+$_SESSION['webOrigen']='normas';
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -63,7 +68,7 @@ $_SESSION['normas'] = $normas;
     <link rel="icon" href="../img/favicon.png">
     <link rel="stylesheet" href="../css/novedades.css">
     <link rel="stylesheet" href="../css/general-queries.css">
-    <script type="text/javascript" src="../librerias/funcionesJS.js" async></script>
+    <script type="text/javascript" src="../librerias/funcionesJS.js"></script>
 </head>
 <body id="root">
 <header class="sombra0">
