@@ -2,7 +2,7 @@
 require_once "../librerias/funcionesPHP.php";
 //debugFor("79.152.7.228");
 $cheat = 1;
-$reset = 1;
+$reset = 0;
 // IMPLEMENTACION RECHAPTCHAv2
 $captcha = null;
 $responseKeys = null;
