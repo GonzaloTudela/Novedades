@@ -11,13 +11,13 @@ function printMenu()
     $iconAccount = '../img/account.svg';
     $iconQuit = '../img/exit.svg';
     // Links del boton.
-    $webAdd = ' ';
-    $webSearch = ' ';
-    $webNews = ' ';
-    $webRules = ' ';
-    $webOffice = ' ';
-    $webAccount = ' ';
-    $webQuit = ' ';
+    $webAdd = '';
+    $webSearch = '';
+    $webNews = '../modulos/novedades.php';
+    $webRules = '../modulos/normas.php';
+    $webOffice = '';
+    $webAccount = '';
+    $webQuit = '';
     // Array menu estandard, id, icono, link, texto.
     $menu = array(
         0 => array('add', $iconAdd, $webAdd, 'Nueva'),
@@ -46,25 +46,29 @@ function printMenu()
         foreach ($menu as $item) {
             $id = $item[0];
             $icon = $item[1];
-//          $web=$item[2];
-//          $texto=$item[3];
+            $web = $item[2];
+//            $texto = $item[3];
             echo '<button id="' . $id . '" class="menuButton ">';
-//            echo '<a href="'. $web .'"><button id="' . $id . '" class="button ">';
+            echo '<a href="' . $web . '">';
+//            echo $texto;
             echo file_get_contents($icon);
-//            echo '<p class="hint">$id</p>';
+            echo '</a>';
+//            echo '<p class="hint">' . $texto . '</p>';
             echo '</button>';
 //            echo '</button></a>';
         }
-    } elseif
-    ($nivel === 999) {
+    }
+    if ($nivel === 999) {
         foreach ($menuAdmin as $item) {
             $id = $item[0];
             $icon = $item[1];
-//          $web=$item[2];
-//          $texto=$item[3];
+            $web = $item[2];
+//            $texto = $item[3];
             echo '<button id="' . $id . '" class="menuButton ">';
-//            echo '<a href="'. $web .'"><button id="' . $id . '" class="button ">';
+            echo '<a href="' . $web . '">';
+//            echo $texto;
             echo file_get_contents($icon);
+            echo '</a>';
 //            echo '<p class="hint">' . $texto . '</p>';
             echo '</button>';
 //            echo '</button></a>';
