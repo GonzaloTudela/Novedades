@@ -34,6 +34,62 @@
     --txt-r3: rgba(var(--resR), var(--resG), var(--resB), calc(var(--resO) * 0.4));
     --txt-r-off: rgba(var(--resR), var(--resG), var(--resB), calc(var(--resO) * 0.2));
 }
+/* ESTRUCTURA GENERAL */
+body {
+    margin: 0;
+    background-color: var(--00dp);
+}
+
+header {
+    z-index: 100;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 10mm;
+    width: 100%;
+    background-color: var(--barras);
+    text-align: center;
+    padding: 1mm;
+}
+
+main {
+    position: fixed;
+    z-index: 0;
+    top: 10mm;
+    bottom: 10mm;
+    width: 100%;
+    overflow: auto;
+    padding: 4px;
+}
+
+footer {
+    z-index: 100;
+    position: fixed;
+    bottom: 0;
+    height: 10mm;
+    width: 100%;
+    background-color: var(--barras);
+    text-align: center;
+    padding: 1mm;
+}
+
+#error_container {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50%;
+    height: 50%;
+    background-color: white;
+}
+
+a {
+    display: inline-block;
+    /*background-color: red;*/
+    /*display: none;*/
+}
+
 /*TAMAÑOS DE TEXTO*/
 .fs0 {
     font-size: 6mm;
@@ -141,22 +197,32 @@
 
 .altura1 {
     background-color: var(--01dp);
+    border-radius: 8px;
+    padding: 1mm;
 }
 
 .altura2 {
     background-color: var(--02dp);
+    border-radius: 8px;
+    padding: 1mm;
 }
 
 .altura3 {
     background-color: var(--03dp);
+    border-radius: 8px;
+    padding: 1mm;
 }
 
 .altura4 {
     background-color: var(--04dp);
+    border-radius: 8px;
+    padding: 1mm;
 }
 
 .altura5 {
     background-color: var(--05dp);
+    border-radius: 8px;
+    padding: 1mm;
 }
 
 /*Tipos de texto*/
