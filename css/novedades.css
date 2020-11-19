@@ -119,26 +119,3 @@ footer {
     text-align: center;
     margin: 0;
 }
-
-/* Imagenes */
-.msg {
-    position: fixed;
-    width: 25mm;
-    height: 25mm;
-    left: 50%;
-    top: calc(50% - 10mm);
-    transform: translate(-50%, -50%);
-    fill: var(--txt3);
-}
-
-.msg p {
-    position: relative;
-    left: 50%;
-    width: 50mm;
-    transform: translate(-50%, -70%);
-    font-family: 'Barlow', sans-serif;
-    font-weight: 700;
-    font-size: 5mm;
-    text-align: center;
-    color: var(--txt3);
-}
