@@ -40,7 +40,7 @@ main {
     bottom: 10mm;
     /*left: 3mm;*/
     /*right: 3mm;*/
-    /*width: 100%;*/
+    width: 100%;
     overflow: auto;
     padding: 4px;
     -webkit-transition: all 250ms;
@@ -62,7 +62,7 @@ footer {
     transition: all 250ms;
 }
 
-.noticiaGrid {
+.mainGrid {
     display: grid;
     grid-template-columns: auto 1fr auto;
     grid-gap: 4px;
@@ -122,7 +122,7 @@ footer {
 
 /* Imagenes */
 .msg {
-    position: absolute;
+    position: fixed;
     width: 25mm;
     height: 25mm;
     left: 50%;
