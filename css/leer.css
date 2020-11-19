@@ -65,6 +65,7 @@
 .contenido {
     display: flex;
     grid-area: contenido;
+    overflow: auto;
 }
 
 .autor {
