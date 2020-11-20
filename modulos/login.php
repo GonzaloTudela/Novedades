@@ -1,15 +1,17 @@
 <?php
 require_once "../librerias/funcionesPHP.php";
+require_once "../librerias/consultas.php";
 //debugFor("79.152.7.228");
 $cheat = 1;
 $reset = 0;
-// IMPLEMENTACION RECHAPTCHAv2
+//region PREPARACIÓN reCAPTCHAv2
 $captcha = null;
 $responseKeys = null;
 if (isset($_POST['g-recaptcha-response'])) {
     $captcha = $_POST['g-recaptcha-response'];
 } else {
     header("location:../index.php?error=recaptcha");
+    die();
 }
 // Clave correspondiente a la configuración de reCaptcha en google.
 $secretKey = "6LciBd8ZAAAAAKBw1fbLuK4vV8SkSJxwgMaBSLEJ";
@@ -26,128 +28,134 @@ try {
     $responseKeys = json_decode($response, true, 512, JSON_THROW_ON_ERROR);
 } catch (JsonException $e) {
     header("location:../index.php?error=recaptcha");
+    die();
 }
+//endregion
+
 // Si la decodificación de la respuesta JSON del api fue SUCCESS...
 // todo ELIMINAR LA CONDICION CHEAT PARA SALTARSE EL VERIFY DE CAPTCHA ANTES DEL DEPLOY FINAL, OJO CON RESET=1.
-if ($reset ===1){
+if ($reset === 1) {
     resetAllSessions();
 }
-if ($responseKeys["success"] || $cheat===1) {
+
+// SI RECAPTCHA ES SUCCESS O CHEAT === 1 ENTRAMOS.
+if ($responseKeys["success"] || $cheat === 1) {
 //if ($cheat === 1) {
-    // Si recibimos login y pass...
+    // COMPROBACIÓN DE POST LOGIN Y PASS -- MEJOR EMPEZAR SI NO SE CUMPLE (MEJORA FUTURA).
     if (isset($_POST["login"], $_POST["pass"]) && ($_POST["login"] !== "" && $_POST["pass"] !== "")) {
         $raw_login = ($_POST['login']);
         $raw_pass = ($_POST['pass']);
-        // Creamos la conexión.
+
+        // CONFIGURACIÓN MYSQLi
         $db_operario = new mysqli('hl793.dinaserver.com', 'gonza_currito', 'NovedadesCurrito!',
             'gonza_novedades');
         $db_operario->set_charset('utf8mb4');
-        // Comprobamos si hay error de conexión.
+
+        // SI HUBO ERROR EN LA CONEXIÓN SALIMOS
         if (mysqli_connect_errno()) {
             header("location:../index.php?error=mysql");
+            exit();
         }
 
-        // LIMPIAMOS LOGIN Y PASS POR SI MAS ADELANTE NO UTLIZAMOS SENTENCIAS PREPARADAS CON LA BASE DE DATOS.
+        // LIMPIAMOS LOGIN Y PASS.
         $login = $db_operario->real_escape_string($raw_login);
         $pass = $db_operario->real_escape_string($raw_pass);
 
-        // DEFINICIÓN DE LAS CONSULTAS SQL
-        // Buscamos el password del usuario (hash).
-        $sql_login = "select password from usuarios where usuario=?";
+        // CONSULTA DEL PASSWORD HASHEADO DEL USUARIO
+        if (isset($sql_login)){
+            $stmt_login = $db_operario->prepare($sql_login);
+            if ($stmt_login===false) {
+                header("location:../index.php?error=login");
+                exit();
+            }
+            $stmt_login->bind_param('s', $login);
+            $stmt_login->execute();
+            $stmt_login->bind_result($hash);
+            $stmt_login->fetch();
+            $stmt_login->close();
+        }
 
-        // SQL PARA OBTENER LOS DATOS DEL USUARIO SI SU ESTADO 1 (ALTA)
-        $sql_info = "select u.id_usuario,c.nivel,u.nombre,u.apellido1,u.apellido2,t.estado_usu from usuarios u
-                    left join categorias c on u.id_categoria = c.id_categoria
-                    left join trabajar t on u.id_usuario = t.id_usuario
-                    left join empresas e on t.id_empresa = e.id_empresa
-                    where usuario = ?";
-
-        // SQL PARA OBTENER LAS EMPRESAS DEL USUARIO CON ESTADO 1 (ALTA)
-        $sql_empresas = "select nombre_emp, estado_emp,e.id_empresa from usuarios u
-                    left join trabajar t on u.id_usuario = t.id_usuario
-                    left join empresas e on t.id_empresa = e.id_empresa
-                    where usuario = ? and estado_emp=1";
-
-        // SQL PARA OBTENER LOS EQUIPOS QUE PERTENECE EL USUARIO
-        $sql_equipos = "select e.nombre_equ,e.id_equipo from usuarios u
-                    left join formar f on u.id_usuario = f.id_usuario
-                    left join equipos e on f.id_equipo = e.id_equipo
-                    where usuario = ?";
-
-        // CONSULTA DEL PASSWORD HASH DEL USUARIO
-        $stmt_login = $db_operario->prepare($sql_login);
-        $stmt_login->bind_param('s', $login);
-        $stmt_login->execute();
-        $stmt_login->bind_result($hash);
-        $stmt_login->fetch();
-        $stmt_login->close();
-
-        // Verificación de la pass introducida contra el password hash en la BD.
+        // VERIFICACION DE LA PASS CONTRA EL HASH ALMACENADO (SOLO ARGON2I O ARGON2ID)
         if (password_verify($pass, $hash)) {
 
             // CONSULTA DE DATOS DEL USUARIO
-            $stmt_info = $db_operario->prepare($sql_info);
-            $stmt_info->bind_param('s', $login);
-            $stmt_info->execute();
-            $stmt_info->bind_result($id_usuario, $nivel, $nombre, $apellido1, $apellido2, $estado_usu);
-            $resultado_info = $stmt_info->fetch();
-            $stmt_info->close();
-
-            if ($estado_usu === 0) {
-                $db_operario->close();
-                header("location:../index.php?error=ubaja");
+            if (isset($sql_info)) {
+                $stmt_info = $db_operario->prepare($sql_info);
+                if ($stmt_info === false) {
+                    $db_operario->close();
+                    header("location:../index.php?error=ubaja");
+                    exit();
+                }
+                // NO ELSE POR EL EXIT ANTERIOR.
+                $stmt_info->bind_param('s', $login);
+                $stmt_info->execute();
+                $stmt_info->bind_result($id_usuario, $nivel, $nombre, $apellido1, $apellido2, $estado_usu);
+                $resultado_info = $stmt_info->fetch();
+                $stmt_info->close();
             }
 
             // EMPRESAS ACTIVAS A LAS QUE PERTENECE EL USUARIO
             // mysqli_prepare() returns a statement object or FALSE if an error occurred.
-            $stmt_empresas = $db_operario->prepare($sql_empresas);
-            $stmt_empresas->bind_param('s', $login);
-            $stmt_empresas->execute();
-            $resultado_empresas = $stmt_empresas->get_result();
-            $empresas = $resultado_empresas->fetch_all(MYSQLI_ASSOC);
-            $stmt_empresas->close();
-
-            if (!$empresas) {
-                $db_operario->close();
-                header("location:../index.php?error=ebaja");
+            if (isset($sql_empresas)) {
+                $stmt_empresas = $db_operario->prepare($sql_empresas);
+                if ($stmt_empresas === false) {
+                    $db_operario->close();
+                    header("location:../index.php?error=ebaja");
+                    exit();
+                }
+                // NO ELSE POR EL EXIT ANTERIOR.
+                $stmt_empresas->bind_param('s', $login);
+                $stmt_empresas->execute();
+                $resultado_empresas = $stmt_empresas->get_result();
+                $empresas = $resultado_empresas->fetch_all(MYSQLI_ASSOC);
+                $stmt_empresas->close();
             }
 
             // EQUIPOS A LOS QUE PERTENECE EL USUARIO
-            $stmt_equipos = $db_operario->prepare($sql_equipos);
-            $stmt_equipos->bind_param('s', $login);
-            $stmt_equipos->execute();
-            $stmt_equipos->bind_result($nombre_equ, $id_equipo);
-            $resultado_equipos = $stmt_equipos->get_result();
-            $equipos = $resultado_equipos->fetch_all(MYSQLI_ASSOC);
-            $stmt_equipos->close();
-            $db_operario->close();
+            if (isset($sql_equipos)) {
+                $stmt_equipos = $db_operario->prepare($sql_equipos);
+                if ($stmt_equipos === false) {
+                    $db_operario->close();
+                    header("location:../index.php?error=equipo");
+                    exit();
+                }
+                // NO ELSE POR EL EXIT ANTERIOR.
+                $stmt_equipos->bind_param('s', $login);
+                $stmt_equipos->execute();
+                $stmt_equipos->bind_result($nombre_equ, $id_equipo);
+                $resultado_equipos = $stmt_equipos->get_result();
+                $equipos = $resultado_equipos->fetch_all(MYSQLI_ASSOC);
+                $stmt_equipos->close();
+                $db_operario->close();
+            }
 
-            // TESTS RESULTADOS DE LAS CONSULTAS
-//            echo '<pre>';
-//            print('$id_usuario: ' . $id_usuario);
-//            print(' $nivel: ' . $nivel);
-//            print(' $nombre: ' . $nombre);
-//            print(' $apellido1: ' . $apellido1);
-//            print(' $apellido2: ' . $apellido2);
-//            print(' $estado_usu: ' . $estado_usu);
-//            echo('<br>');
-//            echo('<br>');
-//            print 'Numero de empresas del usuario: ' . count($empresas) . '<br>';
-//            foreach ($empresas as $keyEmpresa) {
-//                foreach ($keyEmpresa as $nomEmp => $valNomEmp) {
-//                    echo "$nomEmp: $valNomEmp\t<br>";
-//                }
-//            }
-//            echo '<br>';
-//            echo '<br>';
-//            print 'Numero de equipos del usuario: ' . count($equipos) . '<br>';
-//            foreach ($equipos as $keyEquipo) {
-//                foreach ($keyEquipo as $nomEquipo => $valNomEquipo) {
-//                    echo "$nomEquipo: $valNomEquipo\t<br>";
-//                }
-//            }
-//            echo '</pre>';
-//            echo 'ok';
+            //region TESTS RESULTADOS DE LAS CONSULTAS
+            echo '<pre>';
+            print('$id_usuario: ' . $id_usuario);
+            print(' $nivel: ' . $nivel);
+            print(' $nombre: ' . $nombre);
+            print(' $apellido1: ' . $apellido1);
+            print(' $apellido2: ' . $apellido2);
+            print(' $estado_usu: ' . $estado_usu);
+            echo('<br>');
+            echo('<br>');
+            print 'Numero de empresas del usuario: ' . count($empresas) . '<br>';
+            foreach ($empresas as $keyEmpresa) {
+                foreach ($keyEmpresa as $nomEmp => $valNomEmp) {
+                    echo "$nomEmp: $valNomEmp\t<br>";
+                }
+            }
+            echo '<br>';
+            echo '<br>';
+            print 'Numero de equipos del usuario: ' . count($equipos) . '<br>';
+            foreach ($equipos as $keyEquipo) {
+                foreach ($keyEquipo as $nomEquipo => $valNomEquipo) {
+                    echo "$nomEquipo: $valNomEquipo\t<br>";
+                }
+            }
+            echo '</pre>';
+            echo 'ok';
+            //endregion
 
             // INICIAMOS LA SESION
             session_start();
@@ -160,17 +168,16 @@ if ($responseKeys["success"] || $cheat===1) {
             $_SESSION['$empresas'] = $empresas;
             $_SESSION['$equipos'] = $equipos;
             header("location:./novedades.php");
-
-        } else {
-            // Usuario o contraseña incorrectos.
-            header("location:../index.php?error=login");
+            exit();
         }
-
-    } else {
-//         POST login y pass vacios.
-        header("location:../index.php?error=datos");
+        // LOS HASH NO COINCIDEN -> ERROR GENERICO. (no else por el exit)
+        header("location:../index.php?error=login");
+        exit();
     }
-} else {
-//     Captcha incorrecto
-    header("location:../index.php?error=spam");
+    // NO SE INTRODUJO LOGIN Y/O PASS (no else por el exit)
+    header("location:../index.php?error=datos");
+    exit();
 }
+// reCAPTCHA NO SUPERADO (no else por el exit)
+header("location:../index.php?error=spam");
+exit();
