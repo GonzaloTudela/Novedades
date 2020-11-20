@@ -64,6 +64,7 @@ if ($responseKeys["success"] || $cheat === 1) {
         // CONSULTA DEL PASSWORD HASHEADO DEL USUARIO
         if (isset($sql_login)){
             $stmt_login = $db_operario->prepare($sql_login);
+            // SI HAY ERRORES EN SENTENCIA SQL
             if ($stmt_login===false) {
                 header("location:../index.php?error=login");
                 exit();
@@ -71,7 +72,13 @@ if ($responseKeys["success"] || $cheat === 1) {
             $stmt_login->bind_param('s', $login);
             $stmt_login->execute();
             $stmt_login->bind_result($hash);
-            $stmt_login->fetch();
+            $resultado_login = $stmt_login->fetch();
+            if ($resultado_login === null) {
+                $stmt_login->close();
+                $db_operario->close();
+                header("location:../index.php?error=login");
+                exit();
+            }
             $stmt_login->close();
         }
 
@@ -81,6 +88,7 @@ if ($responseKeys["success"] || $cheat === 1) {
             // CONSULTA DE DATOS DEL USUARIO
             if (isset($sql_info)) {
                 $stmt_info = $db_operario->prepare($sql_info);
+                // SI HAY ERRORES EN SENTENCIA SQL
                 if ($stmt_info === false) {
                     $db_operario->close();
                     header("location:../index.php?error=ubaja");
@@ -91,6 +99,13 @@ if ($responseKeys["success"] || $cheat === 1) {
                 $stmt_info->execute();
                 $stmt_info->bind_result($id_usuario, $nivel, $nombre, $apellido1, $apellido2, $estado_usu);
                 $resultado_info = $stmt_info->fetch();
+                // SI EL USUARIO YA NO EXISTE (RESULTADO NULL) -> SALIR
+                if ($resultado_info === null) {
+                    $stmt_info->close();
+                    $db_operario->close();
+                    header("location:../index.php?error=ubaja");
+                    exit();
+                }
                 $stmt_info->close();
             }
 
@@ -107,6 +122,13 @@ if ($responseKeys["success"] || $cheat === 1) {
                 $stmt_empresas->bind_param('s', $login);
                 $stmt_empresas->execute();
                 $resultado_empresas = $stmt_empresas->get_result();
+                // SI NO PERTENECE A NINGUNA EMPRESA ACTIVA -> SALIR
+                if ($resultado_empresas->num_rows===0){
+                    $stmt_empresas->close();
+                    $db_operario->close();
+                    header("location:../index.php?error=ebaja");
+                    exit();
+                }
                 $empresas = $resultado_empresas->fetch_all(MYSQLI_ASSOC);
                 $stmt_empresas->close();
             }
@@ -124,37 +146,44 @@ if ($responseKeys["success"] || $cheat === 1) {
                 $stmt_equipos->execute();
                 $stmt_equipos->bind_result($nombre_equ, $id_equipo);
                 $resultado_equipos = $stmt_equipos->get_result();
+                // SI NO PERTENECE A NINGUN EQUIPO -> SALIR
+                if ($resultado_equipos->num_rows===0){
+                    $stmt_equipos->close();
+                    $db_operario->close();
+                    header("location:../index.php?error=equipo");
+                    exit();
+                }
                 $equipos = $resultado_equipos->fetch_all(MYSQLI_ASSOC);
                 $stmt_equipos->close();
                 $db_operario->close();
             }
 
             //region TESTS RESULTADOS DE LAS CONSULTAS
-            echo '<pre>';
-            print('$id_usuario: ' . $id_usuario);
-            print(' $nivel: ' . $nivel);
-            print(' $nombre: ' . $nombre);
-            print(' $apellido1: ' . $apellido1);
-            print(' $apellido2: ' . $apellido2);
-            print(' $estado_usu: ' . $estado_usu);
-            echo('<br>');
-            echo('<br>');
-            print 'Numero de empresas del usuario: ' . count($empresas) . '<br>';
-            foreach ($empresas as $keyEmpresa) {
-                foreach ($keyEmpresa as $nomEmp => $valNomEmp) {
-                    echo "$nomEmp: $valNomEmp\t<br>";
-                }
-            }
-            echo '<br>';
-            echo '<br>';
-            print 'Numero de equipos del usuario: ' . count($equipos) . '<br>';
-            foreach ($equipos as $keyEquipo) {
-                foreach ($keyEquipo as $nomEquipo => $valNomEquipo) {
-                    echo "$nomEquipo: $valNomEquipo\t<br>";
-                }
-            }
-            echo '</pre>';
-            echo 'ok';
+//            echo '<pre>';
+//            print('$id_usuario: ' . $id_usuario);
+//            print(' $nivel: ' . $nivel);
+//            print(' $nombre: ' . $nombre);
+//            print(' $apellido1: ' . $apellido1);
+//            print(' $apellido2: ' . $apellido2);
+//            print(' $estado_usu: ' . $estado_usu);
+//            echo('<br>');
+//            echo('<br>');
+//            print 'Numero de empresas del usuario: ' . count($empresas) . '<br>';
+//            foreach ($empresas as $keyEmpresa) {
+//                foreach ($keyEmpresa as $nomEmp => $valNomEmp) {
+//                    echo "$nomEmp: $valNomEmp\t<br>";
+//                }
+//            }
+//            echo '<br>';
+//            echo '<br>';
+//            print 'Numero de equipos del usuario: ' . count($equipos) . '<br>';
+//            foreach ($equipos as $keyEquipo) {
+//                foreach ($keyEquipo as $nomEquipo => $valNomEquipo) {
+//                    echo "$nomEquipo: $valNomEquipo\t<br>";
+//                }
+//            }
+//            echo '</pre>';
+//            echo 'ok';
             //endregion
 
             // INICIAMOS LA SESION
