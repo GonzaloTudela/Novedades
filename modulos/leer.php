@@ -5,7 +5,7 @@ require_once('../librerias/funcionesPHP.php');
 
 session_start();
 
-//<editor-fold desc="RECOGIDA VARIABLES DE SESSION TRAS LOGIN">
+//region RECOGIDA VARIABLES DE SESSION TRAS LOGIN
 // DATOS RECOGIDOS EN LOGIN - SI NO ESTÁN, ACCESO NO AUTENTIFICADO -> LOGIN.PHP.
 if (isset($_SESSION['id_usuario'], $_SESSION['nombre'], $_SESSION['apellido1'], $_SESSION['apellido2'],
     $_SESSION['estado_usu'], $_SESSION['$empresas'])) {
@@ -22,9 +22,9 @@ if (isset($_SESSION['id_usuario'], $_SESSION['nombre'], $_SESSION['apellido1'], 
     $_SESSION[] = array();
     header("location:login.php");
 }
-//</editor-fold>
+//endregion
 
-//<editor-fold desc="RECOGIDA VARIABLES ** POST o SESSION ** TRAS ELEGIR NOTICIA">
+//region RECOGIDA VARIABLES ** POST o SESSION ** TRAS ELEGIR NOTICIA
 // SI VENIMOS DE HACER CLICK EN UN TITULO EN NOVEDADES O NORMAS, POST TENDRA ID_NOTICIAS Y LO RECOJO,
 // EN CASO CONTRARIO ES QUE VENIMOS DE OTRO LUGAR Y RECUPERAMOS LA ULTIMA NOTICIA VISITADA EN LEER.
 if (isset($_POST['id_noticia'])) {
@@ -33,9 +33,9 @@ if (isset($_POST['id_noticia'])) {
 } elseif (isset($_SESSION['id_noticia_ultima'])) {
     $id_noticia = $_SESSION['id_noticia_ultima'];
 }
-//</editor-fold>
+//endregion
 
-//<editor-fold desc="RECOGIDA VARIABLES SESSION DE NOVEDADES Y NORMAS.">
+//region RECOGIDA VARIABLES SESSION DE NOVEDADES Y NORMAS
 // Recuperamos de SESSION las noticias de Novedades y Normas, las unimos en un único array ordenado.
 if (isset($_SESSION['novedades'])) {
     $novedades = $_SESSION['novedades'];
@@ -43,25 +43,19 @@ if (isset($_SESSION['novedades'])) {
         $noticias[$item['id_noticia']] = $item;
     }
 }
-if (isset($_SESSION['normas'])) {
-    $normas = $_SESSION['normas'];
+if (isset($_SESSION['activas'])) {
+    $normas = $_SESSION['activas'];
     foreach ($normas as $item) {
         $noticias[$item['id_noticia']] = $item;
     }
 }
 ksort($noticias);
-//</editor-fold>
+//endregion
 
+//region FORMATEO DE LOS DATOS PARA HTML
 // RECORTAMOS EL TIMESTAMP Y GUARDAMOS PARA SU USO EN HTML
 $hora = substr($noticias[$id_noticia]['timestamp_not'], -5);
 $fecha = substr($noticias[$id_noticia]['timestamp_not'], 1, 7);
-
-// SI VENIMOS DE NOVEDADES O NORMAS PREPARAMOS URL PARA EL DESTINO DEL BOTON "LEER MAS TARDE"
-if ($_SESSION['webOrigen'] === 'novedades') {
-    $urlTarde = './novedades.php';
-} elseif ($_SESSION['webOrigen'] === 'normas') {
-    $urlTarde = './activas.php';
-}
 
 // PREPARAMOS LA FECHA FIN DEPENDIENDO DE SU VALOR
 if (empty($noticias[$id_noticia]['fecha_fin'])) {
@@ -69,6 +63,53 @@ if (empty($noticias[$id_noticia]['fecha_fin'])) {
 } else {
     $fechaFin = $noticias[$id_noticia]['fecha_fin'];
 }
+//endregion
+
+//region LOGICA PARA SABER CUAL ES LA PAGINA DE ORIGEN.
+// SI VENIMOS DE NOVEDADES O ACTIVAS PREPARAMOS URL PARA EL DESTINO DEL BOTON "LEER MAS TARDE"
+if ($_SESSION['webOrigen'] === 'novedades') {
+    $urlTarde = './novedades.php';
+} elseif ($_SESSION['webOrigen'] === 'activas') {
+    $urlTarde = './activas.php';
+}
+//endregion
+
+//region CONSULTA MSQLi SI HEMOS LEIDO LA NOTICIA QUE ESTAMOS LEYENDO.
+// CONFIGURACIÓN MYSQLi
+$db_operario = new mysqli('hl793.dinaserver.com', 'gonza_currito', 'NovedadesCurrito!',
+    'gonza_novedades');
+$db_operario->set_charset('utf8mb4');
+
+// SI HUBO ERROR EN LA CONEXIÓN SALIMOS
+if (mysqli_connect_errno()) {
+    header("location:../index.php?error=mysql");
+    exit();
+}
+
+// CONSULTA SI HE LEIDO LA NOTICIA
+if (isset($sql_leida)) {
+    $stmt_leida = $db_operario->prepare($sql_leida);
+    // SI HAY ERRORES EN SENTENCIA SQL
+    if ($stmt_leida === false) {
+        $db_operario->close();
+        header("location:../index.php?error=indefinido");
+        exit();
+    }
+    // NO ELSE POR EL EXIT ANTERIOR.
+    $stmt_leida->bind_param('ii', $id_noticia, $id_usuario);
+    $stmt_leida->execute();
+    $stmt_leida->bind_result($id_leida,$id_lector);
+    $resultado_leida = $stmt_leida->fetch();
+    // SI LA NOTICIA SE HA LEIDO EL RESULTADO SERA NULL -> SALIR
+    if ($resultado_leida === null) {
+        $leida = false;
+    } else {
+        $leida = true;
+    }
+    $stmt_leida->close();
+    $db_operario->close();
+}
+//endregion
 
 ?>
 <!DOCTYPE html>
@@ -106,20 +147,52 @@ if (empty($noticias[$id_noticia]['fecha_fin'])) {
             <p class="txt2 fs1"><?= $noticias[$id_noticia]['nombre'] . ' ' . $noticias[$id_noticia]['apellido1'] ?>
                 el <?= $fecha ?> a las <?= $hora ?></p>
         </div>
-        <form class="noleer webButton" action="<?= $urlTarde ?>" method="post">
-            <input type="hidden" name="id_noticia" value="<?=$id_noticia?>">
+        <?PHP
+        //region SI LA NOTICIA ESTA LEIDA MOSTRAR VOLVER
+        if ($leida === true) {
+            echo <<< _HTML
+        <form class="noleer webButton" action="$urlTarde" method="post">
+            <input type="hidden" name="id_noticia" value="$id_noticia">
+            <input type="submit" id="mastarde" class="webButton txt-r2 fs1" value="VOLVER">
+        </form>
+        _HTML;
+        } elseif ($leida === false) {
+            echo <<< _HTML
+        <form class="noleer webButton" action="$urlTarde" method="post">
+            <input type="hidden" name="id_noticia" value="$id_noticia">
             <input type="submit" id="mastarde" class="webButton txt-r2 fs1" value="LEER MAS TARDE">
         </form>
+        _HTML;
+        } else {
+            exit('No supe si la noticia estaba leida!');
+        }
+        //endregion
+
+        //region SI LA NOTICIA ESTA LEIDA MOSTRAR YA LEIDA
+        if ($leida === true) {
+            echo <<< _HTML
+        <form class="leer webButton">
+            <input type="submit" id="leer" class="webButton txt-r-off fs1" value="YA LEÍDA" disabled>
+        </form>
+        _HTML;
+        } elseif ($leida === false) {
+            echo <<< _HTML
         <form class="leer webButton" action="leerLogic.php" method="post">
-            <input type="hidden" name="id_noticia" value="<?=$id_noticia?>">
+            <input type="hidden" name="id_noticia" value="$id_noticia">
             <input type="submit" id="leer" class="webButton txt-r2 fs1" value="CONFIRMAR LECTURA">
         </form>
+        _HTML;
+        } else {
+            exit('No supe si la noticia estaba leida!');
+        }
+        //endregion
+        ?>
         <form class="actualizar webButton" action="actualizarLogic.php" method="post">
-            <input type="hidden" name="id_noticia" value="<?=$id_noticia?>">
+            <input type="hidden" name="id_noticia" value="<?= $id_noticia ?>">
             <input type="submit" id="actualizar" class="webButton txt-r2 fs1" value="ACTUALIZAR">
         </form>
         <form class="caduca webButton" action="finalizarLogic.php" method="post">
-            <input type="hidden" name="id_noticia" value="<?=$id_noticia?>">
+            <input type="hidden" name="id_noticia" value="<?= $id_noticia ?>">
             <input type="submit" id="caduca" class="webButton txt-r2 fs1" value="FINALIZAR NOTICIA">
         </form>
     </div>
