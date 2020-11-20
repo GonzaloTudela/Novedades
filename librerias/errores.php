@@ -61,6 +61,12 @@ function error_get()
                 <script class="killme">killme();</script>
                 _HTML;
                 break;
+            case "indefinido":
+                echo <<< _HTML
+                <p class="error_text">Hubo un error en la aplicación.</p>
+                <script class="killme">killme();</script>
+                _HTML;
+                break;
             default:
                 break;
         }
