@@ -72,7 +72,7 @@ $_SESSION['webOrigen']='normas';
 </head>
 <body id="root">
 <header class="sombra0">
-    <h1 class="txt0 fs0" style="color:var(--txt-r1)">NORMAS</h1>
+    <h1 class="txt0 fs0" style="color:var(--txt-r1)">NOTICIAS VIGENTES</h1>
 </header>
 <main class="altura0">
     <div class="mainGrid altura0">

@@ -56,7 +56,7 @@ if (isset($sql_leer, $sql_finalizar)) {
         if ($origen === 'novedades') {
             header("location:novedades.php");
         } elseif ($origen === 'normas') {
-            header("location:normas.php");
+            header("location:activas.php");
         } else {
             echo 'boom! no tengo ni idea de donde vengo!';
         }

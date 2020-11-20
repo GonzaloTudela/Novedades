@@ -33,13 +33,13 @@ if (mysqli_connect_errno()) {
     header("location:../index.php?error=mysql");
 }
 if ($nivel >= 0 && $nivel <= 998) {
-    if (isset($sql_novedades)) {
-        $stmt_novedades = $db_operario->prepare($sql_novedades);
+    if (isset($sql_noticias)) {
+        $stmt_novedades = $db_operario->prepare($sql_noticias);
     }
     $stmt_novedades->bind_param('iii', $id_usuario, $id_usuario, $id_usuario);
 } elseif ($nivel === 999) {
-    if (isset($sql_novedades_admin)) {
-        $stmt_novedades = $db_operario->prepare($sql_novedades_admin);
+    if (isset($sql_noticias_admin)) {
+        $stmt_novedades = $db_operario->prepare($sql_noticias_admin);
     }
     $stmt_novedades->bind_param('ii', $id_usuario, $id_usuario);
 } else {

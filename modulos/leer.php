@@ -60,7 +60,7 @@ $fecha = substr($noticias[$id_noticia]['timestamp_not'], 1, 7);
 if ($_SESSION['webOrigen'] === 'novedades') {
     $urlTarde = './novedades.php';
 } elseif ($_SESSION['webOrigen'] === 'normas') {
-    $urlTarde = './normas.php';
+    $urlTarde = './activas.php';
 }
 
 // PREPARAMOS LA FECHA FIN DEPENDIENDO DE SU VALOR
@@ -86,7 +86,7 @@ if (empty($noticias[$id_noticia]['fecha_fin'])) {
 </head>
 <body id="root">
 <header class="sombra0">
-    <h1 class="txt0 fs0" style="color:var(--txt-r1)">LEER</h1>
+    <h1 class="txt0 fs0" style="color:var(--txt-r1)">DATOS DE LA NOTICIA</h1>
 </header>
 <main class="altura0">
     <div class="mainGrid altura0">
@@ -94,10 +94,10 @@ if (empty($noticias[$id_noticia]['fecha_fin'])) {
             <p class="txt1 fs1" style="text-align: center"><?= $noticias[$id_noticia]['titulo'] ?></p>
         </div>
         <div class="fechaini center altura1">
-            <p class="txt1 fs1"><?= $noticias[$id_noticia]['fecha_inicio'] ?></p>
+            <p class="txt1 fs1"><span class="txt2">Comenzó el:</span> <?= $noticias[$id_noticia]['fecha_inicio'] ?></p>
         </div>
         <div class="fechafin center altura1">
-            <p class="txt1 fs1 "><?= $fechaFin ?></p>
+            <p class="txt1 fs1 "><span class="txt2">Finalizará el:</span> <?= $fechaFin ?></p>
         </div>
         <div class="contenido justified altura1">
             <p class="txt2 fs1" style="white-space: pre-wrap"><?= $noticias[$id_noticia]['cuerpo'] ?></p>
