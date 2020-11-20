@@ -1,0 +1,127 @@
+@import "general-look.css";
+@import "general-effects.css";
+
+* {
+    box-sizing: border-box; /* El tamaño tiene en cuenta los margenes */
+}
+
+*::-webkit-scrollbar {
+    display: none;
+}
+
+.mainGrid {
+    display: grid;
+    width: 100%;
+    height: 100%;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: minmax(10mm, auto) minmax(10mm, auto) 1fr minmax(10mm, auto) minmax(10mm, auto);
+    grid-template-areas:
+    "titulo titulo"
+    "fechaini fechafin"
+    "contenido contenido"
+    "autor autor"
+    "cancelar actualizar";
+    grid-gap: 4px;
+    border-radius: 8px;
+}
+
+.center {
+    align-items: center;
+    justify-content: center;
+    /*flex-direction: column;*/
+}
+#titulo {
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+    border-radius: 8px;
+    text-align: center;
+    background-color: transparent;
+}
+#titulo:focus {
+    background-color: var(--02dp);
+    border: 1px solid var(--txt-r1);
+}
+#fecha_ini, #fecha_fin {
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+    border-radius: 8px;
+    text-align: center;
+    background-color: transparent;
+}
+#fecha_ini:focus, #fecha_fin:focus {
+    background-color: var(--02dp);
+    border: 1px solid var(--txt-r1);
+}
+#cuerpo {
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+    border-radius: 8px;
+    background-color: transparent;
+    resize: none;
+    padding: 3mm;
+    margin:0;
+    white-space: pre-wrap;
+    word-break: break-word;
+    hyphens: manual;
+}
+#cuerpo:focus {
+    background-color: var(--02dp);
+    border: 1px solid var(--txt-r1);
+}
+
+.left {
+    align-items: center;
+    justify-content: left;
+}
+
+.right {
+    align-items: center;
+    justify-content: right;
+}
+
+.justified {
+    align-items: stretch;
+    justify-content: stretch;
+}
+
+.titulo {
+    display: flex;
+    grid-area: titulo;
+}
+
+.fechaini {
+    display: flex;
+    grid-area: fechaini;
+}
+
+.fechafin {
+    display: flex;
+    grid-area: fechafin;
+}
+
+.contenido {
+    display: flex;
+    grid-area: contenido;
+    overflow: auto;
+}
+
+.autor {
+    display: flex;
+    grid-area: autor;
+}
+
+.cancelar {
+    display: flex;
+    grid-area: cancelar;
+}
+
+.actualizar {
+    display: flex;
+    grid-area: actualizar;
+}
