@@ -5,7 +5,7 @@ require_once('../librerias/funcionesPHP.php');
 
 session_start();
 
-//<editor-fold desc="RECOGIDA VARIABLES DE SESSION TRAS LOGIN">
+//region RECOGIDA VARIABLES DE SESSION TRAS LOGIN
 // DATOS RECOGIDOS EN LOGIN - SI NO ESTÁN, ACCESO NO AUTENTIFICADO -> LOGIN.PHP.
 if (isset($_SESSION['id_usuario'], $_SESSION['nombre'], $_SESSION['apellido1'], $_SESSION['apellido2'],
     $_SESSION['estado_usu'], $_SESSION['$empresas'])) {
@@ -22,9 +22,9 @@ if (isset($_SESSION['id_usuario'], $_SESSION['nombre'], $_SESSION['apellido1'], 
     $_SESSION[] = array();
     header("location:login.php");
 }
-//</editor-fold>
+//endregion
 
-//<editor-fold desc="CONEXIÓN BD Y CONSULTA DE NORMAS">
+//region CONEXIÓN BD Y CONSULTA DE NORMAS
 $db_operario = new mysqli('hl793.dinaserver.com', 'gonza_currito', 'NovedadesCurrito!',
     'gonza_novedades');
 $db_operario->set_charset('utf8mb4');
@@ -32,29 +32,44 @@ $db_operario->set_charset('utf8mb4');
 if (mysqli_connect_errno()) {
     header("location:../index.php?error=mysql");
 }
+// PREPARA SQL SI USUARIO NORMAL
 if ($nivel >= 0 && $nivel <= 998) {
-    if (isset($sql_novedades)) {
-        $stmt_normas = $db_operario->prepare($sql_normas);
+    if (isset($sql_activas)) {
+        $stmt_activas = $db_operario->prepare($sql_activas);
+        if ($stmt_activas === false) {
+            $db_operario->close();
+            exit('Error sentencia SQL');
+        }
+        $stmt_activas->bind_param('i', $id_usuario);
+        $stmt_activas->execute();
+        $res_activas = $stmt_activas->get_result();
+        $activas = $res_activas->fetch_all(MYSQLI_ASSOC);
+        $stmt_activas->close();
+        $db_operario->close();
     }
-    $stmt_normas->bind_param('iii', $id_usuario, $id_usuario, $id_usuario);
-} elseif ($nivel === 999) {
-    if (isset($sql_novedades_admin)) {
-        $stmt_normas = $db_operario->prepare($sql_normas_admin);
+} // PREPARA SQL SI USUARIO ADMIN
+elseif ($nivel === 999) {
+    if (isset($sql_activas_admin)) {
+        $stmt_activas = $db_operario->prepare($sql_activas_admin);
+        if ($stmt_activas === false) {
+            $db_operario->close();
+            exit('Error sentencia SQL');
+        }
+        $stmt_activas->execute();
+        $res_activas = $stmt_activas->get_result();
+        $activas = $res_activas->fetch_all(MYSQLI_ASSOC);
+        $stmt_activas->close();
+        $db_operario->close();
     }
-    $stmt_normas->bind_param('ii', $id_usuario, $id_usuario);
 } else {
     die('error nivel usuario');
 }
-$stmt_normas->execute();
-$res_novedades = $stmt_normas->get_result();
-$normas = $res_novedades->fetch_all(MYSQLI_ASSOC);
-$stmt_normas->close();
-$db_operario->close();
-//</editor-fold>
+//endregion
+
 
 // AÑADIRMOS A SESSION LAS NORMAS;
-$_SESSION['normas'] = $normas;
-$_SESSION['webOrigen']='normas';
+$_SESSION['activas'] = $activas;
+$_SESSION['webOrigen'] = 'activas';
 
 ?>
 <!DOCTYPE html>
@@ -72,12 +87,12 @@ $_SESSION['webOrigen']='normas';
 </head>
 <body id="root">
 <header class="sombra0">
-    <h1 class="txt0 fs0" style="color:var(--txt-r1)">NOTICIAS VIGENTES</h1>
+    <h1 class="txt0 fs0" style="color:var(--txt-r1)">NOTICIAS ACTIVAS</h1>
 </header>
 <main class="altura0">
     <div class="mainGrid altura0">
         <?php
-        escribeNovedades($normas);
+        escribeNovedades($activas);
         ?>
     </div>
     <div id="error_container" class="altura1"></div>
