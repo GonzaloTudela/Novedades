@@ -51,26 +51,37 @@ if (isset($_SESSION['activas'])) {
 }
 ksort($noticias);
 //endregion
+// CAMBIO DEL ORDEN DE LAS FECHAS SOLO PARA MOSTRAR EN HTML
+$noticias_R = $noticias;
+$fi = $noticias_R[$id_noticia]['fecha_inicio'];
+$fi_ok = date("d/m/Y", strtotime($fi));
+$noticias_R[$id_noticia]['fecha_inicio'] = $fi_ok;
+if ($noticias_R[$id_noticia]['fecha_fin'] !== null) {
+    $ff = $noticias_R[$id_noticia]['fecha_fin'];
+    $ff_ok = date("d/m/Y", strtotime($ff));
+    $noticias_R[$id_noticia]['fecha_fin'] = $ff_ok;
+}
+
 
 //region FORMATEO DE LOS DATOS PARA HTML
 // RECORTAMOS EL TIMESTAMP Y GUARDAMOS PARA SU USO EN HTML
 $hora = substr($noticias[$id_noticia]['timestamp_not'], -5);
-$fecha = substr($noticias[$id_noticia]['timestamp_not'], 1, 7);
+$fecha = substr($noticias[$id_noticia]['timestamp_not'], 0, 10);
 
-// PREPARAMOS LA FECHA FIN DEPENDIENDO DE SU VALOR
-if (empty($noticias[$id_noticia]['fecha_fin'])) {
+// PREPARAMOS LA FECHA FIN DEPENDIENDO DE SU VALOR DE NOTICIAS_R (fechas en formato españa).
+if (empty($noticias_R[$id_noticia]['fecha_fin'])) {
     $fechaFin = 'indefinida';
 } else {
-    $fechaFin = $noticias[$id_noticia]['fecha_fin'];
+    $fechaFin = $noticias_R[$id_noticia]['fecha_fin'];
 }
 //endregion
 
 //region LOGICA PARA SABER CUAL ES LA PAGINA DE ORIGEN.
 // SI VENIMOS DE NOVEDADES O ACTIVAS PREPARAMOS URL PARA EL DESTINO DEL BOTON "LEER MAS TARDE"
 if ($_SESSION['webOrigen'] === 'novedades') {
-    $urlTarde = './novedades.php';
+    $urlOrigen = './novedades.php';
 } elseif ($_SESSION['webOrigen'] === 'activas') {
-    $urlTarde = './activas.php';
+    $urlOrigen = './activas.php';
 }
 //endregion
 
@@ -98,7 +109,7 @@ if (isset($sql_leida)) {
     // NO ELSE POR EL EXIT ANTERIOR.
     $stmt_leida->bind_param('ii', $id_noticia, $id_usuario);
     $stmt_leida->execute();
-    $stmt_leida->bind_result($id_leida,$id_lector);
+    $stmt_leida->bind_result($id_leida, $id_lector);
     $resultado_leida = $stmt_leida->fetch();
     // SI LA NOTICIA SE HA LEIDO EL RESULTADO SERA NULL -> SALIR
     if ($resultado_leida === null) {
@@ -135,7 +146,8 @@ if (isset($sql_leida)) {
             <p class="txt1 fs1" style="text-align: center"><?= $noticias[$id_noticia]['titulo'] ?></p>
         </div>
         <div class="fechaini center altura1">
-            <p class="txt1 fs1"><span class="txt2">Comenzó el:</span> <?= $noticias[$id_noticia]['fecha_inicio'] ?></p>
+            <p class="txt1 fs1"><span class="txt2">Comenzó el:</span> <?= $noticias_R[$id_noticia]['fecha_inicio'] ?>
+            </p>
         </div>
         <div class="fechafin center altura1">
             <p class="txt1 fs1 "><span class="txt2">Finalizará el:</span> <?= $fechaFin ?></p>
@@ -151,14 +163,14 @@ if (isset($sql_leida)) {
         //region SI LA NOTICIA ESTA LEIDA MOSTRAR VOLVER
         if ($leida === true) {
             echo <<< _HTML
-        <form class="noleer webButton" action="$urlTarde" method="post">
+        <form class="noleer webButton" action="$urlOrigen" method="post">
             <input type="hidden" name="id_noticia" value="$id_noticia">
             <input type="submit" id="mastarde" class="webButton txt-r2 fs1" value="VOLVER">
         </form>
         _HTML;
         } elseif ($leida === false) {
             echo <<< _HTML
-        <form class="noleer webButton" action="$urlTarde" method="post">
+        <form class="noleer webButton" action="$urlOrigen" method="post">
             <input type="hidden" name="id_noticia" value="$id_noticia">
             <input type="submit" id="mastarde" class="webButton txt-r2 fs1" value="LEER MAS TARDE">
         </form>
@@ -187,7 +199,7 @@ if (isset($sql_leida)) {
         }
         //endregion
         ?>
-        <form class="actualizar webButton" action="actualizarLogic.php" method="post">
+        <form class="actualizar webButton" action="actualizar.php" method="post">
             <input type="hidden" name="id_noticia" value="<?= $id_noticia ?>">
             <input type="submit" id="actualizar" class="webButton txt-r2 fs1" value="ACTUALIZAR">
         </form>
