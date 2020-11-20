@@ -52,6 +52,10 @@
     text-align: center;
     background-color: transparent;
 }
+::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+    hue-rotate(240deg);
+}
 #fecha_ini:focus, #fecha_fin:focus {
     background-color: var(--02dp);
     border: 1px solid var(--txt-r1);
