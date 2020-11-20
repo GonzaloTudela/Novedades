@@ -55,6 +55,12 @@ function error_get()
                 <script class="killme">killme();</script>
                 _HTML;
                 break;
+            case "equipo":
+                echo <<< _HTML
+                <p class="error_text">Su usuario no pertenece a ningún equipo, consulte con su responsable.</p>
+                <script class="killme">killme();</script>
+                _HTML;
+                break;
             default:
                 break;
         }
