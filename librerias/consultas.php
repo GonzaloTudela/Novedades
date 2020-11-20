@@ -1,21 +1,21 @@
 <?php
-
+//region SECCION LOGIN.PHP
 // Buscamos el password del usuario (hash).
-$sql_login = "select password from usuarios where usuario=?";
+$sql_login = 'select password from usuarios where usuario=?';
 
-// SQL PARA OBTENER LOS DATOS DEL USUARIO SI SU ESTADO 1 (ALTA)
-$sql_info = "select u.id_usuario, c.nivel, u.nombre, u.apellido1, u.apellido2, t.estado_usu 
+// SQL PARA OBTENER LOS DATOS DEL USUARIO, QUE TRABAJA, TIENE CATEGORIA Y SU ESTADO DE USUARIO ES 1 (ALTA)
+$sql_info = 'select u.id_usuario, c.nivel, u.nombre, u.apellido1, u.apellido2, t.estado_usu 
 from usuarios u
     join trabajar t on u.id_usuario = t.id_usuario
     join categorias c on u.id_categoria = c.id_categoria
-where usuario = ? and t.estado_usu = 1";
+where usuario = ? and t.estado_usu = 1';
 
-// SQL PARA OBTENER LOS DATOS DEL USUARIO, QUE TRABAJA, TIENE CATEGORIA Y SU ESTADO ES 1 (ALTA)
+// SQL PARA OBTENER LAS EMPRESAS DEL USUARIO QUE ESTEN DADAS DE ALTA (1)
 $sql_empresas = 'select e.id_empresa, e.nombre_emp, e.estado_emp
 from empresas e
     join trabajar t using (id_empresa)
     join usuarios u using (id_usuario)
-where u.usuario = ? and estado_emp = 1;';
+where u.usuario = ? and e.estado_emp = 1;';
 
 // SQL PARA OBTENER LOS EQUIPOS QUE PERTENECE EL USUARIO
 $sql_equipos = 'select e.id_equipo, e.nombre_equ
@@ -23,8 +23,9 @@ from usuarios u
     join formar f on u.id_usuario = f.id_usuario
     join equipos e on f.id_equipo = e.id_equipo
 where usuario = ?';
+//endregion
 
-// SECCION NOVEDADES
+//region SECCION LEER NORMAS Y NOTICIAS
 /*
 NOTICIAS (Novedades y Reglas) de las que el usuario no es autor, que no ha leído, pertenecen a sus grupos,
 no hayan caducado y que han empezado.
@@ -194,6 +195,7 @@ where n.id_usuario != ?
     select l.id_noticia as noticias_leidas
     from leer l
     where id_usuario = ?)';
+//endregion
 
 // INSERT PARA LEER LA NOTICIA
 $sql_leer = 'insert into leer (id_usuario, id_noticia) values (?,?)';
