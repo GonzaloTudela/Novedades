@@ -29,9 +29,9 @@ function escribeNovedades(array $array)
             // ICONO DE LA NOTICIA
             echo '<div class="noticiaIcono altura2 sombra2">';
             if ($keyNovedades['fecha_fin'] == '') {
-                echo file_get_contents("../img/rules.svg");
+                echo file_get_contents("../img/warning-24px.svg");
             } else {
-                echo file_get_contents("../img/news.svg");
+                echo file_get_contents("../img/timer-sand.svg");
             }
             echo '</div>';
             // TITULO Y FECHAS
@@ -74,7 +74,7 @@ function printMenu()
     $webAdd = '';
     $webSearch = '';
     $webNews = '../modulos/novedades.php';
-    $webRules = '../modulos/normas.php';
+    $webRules = '../modulos/activas.php';
     $webOffice = '';
     $webAccount = '';
     $webQuit = '';
