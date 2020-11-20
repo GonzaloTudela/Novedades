@@ -178,7 +178,7 @@ a {
     fill: var(--txt-r1)
 }
 
-.menuButton:hover {
+.menuButton:hover:enabled {
     fill: var(--txt-r0);
     /*background-color: var(--txt-r0);*/
 }
@@ -345,7 +345,7 @@ a {
     border: 2px solid var(--btn);
 }
 
-.webButton:hover {
+.webButton:hover:enabled {
     background-color: var(--btnH);
     color: black;
 }
