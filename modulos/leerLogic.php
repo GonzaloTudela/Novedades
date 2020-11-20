@@ -42,18 +42,20 @@ $db_operario = new mysqli('hl793.dinaserver.com', 'gonza_currito', 'NovedadesCur
 if ($db_operario->connect_errno) {
     header("location:../index.php?error=mysql");
 }
-$stmt_leer = $db_operario->prepare($sql_leer);
-$stmt_leer->bind_param('ii', $id_usuario, $id_noticia);
-$stmt_leer->execute();
-if ($stmt_leer->affected_rows === 1) {
-    $stmt_leer->close();
-    $db_operario->close();
-    if ($origen === 'novedades') {
-        header("location:novedades.php");
-    } elseif ($origen === 'activas') {
-        header("location:activas.php");
-    } else {
-        echo 'boom! no tengo ni idea de donde vengo!';
+if (isset($sql_leer)) {
+    $stmt_leer = $db_operario->prepare($sql_leer);
+    $stmt_leer->bind_param('ii', $id_usuario, $id_noticia);
+    $stmt_leer->execute();
+    if ($stmt_leer->affected_rows === 1) {
+        $stmt_leer->close();
+        $db_operario->close();
+        if ($origen === 'novedades') {
+            header("location:novedades.php");
+        } elseif ($origen === 'activas') {
+            header("location:activas.php");
+        } else {
+            echo 'boom! no tengo ni idea de donde vengo!';
+        }
     }
 }
 //</editor-fold>
