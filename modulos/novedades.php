@@ -51,8 +51,20 @@ $novedades = $res_novedades->fetch_all(MYSQLI_ASSOC);
 $stmt_novedades->close();
 $db_operario->close();
 $_SESSION['novedades'] = $novedades;
-$_SESSION['webOrigen']='novedades';
+$_SESSION['webOrigen'] = 'novedades';
 //</editor-fold>
+// CAMBIO DEL ORDEN DE LAS FECHAS SOLO PARA MOSTRAR EN HTML
+$size = count($novedades);
+for ($i = 0; $i < $size; $i++) {
+    $fi=$novedades[$i]['fecha_inicio'];
+    $fi_ok= date("d/m/Y", strtotime($fi));
+    $novedades[$i]['fecha_inicio']=$fi_ok;
+    if ($novedades[$i]['fecha_fin']!==null){
+        $ff=$novedades[$i]['fecha_fin'];
+        $ff_ok= date("d/m/Y", strtotime($ff));
+        $novedades[$i]['fecha_fin']=$ff_ok;
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="es">
