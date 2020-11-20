@@ -50,7 +50,7 @@ if ($stmt_leer->affected_rows === 1) {
     $db_operario->close();
     if ($origen === 'novedades') {
         header("location:novedades.php");
-    } elseif ($origen === 'normas') {
+    } elseif ($origen === 'activas') {
         header("location:activas.php");
     } else {
         echo 'boom! no tengo ni idea de donde vengo!';
