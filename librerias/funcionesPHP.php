@@ -71,7 +71,7 @@ function printMenu()
     $iconAccount = '../img/account.svg';
     $iconQuit = '../img/exit.svg';
     // Links del boton.
-    $webAdd = '';
+    $webAdd = '../modulos/introducir.php';
     $webSearch = '';
     $webNews = '../modulos/novedades.php';
     $webRules = '../modulos/activas.php';
