@@ -271,9 +271,16 @@ select o.id_noticia from noticias o join noticias n on o.id_noticia = n.id_notic
 
 //CONSULTAR NUM_VERSION DE LA NOTICIA A ACTUALIZAR PARA SUMARLO EN PHP
 $sql_version = 'select num_version from noticias where id_noticia=?';
+
 // INSERCION DE LA NOTICIA.
 $sql_actualizar = 'INSERT INTO `noticias` 
     (`id_usuario`, `id_noticia`, `titulo`, `cuerpo`, `fecha_inicio`, `fecha_fin`, `timestamp_not`, `id_noticia_old`,
      `num_version`, `tipo`) VALUES (?, NULL, ?, ?, ?, ?, CURRENT_TIMESTAMP, ?, ?, ?)';
+
 // INSERCION DE LOS EQUIPOS A LOS QUE AFECTABA ORIGINALMENTE.
 $sql_afectar='insert into afectar (id_equipo, id_noticia) values (?,?)';
+
+// CREAR NOTICIA NUEVA
+$sql_insertar='INSERT INTO `noticias` 
+    (`id_usuario`, `id_noticia`, `titulo`, `cuerpo`, `fecha_inicio`, `fecha_fin`, `timestamp_not`, `id_noticia_old`,
+     `num_version`, `tipo`) VALUES (?, NULL, ?, ?, ?, ?, CURRENT_TIMESTAMP, NULL, 0, ?)';
