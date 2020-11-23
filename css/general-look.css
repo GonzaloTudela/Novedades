@@ -341,7 +341,7 @@ a {
     padding: 0;
 }
 
-.webButton input {
+input.webButton {
     border: 2px solid var(--btn);
 }
 
@@ -352,7 +352,7 @@ a {
 
 .answerButton {
     display: inline-block;
-    background-color: var(--txt-r1);
+    background-color: var(--txt-r2);
     height: 10mm;
     width: 20mm;
     border-radius: 8px;
@@ -361,12 +361,10 @@ a {
     font-family: 'Barlow', sans-serif;
     font-size: 4mm;
     font-weight: 700;
-    line-height: 10mm;
     color: var(--txt0);
     margin: 0 2vw 0 2vw;
     padding: 1mm;
-    -webkit-transition: all 250ms;
-    -moz-transition: all 250ms;
-    transition: all 250ms;
-    animation: answerbutton 0.1s ease-in-out;
+}
+.answerButton:hover {
+    background-color: var(--txt-r0);
 }
