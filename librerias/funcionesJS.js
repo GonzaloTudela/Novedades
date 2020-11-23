@@ -1,8 +1,48 @@
+// VALIDAR FORMULARIO AÑADIR NOTICIA
+function validarIntroducir() {
+    let enviar = document.getElementById('enviar');
+    let cuerpo = document.getElementById('cuerpo');
+    let titulo = document.getElementById('titulo');
+    let t = false;
+    let c = false;
+    enviar.setAttribute('disabled', true);
+    enviar.value = "FALTAN DATOS";
+    window.addEventListener("keyup", function () {
+        if (t === true && c === true) {
+            enviar.removeAttribute('disabled');
+            enviar.value = "ENVIAR";
+        }
+        if (t === false || c === false) {
+            enviar.setAttribute('disabled', true);
+            enviar.value = "FALTAN DATOS";
+        }
+    })
+    titulo.addEventListener("input", function () {
+        if (titulo.value.length > 0) {
+            t = true;
+        }
+        if (titulo.value.length === 0) {
+            t = false;
+        }
+        console.log(t)
+    })
+    cuerpo.addEventListener("input", function () {
+        if (cuerpo.value.length > 0) {
+            c = true;
+        }
+        if (cuerpo.value.length === 0) {
+            c = false;
+        }
+        console.log(c)
+    });
+}
+
 // Fullscreen on click document.
 /* Get the documentElement (<html>) to display the page in fullscreen */
+
 /* View in fullscreen W3SCHOOLS */
 function openFullscreen() {
-    let elem=document.documentElement;
+    let elem = document.documentElement;
     if (elem.requestFullscreen) {
         elem.requestFullscreen();
     } else if (elem.webkitRequestFullscreen) { /* Safari */
@@ -22,11 +62,12 @@ function closeFullscreen() {
         document.msExitFullscreen();
     }
 }
+
 // Añade eventos al elemento (elemento, evento, funcion).
 // https://stackoverflow.com/questions/6348494/addeventlistener-vs-onclick
-function addEvent(element, evnt, funct){
+function addEvent(element, evnt, funct) {
     if (element.attachEvent)
-        return element.attachEvent('on'+evnt, funct);
+        return element.attachEvent('on' + evnt, funct);
     else
         return element.addEventListener(evnt, funct, false);
 }
@@ -56,11 +97,12 @@ function killme() {
         }
     });
 }
+
 // Agrega la funcionalidad al boton salir.
-function botonSalir(){
+function botonSalir() {
     let body = document.getElementById('root');
     let infobox = document.createElement('div');
-    infobox.setAttribute('id','infobox')
+    infobox.setAttribute('id', 'infobox')
     let botonExit = document.getElementById('quit')
     botonExit.addEventListener('click', function () {
         body.prepend(infobox);
@@ -68,13 +110,13 @@ function botonSalir(){
         infobox.innerHTML = `
             <button id="exit" class="txt0 answerButton sombra3">SALIR</button>
             <button id="close" class="txt0 answerButton sombra3">VOLVER</button>`
-        let close=document.getElementById('close');
-        let exit=document.getElementById('exit');
-        close.addEventListener('click', function (){
+        let close = document.getElementById('close');
+        let exit = document.getElementById('exit');
+        close.addEventListener('click', function () {
             infobox.remove();
         })
-        exit.addEventListener('click',function (){
-            window.location.href='./quit.php'
+        exit.addEventListener('click', function () {
+            window.location.href = './quit.php'
         })
     });
 }
