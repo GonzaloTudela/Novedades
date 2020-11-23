@@ -19,7 +19,7 @@ if (isset($_SESSION['id_usuario'], $_SESSION['nombre'], $_SESSION['apellido1'], 
 } else {
     session_destroy();
     $_SESSION[] = array();
-    header("location:login.php");
+    header("location:login.php?error=indefinido");
 }
 // RECUPERO EL ULTIMO ESTADO DE WEBORIGEN EN SESSION, SI NO ES POSIBLE DETERMINO QUE VOLVAMOS A NOVEDADES.
 if (isset($_SESSION['webOrigen'])) {
@@ -32,7 +32,7 @@ if (isset($_SESSION['webOrigen'])) {
 if (isset($_POST['id_noticia'])) {
     $id_noticia = $_POST['id_noticia'];
 } else {
-    header("location:login.php");
+    header("location:login.php?error=indefinido");
 }
 
 //<editor-fold desc="CONEXIÓN BD E INSERT EN TABLA LEER">
