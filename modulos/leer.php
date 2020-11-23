@@ -146,11 +146,11 @@ if (isset($sql_leida)) {
             <p class="txt1 fs1" style="text-align: center"><?= $noticias[$id_noticia]['titulo'] ?></p>
         </div>
         <div class="fechaini center altura1">
-            <p class="txt1 fs1"><span class="txt2">Comenzó el:</span> <?= $noticias_R[$id_noticia]['fecha_inicio'] ?>
+            <p class="txt1 fs1">Desde: <?= $noticias_R[$id_noticia]['fecha_inicio'] ?>
             </p>
         </div>
         <div class="fechafin center altura1">
-            <p class="txt1 fs1 "><span class="txt2">Finalizará el:</span> <?= $fechaFin ?></p>
+            <p class="txt1 fs1 ">Hasta: <?= $fechaFin ?></p>
         </div>
         <div class="contenido justified altura1">
             <p class="txt2 fs1" style="white-space: pre-wrap"><?= $noticias[$id_noticia]['cuerpo'] ?></p>
