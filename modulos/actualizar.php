@@ -130,42 +130,46 @@ if (isset($sql_leida)) {
     <h1 class="txt0 fs0" style="color:var(--txt-r1)">ACTUALIZAR NOTICIA</h1>
 </header>
 <main class="altura0">
-    <form id="actualizar" class="mainGrid altura0" method="post" action="actualizarLogic.php">
+    <form id="actualizar" method="post" action="actualizarLogic.php"></form>
+    <form id="cancelar" method="post" action="actualizarLogic.php"></form>
+    <div class="mainGrid altura0">
         <div class="titulo center altura1">
             <label for="titulo"></label>
-            <input class="center txt1 fs1" type="text" name="titulo" id="titulo" placeholder="Titulo máximo 64 caracteres."
-                   value="<?= $noticias[$id_noticia]['titulo']?>">
+            <input class="center txt1 fs1" type="text" name="titulo" id="titulo" form="actualizar"
+                   placeholder="Titulo máximo 64 caracteres."
+                   value="<?= $noticias[$id_noticia]['titulo'] ?>">
         </div>
         <div class="fechaini center altura1">
             <label for="fecha_ini"></label>
-            <input class="center txt1 fs1" type="date" name="fecha_ini" id="fecha_ini"
+            <input class="center txt1 fs1" type="date" name="fecha_ini" id="fecha_ini" form="actualizar"
                    placeholder="introduce la fecha en el formato: dd/mm/yyyy"
-                   value="<?=$noticias[$id_noticia]['fecha_inicio']?>">
+                   value="<?= $noticias[$id_noticia]['fecha_inicio'] ?>">
         </div>
         <div class="fechafin center altura1">
             <label for="fecha_fin"></label>
-            <input class="center txt1 fs1" type="date" name="fecha_fin" id="fecha_fin"
+            <input class="center txt1 fs1" type="date" name="fecha_fin" id="fecha_fin" form="actualizar"
                    placeholder="introduce la fecha en el formato: dd/mm/yyyy"
-                   value="<?=$noticias[$id_noticia]['fecha_fin']?>">
+                   value="<?= $noticias[$id_noticia]['fecha_fin'] ?>">
         </div>
         <div class="contenido altura1">
             <label for="cuerpo"></label>
-            <textarea class="txt2 fs1" name="cuerpo" id="cuerpo" maxlength="4096"
-            autofocus><?=$noticias[$id_noticia]['cuerpo']?></textarea>
+            <textarea class="txt2 fs1" name="cuerpo" id="cuerpo" maxlength="4096" form="actualizar"
+                      autofocus><?= $noticias[$id_noticia]['cuerpo'] ?></textarea>
         </div>
         <div class="autor center altura1">
-            <p class="txt2 fs1"><?=$noticias[$id_noticia]['nombre'] . ' ' . $noticias[$id_noticia]['apellido1']?>
+            <p class="txt2 fs1"><?= $noticias[$id_noticia]['nombre'] . ' ' . $noticias[$id_noticia]['apellido1'] ?>
                 el <?= $fecha ?> a las <?= $hora ?></p>
         </div>
-        <div class="cancelar webButton">
-            <input type="hidden" name="id_noticia" value="<?= $urlOrigen ?>">
-            <input type="submit" id="mastarde" class="webButton txt-r2 fs1" value="CANCELAR">
-        </div>
         <div class="actualizar webButton">
-            <input type="hidden" name="id_noticia" value="<?= $id_noticia ?>">
-            <input type="submit" id="actualizar" class="webButton txt-r2 fs1" value="ACTUALIZAR">
+            <input type="hidden" name="id_noticia" form="actualizar" value="<?= $id_noticia ?>">
+            <input type="hidden" name="origen" form="actualizar" value="<?= $urlOrigen ?>">
+            <input type="submit" id="actualizar" class="webButton txt-r2 fs1" form="actualizar" value="ACTUALIZAR">
         </div>
-    </form>
+        <div>
+            <input type="hidden" name="cancelar" form="cancelar" value="<?= $urlOrigen ?>">
+            <input type="submit" id="cancelar" class="webButton txt-r2 fs1" form="cancelar" value="CANCELAR">
+        </div>
+    </div>
     <!--        <div id="error_container" class="altura1"></div>-->
 </main>
 <footer id="mainMenu" class="sombra0f">
