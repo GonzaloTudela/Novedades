@@ -20,7 +20,8 @@ if (isset($_SESSION['id_usuario'], $_SESSION['nombre'], $_SESSION['apellido1'], 
 } else {
     session_destroy();
     $_SESSION[] = array();
-    header("location:login.php");
+    header("location:../index.php?error=login");
+    exit();
 }
 //endregion
 
@@ -82,6 +83,8 @@ if ($_SESSION['webOrigen'] === 'novedades') {
     $urlOrigen = './novedades.php';
 } elseif ($_SESSION['webOrigen'] === 'activas') {
     $urlOrigen = './activas.php';
+} else {
+    $urlOrigen = './novedades.php'; // POR DEFECTO VOLVEREMOS A NOVEDADES.
 }
 //endregion
 
