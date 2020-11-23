@@ -349,6 +349,11 @@ input.webButton {
     background-color: var(--btnH);
     color: black;
 }
+input.webButton:disabled {
+    background-color: var(--01dp);
+    color: var(--01dp);
+    border: 2px solid var(--01dp)
+}
 
 .answerButton {
     display: inline-block;
