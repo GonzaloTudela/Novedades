@@ -53,6 +53,7 @@ $db_operario = new mysqli('hl793.dinaserver.com', 'gonza_currito', 'NovedadesCur
 if ($db_operario->connect_errno) {
     header("location:../index.php?error=mysql");
 }
+$db_operario->set_charset('utf8mb4');
 // CONSULTA NUMERO VERSIÓN DE LA NOTICIA EDITADA PARA SUMAR 1 EN LA NUEVA.
 if (isset($sql_version)) {
     $stmt_version = $db_operario->prepare($sql_version);
