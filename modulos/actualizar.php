@@ -120,13 +120,12 @@ if (isset($sql_leida)) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+          content="width=device-width, initial-scale=1.0>
     <title>Novedades</title>
     <link rel="icon" href="../img/favicon.png">
     <link rel="stylesheet" href="../css/actualizar.css">
     <link rel="stylesheet" href="../css/general-queries.css">
-    <script type="text/javascript" src="../librerias/funcionesJS.js"></script>
+    <script src="../librerias/funcionesJS.js"></script>
 </head>
 <body id="root">
 <header class="sombra0">
@@ -145,13 +144,11 @@ if (isset($sql_leida)) {
         <div class="fechaini center altura1">
             <label for="fecha_ini"></label>
             <input class="center txt1 fs1" type="date" name="fecha_ini" id="fecha_ini" form="actualizar"
-                   placeholder="introduce la fecha en el formato: dd/mm/yyyy"
                    value="<?= htmlentities($noticias[$id_noticia]['fecha_inicio']) ?>">
         </div>
         <div class="fechafin center altura1">
             <label for="fecha_fin"></label>
             <input class="center txt1 fs1" type="date" name="fecha_fin" id="fecha_fin" form="actualizar"
-                   placeholder="introduce la fecha en el formato: dd/mm/yyyy"
                    value="<?= htmlentities($noticias[$id_noticia]['fecha_fin']) ?>">
         </div>
         <div class="contenido altura1">
@@ -180,8 +177,8 @@ if (isset($sql_leida)) {
     printMenu();
     ?>
 </footer>
-</body>
-</html>
 <script>
     botonSalir();
 </script>
+</body>
+</html>

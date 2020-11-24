@@ -1,4 +1,5 @@
 <?php
+//todo ESTABLECER UTF8MB4_BIN PARA EL NOMBRE DE USUARIO ANTES DE LA PRESENTACIÓN.
 require_once('../librerias/consultas.php');
 require_once('../librerias/funcionesPHP.php');
 //debugFor("79.152.7.228");
@@ -55,13 +56,12 @@ if (mysqli_connect_errno()) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+          content="width=device-width, initial-scale=1.0">
     <title>Novedades</title>
     <link rel="icon" href="../img/favicon.png">
     <link rel="stylesheet" href="../css/introducir.css">
     <link rel="stylesheet" href="../css/general-queries.css">
-    <script type="text/javascript" src="../librerias/funcionesJS.js"></script>
+    <script src="../librerias/funcionesJS.js"></script>
 </head>
 <body id="root">
 <header class="sombra0">
@@ -80,16 +80,14 @@ if (mysqli_connect_errno()) {
             <fieldset class="center txt3 fs2">
                 <legend>Fecha Inicio</legend>
                 <label class="txt1 fs1" for="fecha_ini"></label>
-                <input class="center txt1 fs2" type="date" name="fecha_ini" id="fecha_ini" form="introducir"
-                       placeholder="Desde: (obligatorio)">
+                <input class="center txt1 fs2" type="date" name="fecha_ini" id="fecha_ini" form="introducir">
             </fieldset>
         </div>
         <div class="fechafin center altura1">
             <fieldset class="center txt3 fs2">
                 <legend>Fecha Fin</legend>
                 <label class="txt1 fs1" for="fecha_fin"></label>
-                <input class="center txt1 fs2" type="date" name="fecha_fin" id="fecha_fin" form="introducir"
-                       placeholder="Hasta:">
+                <input class="center txt1 fs2" type="date" name="fecha_fin" id="fecha_fin" form="introducir">
             </fieldset>
 
         </div>
@@ -130,9 +128,9 @@ if (mysqli_connect_errno()) {
     printMenu();
     ?>
 </footer>
-</body>
-</html>
 <script>
     botonSalir();
     validarIntroducir();
 </script>
+</body>
+</html>
