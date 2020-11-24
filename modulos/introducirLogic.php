@@ -115,6 +115,15 @@ if (isset($insertOK, $sql_afectar) && $insertOK === true) {
     }
     $stmt_afectar->close();
 }
+// SQL ESRIBIMOS LA NUEVA NOTICIA COMO LEIDA POR EL USUARIO QUE LA HA INTRODUCIDO.
+if (isset($insertOK,$id_nuevo,$sql_leer,$id_usuario)){
+    $stmt_leer=$db_operario->prepare($sql_leer);
+    $stmt_leer->bind_param('ii', $id_usuario, $id_nuevo);
+    $stmt_leer->execute();
+    if ($stmt_leer->affected_rows === 1) {
+        $stmt_leer->close();
+    }
+}
 $db_operario->close();
 header("location:" . $url_origen_enviar);
 exit();
