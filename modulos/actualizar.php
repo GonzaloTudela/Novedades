@@ -140,28 +140,28 @@ if (isset($sql_leida)) {
             <label for="titulo"></label>
             <input class="center txt1 fs1" type="text" name="titulo" id="titulo" form="actualizar"
                    placeholder="Titulo máximo 64 caracteres."
-                   value="<?= $noticias[$id_noticia]['titulo'] ?>">
+                   value="<?= htmlentities($noticias[$id_noticia]['titulo']) ?>">
         </div>
         <div class="fechaini center altura1">
             <label for="fecha_ini"></label>
             <input class="center txt1 fs1" type="date" name="fecha_ini" id="fecha_ini" form="actualizar"
                    placeholder="introduce la fecha en el formato: dd/mm/yyyy"
-                   value="<?= $noticias[$id_noticia]['fecha_inicio'] ?>">
+                   value="<?= htmlentities($noticias[$id_noticia]['fecha_inicio']) ?>">
         </div>
         <div class="fechafin center altura1">
             <label for="fecha_fin"></label>
             <input class="center txt1 fs1" type="date" name="fecha_fin" id="fecha_fin" form="actualizar"
                    placeholder="introduce la fecha en el formato: dd/mm/yyyy"
-                   value="<?= $noticias[$id_noticia]['fecha_fin'] ?>">
+                   value="<?= htmlentities($noticias[$id_noticia]['fecha_fin']) ?>">
         </div>
         <div class="contenido altura1">
             <label for="cuerpo"></label>
             <textarea class="txt2 fs1" name="cuerpo" id="cuerpo" maxlength="4096" form="actualizar"
-                      autofocus><?= $noticias[$id_noticia]['cuerpo'] ?></textarea>
+                      autofocus><?= htmlentities($noticias[$id_noticia]['cuerpo']) ?></textarea>
         </div>
         <div class="autor center altura1">
-            <p class="txt2 fs1"><?= $noticias[$id_noticia]['nombre'] . ' ' . $noticias[$id_noticia]['apellido1'] ?>
-                el <?= $fecha ?> a las <?= $hora ?></p>
+            <p class="txt2 fs1"><?= htmlentities($noticias[$id_noticia]['nombre']) . ' ' . htmlentities($noticias[$id_noticia]['apellido1']) ?>
+                el <?= htmlentities($fecha) ?> a las <?= htmlentities($hora) ?></p>
         </div>
         <div class="actualizar webButton">
             <input type="hidden" name="id_noticia" form="actualizar" value="<?= $id_noticia ?>">

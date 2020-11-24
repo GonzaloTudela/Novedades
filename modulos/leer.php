@@ -146,21 +146,21 @@ if (isset($sql_leida)) {
 <main class="altura0">
     <div class="mainGrid altura0">
         <div class="titulo center altura1">
-            <p class="txt1 fs1" style="text-align: center"><?= $noticias[$id_noticia]['titulo'] ?></p>
+            <p class="txt1 fs1" style="text-align: center"><?= htmlentities($noticias[$id_noticia]['titulo']) ?></p>
         </div>
         <div class="fechaini center altura1">
-            <p class="txt1 fs1">Desde: <?= $noticias_R[$id_noticia]['fecha_inicio'] ?>
+            <p class="txt1 fs1">Desde: <?= htmlentities($noticias_R[$id_noticia]['fecha_inicio']) ?>
             </p>
         </div>
         <div class="fechafin center altura1">
-            <p class="txt1 fs1 ">Hasta: <?= $fechaFin ?></p>
+            <p class="txt1 fs1 ">Hasta: <?= htmlentities($fechaFin) ?></p>
         </div>
         <div class="contenido justified altura1">
-            <p class="txt2 fs1" style="white-space: pre-wrap"><?= $noticias[$id_noticia]['cuerpo'] ?></p>
+            <p class="txt2 fs1" style="white-space: pre-wrap"><?= htmlentities($noticias[$id_noticia]['cuerpo']) ?></p>
         </div>
         <div class="autor center altura1">
-            <p class="txt2 fs1"><?= $noticias[$id_noticia]['nombre'] . ' ' . $noticias[$id_noticia]['apellido1'] ?>
-                el <?= $fecha ?> a las <?= $hora ?></p>
+            <p class="txt2 fs1"><?= htmlentities($noticias[$id_noticia]['nombre']) . ' ' . htmlentities($noticias[$id_noticia]['apellido1']) ?>
+                el <?= htmlentities($fecha) ?> a las <?= htmlentities($hora) ?></p>
         </div>
         <?PHP
         //region SI LA NOTICIA ESTA LEIDA MOSTRAR VOLVER

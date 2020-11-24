@@ -38,21 +38,21 @@ function escribeNovedades(array $array)
             echo '<div class="noticiaTitulo altura2 sombra2">';
             echo '<form method="post" action="../modulos/leer.php">';
 //            echo '<label for="id_noticia">';
-            echo '<input type="hidden" name="id_noticia" value="' . $keyNovedades['id_noticia'] . '">';
-            echo '<button class="txt-r1 fs2">' . '<p>' . $keyNovedades['titulo'] . '</p>';
+            echo '<input type="hidden" name="id_noticia" value="' . htmlentities($keyNovedades['id_noticia']) . '">';
+            echo '<button class="txt-r1 fs2">' . '<p>' . htmlentities($keyNovedades['titulo']) . '</p>';
 //        echo '<p class="txt1 fs2">' . $keyNovedades['titulo'] . '</p>';
             if ($keyNovedades['fecha_fin'] == '') {
-                echo '<p class="txt3 fs3">' . 'Norma desde: ' . $keyNovedades['fecha_inicio'] . '</p>';
+                echo '<p class="txt3 fs3">' . 'Norma desde: ' . htmlentities($keyNovedades['fecha_inicio']) . '</p>';
             } else {
-                echo '<p class="txt3 fs4">' . $keyNovedades['fecha_inicio'] . ' hasta ' . $keyNovedades['fecha_fin'] . '</p>';
+                echo '<p class="txt3 fs3">' . htmlentities($keyNovedades['fecha_inicio']) . ' hasta ' . htmlentities($keyNovedades['fecha_fin']) . '</p>';
             }
             echo '</button>';
             echo '</form>';
             echo '</div>';
             // AUTOR Y TIMESTAMP
             echo '<div class="noticiaAutor altura2 sombra2">';
-            echo '<p class="txt-r1 fs3">' . $keyNovedades['nombre'] . ' ' . $keyNovedades['apellido1'] . '</p>';
-            echo '<p class="txt3 fs4">' . $escritura . '</p>';
+            echo '<p class="txt-r1 fs3">' . htmlentities($keyNovedades['nombre']) . ' ' . htmlentities($keyNovedades['apellido1']) . '</p>';
+            echo '<p class="txt3 fs4">' . htmlentities($escritura) . '</p>';
             echo '</div>';
         }
     }
