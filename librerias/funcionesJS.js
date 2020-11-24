@@ -1,22 +1,41 @@
 // VALIDAR FORMULARIO AÑADIR NOTICIA
 function validarIntroducir() {
-    let enviar = document.getElementById('enviar');
+    let enviar = document.getElementById('btn_enviar');
     let cuerpo = document.getElementById('cuerpo');
     let titulo = document.getElementById('titulo');
+    let fecha_fin = document.getElementById('fecha_fin');
+    let fecha_hoy = new Date();
+    fecha_hoy.setHours(0,0,0,0)
     let t = false;
     let c = false;
-    enviar.setAttribute('disabled', true);
+    let ff = false;
+    enviar.setAttribute('disabled', '');
     enviar.value = "FALTAN DATOS";
-    window.addEventListener("keyup", function () {
-        if (t === true && c === true) {
+    setInterval(validar, 250)
+    setInterval(fecha, 500)
+    function fecha() {
+        let datos_leidos = fecha_fin.value;
+        let fecha_leida = new Date(datos_leidos)
+        fecha_leida.setHours(0,0,0,0)
+        if(datos_leidos === '' || fecha_leida < fecha_hoy){
+            ff=false
+        }
+        if (fecha_leida>=fecha_hoy){
+            ff=true
+        }
+    }
+
+    function validar() {
+        if (t === true && c === true && ff === true) {
             enviar.removeAttribute('disabled');
             enviar.value = "ENVIAR";
         }
-        if (t === false || c === false) {
-            enviar.setAttribute('disabled', true);
+        if (t === false || c === false || ff === false) {
+            enviar.setAttribute('disabled', '');
             enviar.value = "FALTAN DATOS";
         }
-    })
+    }
+
     titulo.addEventListener("input", function () {
         if (titulo.value.length > 0) {
             t = true;
@@ -24,7 +43,6 @@ function validarIntroducir() {
         if (titulo.value.length === 0) {
             t = false;
         }
-        console.log(t)
     })
     cuerpo.addEventListener("input", function () {
         if (cuerpo.value.length > 0) {
@@ -33,8 +51,11 @@ function validarIntroducir() {
         if (cuerpo.value.length === 0) {
             c = false;
         }
-        console.log(c)
     });
+    window.addEventListener("unload", function (){
+        clearInterval(validar)
+        clearInterval(fecha)
+    })
 }
 
 // Fullscreen on click document.
