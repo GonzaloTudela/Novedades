@@ -32,12 +32,14 @@ if (isset($_POST['cancelar'])) {
     exit();
 }
 // SI LLEGA POST ENVIAR RECOGEMOS DATOS Y SEGUIMOS.
-if (isset($_POST['titulo'], $_POST['fecha_ini'],$_POST['fecha_fin'],$_POST['cuerpo'],$_POST['enviar'])) {
+if (isset($_POST['titulo'], $_POST['fecha_ini'], $_POST['fecha_fin'], $_POST['cuerpo'], $_POST['enviar'],
+    $_POST['equipos'])) {
     $titulo = $_POST['titulo'];
     $fecha_ini = $_POST['fecha_ini'];
     $fecha_fin = $_POST['fecha_fin'];
     $cuerpo = $_POST['cuerpo'];
-    $url_origen_enviar=$_POST['enviar'];
+    $selectEquipo = $_POST['equipos'];
+    $url_origen_enviar = $_POST['enviar'];
 }
 
 // CONECTAMOS CON LA BD.
@@ -65,8 +67,8 @@ if (isset($sql_insertar)) {
     }
 
     // SI LA FECHA INICIO ESTA VACIA, LE DAMOS LA FECHA DE HOY.
-    if (empty($fecha_ini)){
-        $fecha_ini=date("Y-m-d");
+    if (empty($fecha_ini)) {
+        $fecha_ini = date("Y-m-d");
     }
 
 //    $sql_insertar='INSERT INTO `noticias`
@@ -74,13 +76,13 @@ if (isset($sql_insertar)) {
 //     `num_version`, `tipo`) VALUES (?, NULL, ?, ?, ?, ?, CURRENT_TIMESTAMP, NULL, 0, ?)';
 
     // CREACION DE LA NOTICIA
-    $stmt_insertar->bind_param('issssi', $id_usuario,$titulo,$cuerpo,$fecha_ini,$fecha_fin,$tipo);
+    $stmt_insertar->bind_param('issssi', $id_usuario, $titulo, $cuerpo, $fecha_ini, $fecha_fin, $tipo);
     $stmt_insertar->execute();
     if ($stmt_insertar->affected_rows === 1) {
         $id_nuevo = $stmt_insertar->insert_id;
-        $insertOK=true;
+        $insertOK = true;
         $stmt_insertar->close();
-    }else {
+    } else {
         exit("Error al insertar la noticia");
     }
 }
@@ -92,14 +94,24 @@ if (isset($insertOK, $sql_afectar) && $insertOK === true) {
         $db_operario->close();
         exit("Error en prepare SQL afectar");
     }
-    foreach ($equipos as $equipo) {
-        $id_equipo = $equipo['id_equipo'];
+    if ($selectEquipo === 'todos') {
+        foreach ($equipos as $equipo) {
+            $id_equipo = $equipo['id_equipo'];
+            $stmt_afectar->bind_param('ii', $id_equipo, $id_nuevo);
+            $stmt_afectar->execute();
+            if ($stmt_afectar->affected_rows === 1) {
+                continue;
+            }
+            exit("Fallo en la insercion recursiva de AFECTAR.");
+        }
+    }
+    if ($selectEquipo !== 'todos') {
+        $id_equipo = $selectEquipo;
         $stmt_afectar->bind_param('ii', $id_equipo, $id_nuevo);
         $stmt_afectar->execute();
-        if ($stmt_afectar->affected_rows === 1) {
-            continue;
+        if ($stmt_afectar->affected_rows !== 1) {
+            exit("Fallo en la insercion en AFECTAR.");
         }
-        exit("Fallo en la insercion recursiva de AFECTAR.");
     }
     $stmt_afectar->close();
 }
