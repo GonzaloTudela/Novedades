@@ -74,13 +74,13 @@ $_SESSION['webOrigen'] = 'activas';
 // CAMBIO DEL ORDEN DE LAS FECHAS SOLO PARA MOSTRAR EN HTML
 $size = count($activas);
 for ($i = 0; $i < $size; $i++) {
-    $fi=$activas[$i]['fecha_inicio'];
-    $fi_ok= date("d/m/Y", strtotime($fi));
-    $activas[$i]['fecha_inicio']=$fi_ok;
-    if ($activas[$i]['fecha_fin']!==null){
-        $ff=$activas[$i]['fecha_fin'];
-        $ff_ok= date("d/m/Y", strtotime($ff));
-        $activas[$i]['fecha_fin']=$ff_ok;
+    $fi = $activas[$i]['fecha_inicio'];
+    $fi_ok = date("d/m/Y", strtotime($fi));
+    $activas[$i]['fecha_inicio'] = $fi_ok;
+    if ($activas[$i]['fecha_fin'] !== null) {
+        $ff = $activas[$i]['fecha_fin'];
+        $ff_ok = date("d/m/Y", strtotime($ff));
+        $activas[$i]['fecha_fin'] = $ff_ok;
     }
 }
 
