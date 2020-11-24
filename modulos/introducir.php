@@ -37,19 +37,6 @@ if ($_SESSION['webOrigen'] === 'novedades') {
 }
 //endregion
 
-//region CONEXIÓN CON LA BASE DE DATOS.
-// CONFIGURACIÓN MYSQLi
-$db_operario = new mysqli('hl793.dinaserver.com', 'gonza_currito', 'NovedadesCurrito!',
-    'gonza_novedades');
-$db_operario->set_charset('utf8mb4');
-
-// SI HUBO ERROR EN LA CONEXIÓN SALIMOS
-if (mysqli_connect_errno()) {
-    header("location:../index.php?error=mysql");
-    exit();
-}
-
-
 ?>
 <!DOCTYPE html>
 <html lang="es">
