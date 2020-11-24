@@ -17,10 +17,10 @@ function validarIntroducir() {
         let datos_leidos = fecha_fin.value;
         let fecha_leida = new Date(datos_leidos)
         fecha_leida.setHours(0,0,0,0)
-        if(datos_leidos === '' || fecha_leida < fecha_hoy){
+        if(fecha_leida < fecha_hoy){
             ff=false
         }
-        if (fecha_leida>=fecha_hoy){
+        if (isNaN(fecha_leida) || fecha_leida>=fecha_hoy){
             ff=true
         }
     }
