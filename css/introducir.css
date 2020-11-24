@@ -14,11 +14,12 @@
     width: 100%;
     height: 100%;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: minmax(10mm, auto) minmax(10mm, auto) 1fr minmax(10mm, auto);
+    grid-template-rows: minmax(10mm,auto) auto 1fr auto minmax(10mm,auto);
     grid-template-areas:
     "titulo titulo"
     "fechaini fechafin"
     "contenido contenido"
+    "equipo equipo"
     "cancelar actualizar";
     grid-gap: 4px;
     border-radius: 8px;
@@ -52,8 +53,7 @@
     background-color: transparent;
 }
 ::-webkit-calendar-picker-indicator {
-    filter: invert(1);
-    hue-rotate(240deg);
+    filter: invert(0.5);
 }
 #fecha_ini:focus, #fecha_fin:focus {
     background-color: var(--02dp);
@@ -76,6 +76,23 @@
 #cuerpo:focus {
     background-color: var(--02dp);
     border: 1px solid var(--txt-r1);
+}
+
+select {
+    text-align: center;
+    width: 100%;
+    height: 10mm;
+    background-color: var(--barras) !important;
+
+    /*border: none;*/
+}
+
+fieldset {
+    border-radius: 8px;
+    border-color: dimgray;
+    width: 100%;
+    margin:0;
+    padding: 1mm 2mm 1mm 0;
 }
 
 .left {
@@ -118,7 +135,10 @@
     display: flex;
     grid-area: autor;
 }
-
+.equipo {
+    display: flex;
+    grid-area: equipo;
+}
 .cancelar {
     display: flex;
     grid-area: cancelar;
