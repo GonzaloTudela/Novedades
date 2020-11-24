@@ -73,30 +73,54 @@ if (mysqli_connect_errno()) {
     <div class="mainGrid altura0">
         <div class="titulo center altura1">
             <label for="titulo"></label>
-            <input class="center txt1 fs1" type="text" name="titulo" id="titulo" form="introducir"
-                   placeholder="Introduce un título" maxlength="64" required>
+            <input class="txt1 fs1" type="text" name="titulo" id="titulo" form="introducir"
+                   placeholder="Introduce un título. (obligatorio)" maxlength="64" required>
         </div>
         <div class="fechaini center altura1">
-            <label for="fecha_ini"></label>
-            <input class="center txt1 fs1" type="date" name="fecha_ini" id="fecha_ini" form="introducir"
-                   placeholder="dd/mm/yyyy">
+            <fieldset class="center txt3 fs2">
+                <legend>Fecha Inicio</legend>
+                <label class="txt1 fs1" for="fecha_ini"></label>
+                <input class="center txt1 fs2" type="date" name="fecha_ini" id="fecha_ini" form="introducir"
+                       placeholder="Desde: (obligatorio)">
+            </fieldset>
         </div>
         <div class="fechafin center altura1">
-            <label for="fecha_fin"></label>
-            <input class="center txt1 fs1" type="date" name="fecha_fin" id="fecha_fin" form="introducir"
-                   placeholder="dd/mm/yyyy">
+            <fieldset class="center txt3 fs2">
+                <legend>Fecha Fin</legend>
+                <label class="txt1 fs1" for="fecha_fin"></label>
+                <input class="center txt1 fs2" type="date" name="fecha_fin" id="fecha_fin" form="introducir"
+                       placeholder="Hasta:">
+            </fieldset>
+
         </div>
         <div class="contenido altura1">
             <label for="cuerpo"></label>
-            <textarea class="txt2 fs1" name="cuerpo" id="cuerpo" maxlength="4096" form="introducir" required></textarea>
+            <textarea class="txt2 fs1" name="cuerpo" id="cuerpo" maxlength="4096" form="introducir"
+                      placeholder="Texto de la noticia. (obligatorio)" required></textarea>
+        </div>
+        <div class="equipo center altura1">
+            <fieldset class="center txt3 fs2">
+                <legend>Equipos de trabajo</legend>
+            <label for="equipos" class="txt1 fs1"></label>
+            <select class="altura1 txt2 fs1" name="equipos" id="equipos" form="introducir" required>
+                <?php
+                foreach ($equipos as $equipo) {
+                    echo '<option class="txt1 fs1"
+                    value="' . htmlentities($equipo['id_equipo']) . '">' . htmlentities($equipo['nombre_equ']) . '
+                    </option>';
+                }
+                ?>
+                <option value="todos">Todos</option>
+            </select>
+            </fieldset>
         </div>
         <div>
             <input type="hidden" name="cancelar" form="cancelar" value="<?= $urlOrigen ?>">
-            <input type="submit" id="cancelar" class="webButton txt-r2 fs1" form="cancelar" value="CANCELAR">
+            <input type="submit" id="btn_cancelar" class="webButton txt-r2 fs1" form="cancelar" value="CANCELAR">
         </div>
         <div class="introducir webButton">
             <input type="hidden" name="enviar" form="introducir" value="<?= $urlOrigen ?>">
-            <input type="submit" id="enviar" class="webButton txt-r2 fs1" form="introducir" value="ENVIAR">
+            <input type="submit" id="btn_enviar" class="webButton txt-r2 fs1" form="introducir" value="ENVIAR">
         </div>
     </div>
     <!--        <div id="error_container" class="altura1"></div>-->
