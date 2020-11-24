@@ -1,0 +1,19 @@
+{
+  "short_name": "WorkNews",
+  "name": "CFGS ASIR 2020 Gonzalo Tudela, Novedades",
+  "icons": [
+    {
+      "src": "/img/app192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/img/app512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "https://www.gonzalotudela.tech/index.html",
+  "display": "standalone",
+  "orientation": "portrait"
+}
