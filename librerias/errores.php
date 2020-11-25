@@ -1,6 +1,4 @@
 <?php
-require_once "librerias/funcionesPHP.php";
-debugFor("79.152.7.228");
 // Si recogemos en GET la clave error, contemplamos los casos segun el value.
 function error_get()
 {
@@ -64,6 +62,18 @@ function error_get()
             case "indefinido":
                 echo <<< _HTML
                 <p class="error_text">Hubo un error en la aplicación.</p>
+                <script class="killme">killme();</script>
+                _HTML;
+                break;
+            case "passDiff":
+                echo <<< _HTML
+                <p class="error_text">Las contraseñas no coinciden.</p>
+                <script class="killme">killme();</script>
+                _HTML;
+                break;
+            case "datPersOk":
+                echo <<< _HTML
+                <p class="error_text">Datos actualizados.</p>
                 <script class="killme">killme();</script>
                 _HTML;
                 break;
