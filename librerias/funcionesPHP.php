@@ -1,5 +1,6 @@
 <?php
 //debugFor("79.152.7.228");
+
 // Emito errores dependiendo de la IP que me indican "STRING".
 function debugFor($ip)
 {
@@ -10,7 +11,7 @@ function debugFor($ip)
     }
 }
 
-function debugConsole($datos)
+function debugVariable($datos)
 {
     echo "<script>console.log(" . json_encode($datos) . ")</script>";
 }
@@ -76,7 +77,7 @@ function printMenu()
     $webNews = '../modulos/novedades.php';
     $webRules = '../modulos/activas.php';
     $webOffice = '';
-    $webAccount = '';
+    $webAccount = '/modulos/usuario.php';
     $webQuit = '';
     // Array menu estandard, id, icono, link, texto.
     $menu = array(
@@ -95,6 +96,7 @@ function printMenu()
         4 => array('office', $iconOffice, $webOffice, 'Empresas'),
         5 => array('account', $iconAccount, $webAccount, 'Cuenta'),
         6 => array('quit', $iconQuit, $webQuit, 'EXIT'));
+
     // RECUPERO EL NIVEL DEL USUARIO PARA COMPROBAR MAS ADELANTE
     if (isset($_SESSION['nivel'])) {
         $nivel = $_SESSION['nivel'];
@@ -102,6 +104,7 @@ function printMenu()
         echo '<script>console.log("Nivel no existe")</script>';
         exit();
     }
+
     // SI EL USUARIO ES NORMAL
     if ($nivel >= 0 && $nivel <= 998) {
         foreach ($menu as $item) {
