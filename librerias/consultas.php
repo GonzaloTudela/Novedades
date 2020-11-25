@@ -267,8 +267,6 @@ CONSULTA PARA PROBAR POR SEPARADO
 select o.id_noticia from noticias o join noticias n on o.id_noticia = n.id_noticia_old
 */
 
-// SQL PARA EL BOTON ACTUALIZAR NOTICIA
-
 //CONSULTAR NUM_VERSION DE LA NOTICIA A ACTUALIZAR PARA SUMARLO EN PHP
 $sql_version = 'select num_version from noticias where id_noticia=?';
 
@@ -284,3 +282,7 @@ $sql_afectar='insert into afectar (id_equipo, id_noticia) values (?,?)';
 $sql_insertar='INSERT INTO `noticias` 
     (`id_usuario`, `id_noticia`, `titulo`, `cuerpo`, `fecha_inicio`, `fecha_fin`, `timestamp_not`, `id_noticia_old`,
      `num_version`, `tipo`) VALUES (?, NULL, ?, ?, ?, ?, CURRENT_TIMESTAMP, NULL, 0, ?)';
+
+// CAMBIAR DATOS DE USUARIO
+$sql_test_usuario='select usuario, email_usu, password from usuarios where id_usuario=?';
+$sql_usuario='UPDATE `usuarios` SET `usuario` = ?, `email_usu` = ?, `password` = ? WHERE `usuarios`.`id_usuario` = ?';
