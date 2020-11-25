@@ -1,6 +1,9 @@
 <?php
 require_once "librerias/errores.php";
 require_once "librerias/funcionesPHP.php";
+header("Cache-Control: no-cache, no-store, must-revalidate"); // HTTP 1.1.
+header("Pragma: no-cache"); // HTTP 1.0.
+header("Expires: 0"); // Proxies.
 //debugFor("79.152.7.228");
 ?>
 <!DOCTYPE html>
@@ -19,6 +22,9 @@ require_once "librerias/funcionesPHP.php";
 <div id="fondo">
     <form id="login_form" method="POST" action="modulos/login.php">
         <h1>NOVEDADES</h1>
+        <pre>Proyecto CFGS ASIR
+Gonzalo Tudela Chavero, 2020
+<a href="http://www.centrodonbosco.es">www.centrodonbosco.es</a></pre>
         <label for="login"></label>
         <input type="text" id="login" name="login" placeholder="Usuario"><br>
         <label for="pass"></label>
