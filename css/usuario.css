@@ -1,0 +1,159 @@
+@import "general-look.css";
+@import "general-effects.css";
+
+* {
+    box-sizing: border-box; /* El tamaño tiene en cuenta los margenes */
+}
+
+*::-webkit-scrollbar {
+    display: none;
+}
+
+p {
+    color: var(--txt-r0);
+    margin: 0 0 0 3mm;
+}
+
+.mainGrid {
+    display: grid;
+    width: 100%;
+    height: 100%;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(9, minmax(10mm, auto));
+    grid-template-areas:
+    "nombre nombre"
+    "apellido1 apellido1"
+    "apellido2 apellido2"
+    "categoria categoria"
+    "usuario usuario"
+    "email email"
+    "pass pass"
+    "vpass vpass"
+    "cancelar actualizar";
+    grid-gap: 8px;
+    border-radius: 8px;
+}
+
+input {
+    width: 100%;
+    border: none;
+    outline: none;
+    border-radius: 8px;
+    text-align: center;
+    background-color: transparent;
+    margin: 0;
+}
+
+input:focus {
+    background-color: var(--02dp);
+    border: 1px solid var(--txt-r1);
+}
+
+#usuario, #email, #pass, #vpass {
+    display: flex;
+    height: 100%;
+    border: none;
+    outline: none;
+    border-radius: 8px;
+    text-align: left;
+    background-color: transparent;
+}
+
+#usuario:focus, #email:focus, #pass:focus, #vpass:focus {
+    background-color: var(--02dp);
+    border: 1px solid var(--txt-r1);
+}
+
+select {
+    text-align: center;
+    width: 100%;
+    height: 10mm;
+    background-color: var(--barras) !important;
+}
+
+fieldset {
+    display: flex;
+    border-radius: 8px;
+    border-color: dimgray;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    /*padding: 0 3mm 0 0mm;*/
+}
+
+legend {
+    text-align: right;
+    margin-right: 2mm;
+}
+
+.center {
+    align-items: center;
+    justify-content: center;
+    /*flex-direction: column;*/
+}
+
+.left {
+    align-items: center;
+    justify-content: left;
+}
+
+.right {
+    align-items: center;
+    justify-content: right;
+}
+
+.justified {
+    align-items: stretch;
+    justify-content: stretch;
+}
+
+.nombre {
+    display: flex;
+    grid-area: nombre;
+}
+
+.apellido1 {
+    display: flex;
+    grid-area: apellido1;
+}
+
+.apellido2 {
+    display: flex;
+    grid-area: apellido2;
+}
+
+.categoria {
+    display: flex;
+    grid-area: categoria;
+}
+
+
+.usuario {
+    display: flex;
+    grid-area: usuario;
+}
+
+.email {
+    display: flex;
+    grid-area: email;
+}
+
+.pass {
+    display: flex;
+    grid-area: pass;
+}
+
+.vpass {
+    display: flex;
+    grid-area: vpass;
+}
+
+.cancelar {
+    display: flex;
+    grid-area: cancelar;
+}
+
+.actualizar {
+    display: flex;
+    grid-area: actualizar;
+}
