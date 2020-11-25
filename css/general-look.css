@@ -77,14 +77,27 @@ footer {
 }
 
 #error_container {
-    display: none;
+    display: flex;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 50%;
-    height: 50%;
-    background-color: white;
+    padding:0;
+    background-color: transparent;
+}
+
+.error_text {
+    display: inline-block;
+    font-family: 'Barlow', sans-serif;
+    padding: 2mm 2mm 2mm 2mm;
+    margin:0;
+    font-weight: 400;
+    font-size: 4mm;
+    color: black;
+    background-color: var(--txt-r0);
+    border: 3px solid white;
+    border-radius: 8px;
+    text-align: center;
 }
 
 a {
@@ -349,6 +362,7 @@ input.webButton {
     background-color: var(--btnH);
     color: black;
 }
+
 input.webButton:disabled {
     background-color: var(--01dp);
     color: var(--01dp);
@@ -370,6 +384,7 @@ input.webButton:disabled {
     margin: 0 2vw 0 2vw;
     padding: 1mm;
 }
+
 .answerButton:hover {
     background-color: var(--txt-r0);
 }
