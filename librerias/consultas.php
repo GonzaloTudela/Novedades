@@ -257,6 +257,10 @@ $sql_leer = 'insert into leer (id_usuario, id_noticia) values (?,?)';
 // HACER CADUCAR UNA NOTICIA FIJANDO SU FECHA FIN 1 DIA MENOS QUE LA FECHA ACTUAL
 $sql_finalizar = 'update noticias set fecha_fin=date_sub(curdate(), interval 1 day) where id_noticia=?';
 
+// CONSULTAR EL NIVEL DEL AUTOR DE UNA NOTICIA.
+$sql_nivel_autor='select nivel from categorias join usuarios u on categorias.id_categoria = u.id_categoria 
+    join noticias n on u.id_usuario = n.id_usuario where n.id_noticia=?';
+
 // SABER SI LA NOTICIA LA HA LEIDO EL USUARIO
 $sql_leida = 'select id_noticia, id_usuario from leer where id_noticia = ? and id_usuario = ?';
 
@@ -277,7 +281,7 @@ $sql_actualizar = 'INSERT INTO `noticias`
 
 // INSERCION DE LOS EQUIPOS A LOS QUE AFECTABA ORIGINALMENTE.
 $sql_afectar='insert into afectar (id_equipo, id_noticia) values (?,?)';
-
+$sql_afectar_admin='INSERT INTO afectar(id_equipo, id_noticia) SELECT id_equipo, ? FROM equipos';
 // CREAR NOTICIA NUEVA
 $sql_insertar='INSERT INTO `noticias` 
     (`id_usuario`, `id_noticia`, `titulo`, `cuerpo`, `fecha_inicio`, `fecha_fin`, `timestamp_not`, `id_noticia_old`,
