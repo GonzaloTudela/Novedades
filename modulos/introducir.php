@@ -1,27 +1,30 @@
 <?php
+session_start();
 //todo ESTABLECER UTF8MB4_BIN PARA EL NOMBRE DE USUARIO ANTES DE LA PRESENTACIÓN.
 require_once('../librerias/consultas.php');
 require_once('../librerias/funcionesPHP.php');
 //debugFor("79.152.7.228");
 
-session_start();
-
 //region RECOGIDA VARIABLES DE SESSION TRAS LOGIN
 // DATOS RECOGIDOS EN LOGIN - SI NO ESTÁN, ACCESO NO AUTENTIFICADO -> LOGIN.PHP.
-if (isset($_SESSION['id_usuario'], $_SESSION['nombre'], $_SESSION['apellido1'], $_SESSION['apellido2'],
-    $_SESSION['estado_usu'], $_SESSION['$empresas'])) {
+if (isset($_SESSION['id_usuario'], $_SESSION['nombre'], $_SESSION['apellido1'], $_SESSION['estado_usu'],
+    $_SESSION['$empresas'])) {
     $id_usuario = $_SESSION['id_usuario'];
     $nivel = $_SESSION['nivel'];
     $nombre = $_SESSION['nombre'];
     $apellido1 = $_SESSION['apellido1'];
-    $apellido2 = $_SESSION['apellido2'];
+    if (isset($_SESSION['apellido2'])){
+        $apellido2 = $_SESSION['apellido2'];
+    } else {
+        $apellido2 = null;
+    }
     $estado_usu = $_SESSION['estado_usu'];
     $empresas = $_SESSION['$empresas'];
     $equipos = $_SESSION['$equipos'];
 } else {
     session_destroy();
     $_SESSION[] = array();
-    header("location:../index.php?error=login");
+    header("location:../index.php?error=sesion");
     exit();
 }
 //endregion
@@ -43,7 +46,7 @@ if ($_SESSION['webOrigen'] === 'novedades') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+          content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1">
     <title>Novedades</title>
     <link rel="icon" href="../img/favicon.png">
     <link rel="stylesheet" href="../css/introducir.css">
