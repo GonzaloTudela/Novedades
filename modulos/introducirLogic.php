@@ -1,26 +1,30 @@
 <?php
+session_start();
+
 require_once('../librerias/consultas.php');
 require_once('../librerias/funcionesPHP.php');
 //debugFor("79.152.7.228");
 
-session_start();
-
 //region RECOGIDA VARIABLES DE SESSION TRAS LOGIN
 // DATOS RECOGIDOS EN LOGIN - SI NO ESTÁN, ACCESO NO AUTENTIFICADO -> LOGIN.PHP.
-if (isset($_SESSION['id_usuario'], $_SESSION['nombre'], $_SESSION['apellido1'], $_SESSION['apellido2'],
-    $_SESSION['estado_usu'], $_SESSION['$empresas'])) {
+if (isset($_SESSION['id_usuario'], $_SESSION['nombre'], $_SESSION['apellido1'], $_SESSION['estado_usu'],
+    $_SESSION['$empresas'])) {
     $id_usuario = $_SESSION['id_usuario'];
     $nivel = $_SESSION['nivel'];
     $nombre = $_SESSION['nombre'];
     $apellido1 = $_SESSION['apellido1'];
-    $apellido2 = $_SESSION['apellido2'];
+    if (isset($_SESSION['apellido2'])){
+        $apellido2 = $_SESSION['apellido2'];
+    } else {
+        $apellido2 = null;
+    }
     $estado_usu = $_SESSION['estado_usu'];
     $empresas = $_SESSION['$empresas'];
     $equipos = $_SESSION['$equipos'];
 } else {
     session_destroy();
     $_SESSION[] = array();
-    header("location:../index.php?error=login");
+    header("location:../index.php?error=sesion");
     exit();
 }
 //endregion
@@ -71,10 +75,6 @@ if (isset($sql_insertar)) {
         $fecha_ini = date("Y-m-d");
     }
 
-//    $sql_insertar='INSERT INTO `noticias`
-//    (`id_usuario`, `id_noticia`, `titulo`, `cuerpo`, `fecha_inicio`, `fecha_fin`, `timestamp_not`, `id_noticia_old`,
-//     `num_version`, `tipo`) VALUES (?, NULL, ?, ?, ?, ?, CURRENT_TIMESTAMP, NULL, 0, ?)';
-
     // CREACION DE LA NOTICIA
     $stmt_insertar->bind_param('issssi', $id_usuario, $titulo, $cuerpo, $fecha_ini, $fecha_fin, $tipo);
     $stmt_insertar->execute();
@@ -88,23 +88,38 @@ if (isset($sql_insertar)) {
 }
 
 // SQL ESCRIBIMOS LA NUEVA NOTICIA EN LA TABLA AFECTAR CON LOS EQUIPOS DE LA VIEJA.
-if (isset($insertOK, $sql_afectar) && $insertOK === true) {
+if (isset($insertOK, $sql_afectar, $sql_afectar_admin) && $insertOK === true) {
     $stmt_afectar = $db_operario->prepare($sql_afectar);
+    $stmt_afectar_admin = $db_operario->prepare($sql_afectar_admin);
     if ($stmt_afectar === false) {
         $db_operario->close();
         exit("Error en prepare SQL afectar");
     }
+    if ($stmt_afectar_admin === false) {
+        $db_operario->close();
+        exit("Error en prepare SQL afectar");
+    }
     if ($selectEquipo === 'todos') {
-        foreach ($equipos as $equipo) {
-            $id_equipo = $equipo['id_equipo'];
-            $stmt_afectar->bind_param('ii', $id_equipo, $id_nuevo);
-            $stmt_afectar->execute();
-            if ($stmt_afectar->affected_rows === 1) {
-                continue;
+        if ($nivel===999){
+            $stmt_afectar_admin->bind_param('i',$id_nuevo);
+            $stmt_afectar_admin->execute();
+            if ($stmt_afectar->affected_rows >= 1) {
+                $stmt_afectar_admin->close();
             }
-            exit("Fallo en la insercion recursiva de AFECTAR.");
+        }
+        if ($nivel!==999){
+            foreach ($equipos as $equipo) {
+                $id_equipo = $equipo['id_equipo'];
+                $stmt_afectar->bind_param('ii', $id_equipo, $id_nuevo);
+                $stmt_afectar->execute();
+                if ($stmt_afectar->affected_rows === 1) {
+                    continue;
+                }
+                exit("Fallo en la insercion recursiva de AFECTAR.");
+            }
         }
     }
+
     if ($selectEquipo !== 'todos') {
         $id_equipo = $selectEquipo;
         $stmt_afectar->bind_param('ii', $id_equipo, $id_nuevo);
