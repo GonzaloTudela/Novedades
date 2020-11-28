@@ -77,6 +77,18 @@ function error_get()
                 <script class="killme">killme();</script>
                 _HTML;
                 break;
+            case "sesion":
+                echo <<< _HTML
+                <p class="error_text">No se pudo verificar la sesión.</p>
+                <script class="killme">killme();</script>
+                _HTML;
+                break;
+            case "permiso":
+                echo <<< _HTML
+                <p class="error_text">No tienes permiso para finalizar esta noticia.</p>
+                <script class="killme">killme();</script>
+                _HTML;
+                break;
             default:
                 break;
         }
