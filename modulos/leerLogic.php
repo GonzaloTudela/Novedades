@@ -1,25 +1,28 @@
 <?php
+session_start();
 require_once('../librerias/consultas.php');
 require_once('../librerias/funcionesPHP.php');
 //debugFor("79.152.7.228");
 
-session_start();
-
 // DATOS RECOGIDOS EN LOGIN.
-if (isset($_SESSION['id_usuario'], $_SESSION['nombre'], $_SESSION['apellido1'], $_SESSION['apellido2'],
-    $_SESSION['estado_usu'], $_SESSION['$empresas'])) {
+if (isset($_SESSION['id_usuario'], $_SESSION['nombre'], $_SESSION['apellido1'], $_SESSION['estado_usu'],
+    $_SESSION['$empresas'])) {
     $id_usuario = $_SESSION['id_usuario'];
     $nivel = $_SESSION['nivel'];
     $nombre = $_SESSION['nombre'];
     $apellido1 = $_SESSION['apellido1'];
-    $apellido2 = $_SESSION['apellido2'];
+    if (isset($_SESSION['apellido2'])){
+        $apellido2 = $_SESSION['apellido2'];
+    } else {
+        $apellido2 = null;
+    }
     $estado_usu = $_SESSION['estado_usu'];
     $empresas = $_SESSION['$empresas'];
     $equipos = $_SESSION['$equipos'];
 } else {
     session_destroy();
     $_SESSION[] = array();
-    header("location:../index.php?error=login");
+    header("location:../index.php?error=sesion");
     exit();
 }
 // RECUPERO EL ULTIMO ESTADO DE WEBORIGEN EN SESSION, SI NO ES POSIBLE DETERMINO QUE VOLVAMOS A NOVEDADES.
