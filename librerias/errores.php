@@ -83,9 +83,15 @@ function error_get()
                 <script class="killme">killme();</script>
                 _HTML;
                 break;
-            case "permiso":
+            case "finalizar":
                 echo <<< _HTML
                 <p class="error_text">No tienes permiso para finalizar esta noticia.</p>
+                <script class="killme">killme();</script>
+                _HTML;
+                break;
+            case "actualizar":
+                echo <<< _HTML
+                <p class="error_text">No tienes permiso para actualizar esta noticia.</p>
                 <script class="killme">killme();</script>
                 _HTML;
                 break;

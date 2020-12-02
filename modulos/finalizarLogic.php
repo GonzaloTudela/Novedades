@@ -80,5 +80,5 @@ if ($nivel>=$nivelAutor) {
         }
     }
 } else {
-    header('location:leer.php?error=permiso');
+    header('location:leer.php?error=finalizar');
 }
