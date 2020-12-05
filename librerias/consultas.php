@@ -255,10 +255,10 @@ where (curdate()>=n.fecha_inicio and (curdate()<=n.fecha_fin or fecha_fin is nul
 $sql_leer = 'insert into leer (id_usuario, id_noticia) values (?,?)';
 
 // HACER CADUCAR UNA NOTICIA FIJANDO SU FECHA FIN 1 DIA MENOS QUE LA FECHA ACTUAL
-$sql_finalizar = 'update noticias set fecha_fin=date_sub(curdate(), interval 1 day) where id_noticia=?';
+$sql_finalizar = 'update noticias set fecha_fin=date_sub(curdate(), interval 1 day), tipo=0 where id_noticia=?';
 
 // CONSULTAR EL NIVEL DEL AUTOR DE UNA NOTICIA.
-$sql_nivel_autor='select nivel from categorias join usuarios u on categorias.id_categoria = u.id_categoria 
+$sql_nivel_autor = 'select nivel from categorias join usuarios u on categorias.id_categoria = u.id_categoria 
     join noticias n on u.id_usuario = n.id_usuario where n.id_noticia=?';
 
 // SABER SI LA NOTICIA LA HA LEIDO EL USUARIO
@@ -280,13 +280,28 @@ $sql_actualizar = 'INSERT INTO `noticias`
      `num_version`, `tipo`) VALUES (?, NULL, ?, ?, ?, ?, CURRENT_TIMESTAMP, ?, ?, ?)';
 
 // INSERCION DE LOS EQUIPOS A LOS QUE AFECTABA ORIGINALMENTE.
-$sql_afectar='insert into afectar (id_equipo, id_noticia) values (?,?)';
-$sql_afectar_admin='INSERT INTO afectar(id_equipo, id_noticia) SELECT id_equipo, ? FROM equipos';
+$sql_afectar = 'insert into afectar (id_equipo, id_noticia) values (?,?)';
+$sql_afectar_admin = 'INSERT INTO afectar(id_equipo, id_noticia) SELECT id_equipo, ? FROM equipos';
 // CREAR NOTICIA NUEVA
-$sql_insertar='INSERT INTO `noticias` 
+$sql_insertar = 'INSERT INTO `noticias` 
     (`id_usuario`, `id_noticia`, `titulo`, `cuerpo`, `fecha_inicio`, `fecha_fin`, `timestamp_not`, `id_noticia_old`,
      `num_version`, `tipo`) VALUES (?, NULL, ?, ?, ?, ?, CURRENT_TIMESTAMP, NULL, 0, ?)';
 
 // CAMBIAR DATOS DE USUARIO
-$sql_test_usuario='select usuario, email_usu, password from usuarios where id_usuario=?';
-$sql_usuario='UPDATE `usuarios` SET `usuario` = ?, `email_usu` = ?, `password` = ? WHERE `usuarios`.`id_usuario` = ?';
+$sql_test_usuario = 'select usuario, email_usu, password from usuarios where id_usuario=?';
+$sql_usuario = 'UPDATE `usuarios` SET `usuario` = ?, `email_usu` = ?, `password` = ? WHERE `usuarios`.`id_usuario` = ?';
+
+// BUSCAR NOTICIAS // 1000-01-01 hasta 9999-12-31
+$sql_buscar_admin = 'select id_noticia, titulo, cuerpo, nombre, apellido1, fecha_inicio, fecha_fin, timestamp_not
+from noticias
+join usuarios u on noticias.id_usuario = u.id_usuario
+where fecha_inicio >= ? and (fecha_fin <= ? or fecha_fin is null) and titulo like ? and cuerpo like ? and nombre like ?
+order by fecha_fin';
+
+// BUSCAR NOTICIAS NORMAL
+$sql_buscar = 'select id_noticia, titulo, cuerpo, nombre, apellido1, fecha_inicio, fecha_fin, timestamp_not
+from noticias
+join usuarios u on noticias.id_usuario = u.id_usuario
+where fecha_inicio >= ? and (fecha_fin <= ? or fecha_fin is null) and titulo like ? and cuerpo like ? and nombre like ?
+order by fecha_fin';
+
