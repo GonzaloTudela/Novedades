@@ -1,0 +1,122 @@
+@import "general-look.css";
+@import "general-effects.css";
+
+* {
+    box-sizing: border-box; /* El tamaño tiene en cuenta los margenes */
+}
+
+*::-webkit-scrollbar {
+    display: none;
+}
+fieldset {
+    border-radius: 8px;
+    border-color: dimgray;
+    width: 100%;
+    height: 18mm;
+    margin:0;
+    padding: 2mm 2mm 2mm 2mm;
+}
+
+.mainGrid {
+    display: grid;
+    width: 100%;
+    height: 100%;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr repeat(5, 20mm);
+    grid-template-areas:
+    "margen margen"
+    "fechaini fechafin"
+    "titulo titulo"
+    "contenido contenido"
+    "autor autor"
+    "buscar buscar";
+    grid-gap: 4px;
+    border-radius: 8px;
+}
+
+#titulo, #autor, #cuerpo  {
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+    border-radius: 8px;
+    text-align: center;
+    background-color: transparent;
+}
+
+#titulo:focus, #autor:focus, #cuerpo:focus {
+    background-color: var(--02dp);
+    border: 1px solid var(--txt-r1);
+}
+
+#fecha_ini, #fecha_fin {
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+    border-radius: 8px;
+    text-align: center;
+    background-color: transparent;
+}
+
+::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+hue-rotate(240 deg);
+}
+
+#fecha_ini:focus, #fecha_fin:focus {
+    background-color: var(--02dp);
+    border: 1px solid var(--txt-r1);
+}
+
+.left {
+    align-items: center;
+    justify-content: left;
+}
+
+.right {
+    align-items: center;
+    justify-content: right;
+}
+
+.center {
+    align-items: center;
+    justify-content: center;
+    /*flex-direction: column;*/
+}
+
+.justified {
+    align-items: stretch;
+    justify-content: stretch;
+}
+
+.titulo {
+    display: flex;
+    grid-area: titulo;
+}
+
+.fechaini {
+    display: flex;
+    grid-area: fechaini;
+}
+
+.fechafin {
+    display: flex;
+    grid-area: fechafin;
+}
+
+.contenido {
+    display: flex;
+    grid-area: contenido;
+    overflow: auto;
+}
+
+.autor {
+    display: flex;
+    grid-area: autor;
+}
+
+.buscar {
+    display: flex;
+    grid-area: buscar;
+}
