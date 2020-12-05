@@ -112,7 +112,8 @@ if (isset($sql_usuario)) {
         $insertOK = true;
         $stmt_usuario->close();
     } else {
-        exit("Error al insertar la noticia");
+        header("location:usuario.php?error=sincambios");
+        exit();
     }
 }
 $db_operario->close();
