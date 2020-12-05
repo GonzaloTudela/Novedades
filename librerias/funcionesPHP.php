@@ -57,7 +57,6 @@ function escribeNovedades(array $array)
             echo '</div>';
         }
     }
-
 }
 
 // Imprimo el menu utilizando un array con el ID, icono, link y texto descriptivo.
@@ -73,7 +72,7 @@ function printMenu()
     $iconQuit = '../img/exit.svg';
     // Links del boton.
     $webAdd = '../modulos/introducir.php';
-    $webSearch = '';
+    $webSearch = '../modulos/buscar.php';
     $webNews = '../modulos/novedades.php';
     $webRules = '../modulos/activas.php';
     $webOffice = '';
