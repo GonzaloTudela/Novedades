@@ -95,6 +95,12 @@ function error_get()
                 <script class="killme">killme();</script>
                 _HTML;
                 break;
+            case "sincambios":
+                echo <<< _HTML
+                <p class="error_text">No se modificó ningún dato.</p>
+                <script class="killme">killme();</script>
+                _HTML;
+                break;
             default:
                 break;
         }
