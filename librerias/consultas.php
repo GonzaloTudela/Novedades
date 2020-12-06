@@ -287,11 +287,15 @@ $sql_insertar = 'INSERT INTO `noticias`
     (`id_usuario`, `id_noticia`, `titulo`, `cuerpo`, `fecha_inicio`, `fecha_fin`, `timestamp_not`, `id_noticia_old`,
      `num_version`, `tipo`) VALUES (?, NULL, ?, ?, ?, ?, CURRENT_TIMESTAMP, NULL, 0, ?)';
 
-// CAMBIAR DATOS DE USUARIO
-$sql_test_usuario = 'select usuario, email_usu, password from usuarios where id_usuario=?';
+// CONSULTAR DATOS DEL USUARIO PARA MÓDULO DATOS PERSONALES
+$sql_test_usuario = 'select usuario, email_usu, password, nombre_cat from usuarios
+join categorias c on usuarios.id_categoria = c.id_categoria
+where id_usuario=?';
+
+// CAMBIAR DATOS DE USUARIO EN MÓDULO DATOS PERSONALES
 $sql_usuario = 'UPDATE `usuarios` SET `usuario` = ?, `email_usu` = ?, `password` = ? WHERE `usuarios`.`id_usuario` = ?';
 
-// BUSCAR NOTICIAS // 1000-01-01 hasta 9999-12-31
+// BUSCAR NOTICIAS ADMINS // (FECHAS MIN Y MAX 1000-01-01 hasta 9999-12-31 )
 $sql_buscar_admin = 'select id_noticia, titulo, cuerpo, nombre, apellido1, fecha_inicio, fecha_fin, timestamp_not
 from noticias
 join usuarios u on noticias.id_usuario = u.id_usuario
@@ -299,9 +303,16 @@ where fecha_inicio >= ? and (fecha_fin <= ? or fecha_fin is null) and titulo lik
 order by fecha_fin';
 
 // BUSCAR NOTICIAS NORMAL
-$sql_buscar = 'select id_noticia, titulo, cuerpo, nombre, apellido1, fecha_inicio, fecha_fin, timestamp_not
-from noticias
-join usuarios u on noticias.id_usuario = u.id_usuario
-where fecha_inicio >= ? and (fecha_fin <= ? or fecha_fin is null) and titulo like ? and cuerpo like ? and nombre like ?
-order by fecha_fin';
+$sql_buscar = 'select n.id_noticia, n.titulo, n.cuerpo, u.nombre, u.apellido1, n.fecha_inicio, n.fecha_fin, n.timestamp_not
+from noticias n
+join usuarios u on n.id_usuario= u.id_usuario where fecha_inicio >= ?
+and (fecha_fin <= ? or fecha_fin is null) and titulo like ? and cuerpo like ? and nombre like ?
+and n.id_noticia in (
+select a.id_noticia 
+from equipos e
+join formar f on e.id_equipo = f.id_equipo
+join usuarios u on u.id_usuario = f.id_usuario
+join afectar a on e.id_equipo = a.id_equipo
+where u.id_usuario = ?)
+and n.id_noticia not in (select o.id_noticia from noticias o join noticias n on o.id_noticia = n.id_noticia_old)';
 
