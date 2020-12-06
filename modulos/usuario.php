@@ -59,7 +59,7 @@ if (isset($sql_test_usuario)) {
     // LEER DATOS USUARIO
     $stmt_test_usuario->bind_param('i', $id_usuario);
     $stmt_test_usuario->execute();
-    $stmt_test_usuario->bind_result($usuario, $email, $pass);
+    $stmt_test_usuario->bind_result($usuario, $email, $pass, $categoria);
     $res_test_usuario = $stmt_test_usuario->fetch();
     if ($res_test_usuario === null) {
         $stmt_test_usuario->close();
@@ -83,6 +83,8 @@ $db_operario->close();
 <body id="root">
 <header class="sombra0">
     <h1 class="txt0 fs0" style="color:var(--txt-r1)">DATOS PERSONALES</h1>
+    <button class="tituloButton"><?php echo file_get_contents('../img/account.svg') ?><span><?=$nombre?></span></button>
+    <span class="fecha"><?php echo date('d/m/Y')?></span>
 </header>
 <main class="altura0">
     <div id="error_container"><?php error_get() ?></div>
@@ -110,7 +112,7 @@ $db_operario->close();
         <div class="categoria justified altura1">
             <fieldset class="left txt3 fs2">
                 <legend>Categoría</legend>
-                <p class="fs1"><?= $nivel ?></p>
+                <p class="fs1"><?= $categoria ?></p>
             </fieldset>
         </div>
         <div class="usuario justified altura0">
