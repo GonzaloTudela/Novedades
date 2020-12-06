@@ -8,13 +8,23 @@
 *::-webkit-scrollbar {
     display: none;
 }
+
 fieldset {
     border-radius: 8px;
     border-color: dimgray;
     width: 100%;
     height: 18mm;
-    margin:0;
-    padding: 2mm 2mm 2mm 2mm;
+    margin: 0;
+    padding: 2mm 1mm 2mm 1mm;
+}
+
+ul {
+    text-align: left;
+    margin: 1mm;
+}
+
+li {
+    padding: 1mm;
 }
 
 .mainGrid {
@@ -34,7 +44,7 @@ fieldset {
     border-radius: 8px;
 }
 
-#titulo, #autor, #cuerpo  {
+#titulo, #autor, #cuerpo {
     width: 100%;
     height: 100%;
     border: none;
