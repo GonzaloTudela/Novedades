@@ -184,7 +184,41 @@ a {
     text-align: center;
     border: 1px solid red;
 }
-
+.tituloButton {
+    position: absolute;
+    top: 2.5mm;
+    left: 1.5mm;
+    background-color: transparent;
+    width: 5mm;
+    height: 5mm;
+    border: none;
+    outline: none;
+    -webkit-transition: all 250ms;
+    -moz-transition: all 250ms;
+    transition: all 250ms;
+    margin: 0;
+    padding: 0;
+    fill: var(--txt-r1);
+    text-align: center;
+}
+.tituloButton span {
+    position: absolute;
+    left: 6mm;
+    top: 1mm;
+    font-family: 'Barlow', sans-serif;
+    font-weight: 700;
+    color: var(--txt-r1);
+    font-size: 3mm;
+}
+.fecha {
+    position: absolute;
+    top: 3.5mm;
+    right: 1.5mm;
+    font-family: 'Barlow', sans-serif;
+    font-weight: 700;
+    color: var(--txt-r1);
+    font-size: 3mm;
+}
 .menuButton svg {
     height: 8mm;
     width: 8mm;
