@@ -174,5 +174,4 @@ function resetAllSessions()
     ini_set('session.gc_divisor', 1);
 // Completely destroy our server sessions..
     session_destroy();
-
 }

@@ -315,4 +315,3 @@ join usuarios u on u.id_usuario = f.id_usuario
 join afectar a on e.id_equipo = a.id_equipo
 where u.id_usuario = ?)
 and n.id_noticia not in (select o.id_noticia from noticias o join noticias n on o.id_noticia = n.id_noticia_old)';
-
