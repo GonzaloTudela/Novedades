@@ -58,7 +58,10 @@ if ($err_diff_pass) {
     header("location:usuario.php?error=passDiff");
     exit();
 }
-
+if ($err_pass==true || $err_vpass==true){
+    header("location:usuario.php?error=sincambios");
+    exit();
+}
 // CONECTAMOS CON LA BD.
 $db_operario = new mysqli('hl793.dinaserver.com', 'gonza_currito', 'NovedadesCurrito!',
     'gonza_novedades');
