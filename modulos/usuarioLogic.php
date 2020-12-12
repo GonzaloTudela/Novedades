@@ -58,8 +58,13 @@ if ($err_diff_pass) {
     header("location:usuario.php?error=passDiff");
     exit();
 }
-if ($err_pass==true || $err_vpass==true){
-    header("location:usuario.php?error=sincambios");
+
+if ($err_usuario===true){
+    header("location:usuario.php?error=usuariovacio");
+    exit();
+}
+if ($err_email===true){
+    header("location:usuario.php?error=correovacio");
     exit();
 }
 // CONECTAMOS CON LA BD.
@@ -81,7 +86,7 @@ if (isset($sql_test_usuario)) {
     // LEER DATOS USUARIO
     $stmt_test_usuario->bind_param('i', $id_usuario);
     $stmt_test_usuario->execute();
-    $stmt_test_usuario->bind_result($vUsuario, $vEmail, $vPass);
+    $stmt_test_usuario->bind_result($vUsuario, $vEmail, $oPass, $nom_Categoria);
     $res_test_usuario = $stmt_test_usuario->fetch();
     if ($res_test_usuario === null) {
         $stmt_test_usuario->close();
@@ -100,8 +105,8 @@ if (isset($sql_usuario)) {
     //TESTS Y SUSTITUCIONES
     $err_usuario ? $usuario = $vUsuario : $usuario = $post_usuario;
     $err_email ? $email = $vEmail : $email = $post_email;
-    if ($err_pass){
-        $pass=$vPass;
+    if ($err_pass===true){
+        $pass=$oPass;
     } else {
         $pass=password_hash($post_pass,PASSWORD_ARGON2I);
 //        $pass=password_hash('1234',PASSWORD_ARGON2I);
