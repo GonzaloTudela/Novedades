@@ -12,7 +12,7 @@ if (isset($_SESSION['id_usuario'], $_SESSION['nombre'], $_SESSION['apellido1'], 
     $nivel = $_SESSION['nivel'];
     $nombre = $_SESSION['nombre'];
     $apellido1 = $_SESSION['apellido1'];
-    if (isset($_SESSION['apellido2'])){
+    if (isset($_SESSION['apellido2'])) {
         $apellido2 = $_SESSION['apellido2'];
     } else {
         $apellido2 = null;
@@ -36,10 +36,10 @@ if (isset($_POST['cancelar'])) {
 }
 // SI LLEGA POST ENVIAR RECOGEMOS DATOS Y SEGUIMOS.
 if (isset($_POST['usuario'], $_POST['email'], $_POST['pass'], $_POST['vpass'], $_POST['enviar'])) {
-    $post_usuario = $_POST['usuario'];
-    $post_email = $_POST['email'];
-    $post_pass = $_POST['pass'];
-    $post_vpass = $_POST['vpass'];
+    $post_usuario = preg_replace('/\s/', '', $_POST['usuario']);
+    $post_email = preg_replace('/\s/', '', $_POST['email']);
+    $post_pass = preg_replace('/\s/', '', $_POST['pass']);
+    $post_vpass = preg_replace('/\s/', '', $_POST['vpass']);
     $url_origen_enviar = $_POST['enviar'];
 } else {
     header("location:novedades.php");
@@ -58,12 +58,11 @@ if ($err_diff_pass) {
     header("location:usuario.php?error=passDiff");
     exit();
 }
-
-if ($err_usuario===true){
+if ($err_usuario === true) {
     header("location:usuario.php?error=usuariovacio");
     exit();
 }
-if ($err_email===true){
+if ($err_email === true) {
     header("location:usuario.php?error=correovacio");
     exit();
 }
@@ -105,15 +104,15 @@ if (isset($sql_usuario)) {
     //TESTS Y SUSTITUCIONES
     $err_usuario ? $usuario = $vUsuario : $usuario = $post_usuario;
     $err_email ? $email = $vEmail : $email = $post_email;
-    if ($err_pass===true){
-        $pass=$oPass;
+    if ($err_pass === true) {
+        $pass = $oPass;
     } else {
-        $pass=password_hash($post_pass,PASSWORD_ARGON2I);
+        $pass = password_hash($post_pass, PASSWORD_ARGON2I);
 //        $pass=password_hash('1234',PASSWORD_ARGON2I);
     }
 
     // CAMBIO DATOS
-    $stmt_usuario->bind_param('sssi', $usuario, $email, $pass,$id_usuario);
+    $stmt_usuario->bind_param('sssi', $usuario, $email, $pass, $id_usuario);
     $stmt_usuario->execute();
     if ($stmt_usuario->affected_rows === 1) {
         $id_nuevo = $stmt_usuario->insert_id;
