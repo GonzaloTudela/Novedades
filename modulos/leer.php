@@ -47,20 +47,28 @@ if (isset($_SESSION['novedades'])) {
     foreach ($novedades as $nitem) {
         $rec_novedades[$nitem['id_noticia']] = $nitem;
     }
+} else {
+    $rec_novedades = array();
 }
 if (isset($_SESSION['activas'])) {
     $normas = $_SESSION['activas'];
     foreach ($normas as $aitem) {
         $rec_activas[$aitem['id_noticia']] = $aitem;
     }
+} else {
+    $rec_activas = array();
 }
 if (isset($_SESSION['buscar'])) {
     $resultados = $_SESSION['buscar'];
     foreach ($resultados as $bitem) {
         $rec_resultados[$bitem['id_noticia']] = $bitem;
     }
+}else {
+    $rec_resultados=array();
 }
-$noticias = $rec_novedades + $rec_activas + $rec_resultados;
+
+$not1 = $rec_novedades + $rec_activas;
+$noticias = $not1 + $rec_resultados;
 ksort($noticias);
 //endregion
 // CAMBIO DEL ORDEN DE LAS FECHAS SOLO PARA MOSTRAR EN HTML
