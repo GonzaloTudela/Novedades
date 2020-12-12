@@ -101,6 +101,24 @@ function error_get()
                 <script class="killme">killme();</script>
                 _HTML;
                 break;
+            case "passvacio":
+                echo <<< _HTML
+                <p class="error_text">Alguno de los campos contraseña estan vacíos.</p>
+                <script class="killme">killme();</script>
+                _HTML;
+                break;
+            case "usuariovacio":
+                echo <<< _HTML
+                <p class="error_text">El nombre de usuario no puede estar vacío.</p>
+                <script class="killme">killme();</script>
+                _HTML;
+                break;
+            case "correovacio":
+                echo <<< _HTML
+                <p class="error_text">El correo electrónico no puede estar vacío.</p>
+                <script class="killme">killme();</script>
+                _HTML;
+                break;
             default:
                 break;
         }
