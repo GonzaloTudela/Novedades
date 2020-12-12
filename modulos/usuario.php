@@ -91,25 +91,25 @@ $db_operario->close();
     <form id="introducir" method="post" action="usuarioLogic.php"></form>
     <form id="cancelar" method="post" action="usuarioLogic.php"></form>
     <div class="mainGrid altura0">
-        <div class="nombre justified altura1">
+        <div class="nombre justified altura1 media">
             <fieldset class="left txt3 fs2">
                 <legend>Nombre</legend>
                 <p class="fs1"><?= $nombre ?></p>
             </fieldset>
         </div>
-        <div class="apellido1 justified altura1">
+        <div class="apellido1 justified altura1 media">
             <fieldset class="left txt3 fs2">
                 <legend>Primer apellido</legend>
                 <p class="fs1"><?= $apellido1 ?></p>
             </fieldset>
         </div>
-        <div class="apellido2 justified altura1">
+        <div class="apellido2 justified altura1 media">
             <fieldset class="left txt3 fs2">
                 <legend>Segundo apellido</legend>
                 <p class="fs1"><?= $apellido2 ?></p>
             </fieldset>
         </div>
-        <div class="categoria justified altura1">
+        <div class="categoria justified altura1 media">
             <fieldset class="left txt3 fs2">
                 <legend>Categoría</legend>
                 <p class="fs1"><?= $categoria ?></p>

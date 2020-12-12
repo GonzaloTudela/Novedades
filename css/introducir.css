@@ -14,7 +14,7 @@
     width: 100%;
     height: 100%;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: minmax(10mm,auto) auto 1fr auto minmax(10mm,auto);
+    grid-template-rows: minmax(10mm, auto) min-content minmax(min-content, 1fr) min-content 10mm;
     grid-template-areas:
     "titulo titulo"
     "fechaini fechafin"
@@ -128,7 +128,6 @@ fieldset {
 .contenido {
     display: flex;
     grid-area: contenido;
-    overflow: auto;
 }
 
 .autor {

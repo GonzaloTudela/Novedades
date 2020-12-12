@@ -48,17 +48,19 @@ if (isset($_SESSION['id_usuario'], $_SESSION['nombre'], $_SESSION['apellido1'], 
     <h1 class="txt0 fs0" style="color:var(--txt-r1)">BUSCAR NOTICIAS</h1><br>
     <button class="tituloButton"><?php echo file_get_contents('../img/account.svg') ?><span><?=$nombre?></span></button>
     <span class="fecha"><?php echo date('d/m/Y')?></span>
-    <p class="txt1 fs2">Instrucciones:</p>
-    <ul>
-        <li class="txt1 fs2">Puede utilizar uno o varios parámetros para la búsqueda,
-            si no introduce nada buscará todas las noticias.</li>
-        <li class="txt1 fs2">Recuerda, las noticias solo tienen 1 autor.</li>
-        <li class="txt1 fs2">Las palabras o letras que introduzcas deben aparecer en el orden que las has introducido.</li>
-    </ul>
 </header>
 <main class="altura0">
     <form id="buscar" method="get" action="resultados.php"></form>
     <div class="mainGrid altura0">
+        <div class="ayuda">
+            <p class="txt1 fs2">Instrucciones:</p>
+            <ul>
+                <li class="txt1 fs2">Puede utilizar uno o varios parámetros para la búsqueda,
+                    si no introduce nada buscará todas las noticias.</li>
+                <li class="txt1 fs2">Recuerda, las noticias solo tienen 1 autor.</li>
+                <li class="txt1 fs2">Las palabras o letras que introduzcas deben aparecer en el orden que las has introducido.</li>
+            </ul>
+        </div>
         <div class="fechaini center altura1">
             <fieldset class="center txt3 fs2">
                 <legend>Desde</legend>

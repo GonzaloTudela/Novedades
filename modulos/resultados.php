@@ -141,8 +141,8 @@ for ($i = 0; $i < $size; $i++) {
 </head>
 <body id="root">
 <header class="sombra0">
-    <h1 class="txt0 fs0" style="color:var(--txt-r1)">RESULTADOS DE LA BÚSQUEDA</h1>
-    <button class="tituloButton"><?php echo file_get_contents('../img/account.svg') ?><span><?=$nombre?></span></button>ç
+    <h1 class="txt0 fs0" style="color:var(--txt-r1)">RESULTADOS</h1>
+    <button class="tituloButton"><?php echo file_get_contents('../img/account.svg') ?><span><?=$nombre?></span></button>
     <span class="fecha"><?php echo date('d/m/Y')?></span>
 </header>
 <main class="altura0">

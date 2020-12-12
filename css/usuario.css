@@ -19,7 +19,7 @@ p {
     width: 100%;
     height: 100%;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: repeat(9, minmax(10mm, auto));
+    grid-template-rows: repeat(4, minmax(min-content, 10mm)) repeat(4, minmax(min-content, 1fr)) 10mm;
     grid-template-areas:
     "nombre nombre"
     "apellido1 apellido1"
@@ -30,7 +30,7 @@ p {
     "pass pass"
     "vpass vpass"
     "cancelar actualizar";
-    grid-gap: 8px;
+    grid-gap: 4px;
     border-radius: 8px;
 }
 
@@ -156,4 +156,13 @@ legend {
 .actualizar {
     display: flex;
     grid-area: actualizar;
+}
+
+@media only screen and (max-height: 560px) {
+    .mainGrid {
+        grid-template-rows: repeat(4, 0px) repeat(4, minmax(min-content, auto)) 10mm;
+    }
+    .media {
+        display: none;
+    }
 }
