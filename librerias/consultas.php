@@ -299,14 +299,14 @@ $sql_usuario = 'UPDATE `usuarios` SET `usuario` = ?, `email_usu` = ?, `password`
 $sql_buscar_admin = 'select n.id_usuario, id_noticia, titulo, cuerpo, fecha_inicio, fecha_fin, timestamp_not, num_version, nombre, apellido1
 from noticias n
          join usuarios u on n.id_usuario = u.id_usuario
-where fecha_inicio >= ? and (fecha_fin <= ? or fecha_fin is null) and titulo like ? and cuerpo like ? and nombre like ?
+where timestamp_not >= ? and timestamp_not <= ? and titulo like ? and cuerpo like ? and nombre like ?
 order by fecha_fin';
 
 // BUSCAR NOTICIAS NORMAL
 $sql_buscar = 'select n.id_usuario, id_noticia, titulo, cuerpo, fecha_inicio, fecha_fin, timestamp_not, num_version, nombre, apellido1
 from noticias n
-join usuarios u on n.id_usuario= u.id_usuario where fecha_inicio >= ?
-and (fecha_fin <= ? or fecha_fin is null) and titulo like ? and cuerpo like ? and nombre like ?
+join usuarios u on n.id_usuario= u.id_usuario where timestamp_not >= ? and timestamp_not <= ? and titulo like ? 
+and cuerpo like ? and nombre like ?
 and n.id_noticia in (
 select a.id_noticia 
 from equipos e
