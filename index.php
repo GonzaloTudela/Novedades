@@ -22,10 +22,10 @@ header("Expires: 0"); // Proxies.
 <body>
 <div id="fondo">
     <form id="login_form" method="POST" action="modulos/login.php">
-        <h1>NOVEDADES</h1>
-        <pre>Proyecto CFGS ASIR
+        <h1 id="titulo">NOVEDADES</h1>
+        <pre id="info">Proyecto CFGS ASIR
 Gonzalo Tudela Chavero, 2020
-<a href="http://www.centrodonbosco.es">www.centrodonbosco.es</a></pre>
+<a id="link" href="http://www.centrodonbosco.es">www.centrodonbosco.es</a></pre>
         <label for="login"></label>
         <input type="text" id="login" name="login" placeholder="Usuario"><br>
         <label for="pass"></label>
@@ -35,7 +35,6 @@ Gonzalo Tudela Chavero, 2020
         <div class="g-recaptcha"
              data-sitekey="6LciBd8ZAAAAAGIs59aPs5dgFLoCB72NUmp5CXY-"
              data-badge="inline"
-             data-size="invisible"
              data-theme="light">
         </div>
         <div id="loading">

@@ -2,7 +2,7 @@
 require_once "../librerias/funcionesPHP.php";
 require_once "../librerias/consultas.php";
 //debugFor("79.152.7.228");
-$cheat = 1;
+$cheat = 0;
 $reset = 0;
 //region PREPARACIÓN reCAPTCHAv2
 $captcha = null;
