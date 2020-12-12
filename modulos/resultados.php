@@ -30,18 +30,18 @@ if (isset($_SESSION['id_usuario'], $_SESSION['nombre'], $_SESSION['apellido1'], 
 //endregion
 
 // RECOGEMOS DATOS FORMULARIO
-if (isset($_GET['fecha_ini'], $_GET['fecha_fin'], $_GET['titulo'], $_GET['cuerpo'], $_GET['autor'])) {
-    $getFecha_ini = $_GET['fecha_ini'];
-    $getFecha_fin = $_GET['fecha_fin'];
-    $getTitulo = $_GET['titulo'];
-    $getCuerpo = $_GET['cuerpo'];
-    $getAutor = $_GET['autor'];
+if (isset($_POST['fecha_ini'], $_POST['fecha_fin'], $_POST['titulo'], $_POST['cuerpo'], $_POST['autor'])) {
+    $getFecha_ini = $_POST['fecha_ini'];
+    $getFecha_fin = $_POST['fecha_fin'];
+    $getTitulo = $_POST['titulo'];
+    $getCuerpo = $_POST['cuerpo'];
+    $getAutor = $_POST['autor'];
 }
 
 // SI LAS FECHAS ESTAN VACÍAS SUSTITUIMOS POR LA MINIMA Y MAXIMA RESPECTIVAMENTE, EN CASO CONTRARIO RECOGEMOS DATOS.
 // FECHAS MINIMAS Y MÁXIMAS EN MADRIADB 1000-01-01 hasta 9999-12-31
 empty($getFecha_ini) ? $fecha_ini = '1000-01-01' : $fecha_ini = $getFecha_ini;
-empty($getFecha_fin) ? $fecha_fin = '9999-12-31' : $fecha_ini = $getFecha_fin;
+empty($getFecha_fin) ? $fecha_fin = '9999-12-31' : $fecha_fin = $getFecha_fin;
 
 // TITULO: COLOCAMOS COMODINES SI VACIO, O FORMATEAMOS LA CADENA SI EL USUARIO HA ESCRITO ALGO.
 if (empty($getTitulo)) {
@@ -142,7 +142,8 @@ for ($i = 0; $i < $size; $i++) {
 <body id="root">
 <header class="sombra0">
     <h1 class="txt0 fs0" style="color:var(--txt-r1)">RESULTADOS</h1>
-    <button class="tituloButton"><?php echo file_get_contents('../img/account.svg') ?><span><?=$nombre?></span></button>
+    <button class="tituloButton"><?php echo file_get_contents('../img/account.svg') ?><span><?=$nombre?></span>
+    </button>
     <span class="fecha"><?php echo date('d/m/Y')?></span>
 </header>
 <main class="altura0">

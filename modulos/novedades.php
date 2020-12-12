@@ -14,7 +14,7 @@ if (isset($_SESSION['id_usuario'], $_SESSION['nombre'], $_SESSION['apellido1'], 
     $nivel = $_SESSION['nivel'];
     $nombre = $_SESSION['nombre'];
     $apellido1 = $_SESSION['apellido1'];
-    if (isset($_SESSION['apellido2'])){
+    if (isset($_SESSION['apellido2'])) {
         $apellido2 = $_SESSION['apellido2'];
     } else {
         $apellido2 = null;
@@ -62,13 +62,13 @@ $_SESSION['webOrigen'] = 'novedades';
 // CAMBIO DEL ORDEN DE LAS FECHAS SOLO PARA MOSTRAR EN HTML
 $size = count($novedades);
 for ($i = 0; $i < $size; $i++) {
-    $fi=$novedades[$i]['fecha_inicio'];
-    $fi_ok= date("d/m/Y", strtotime($fi));
-    $novedades[$i]['fecha_inicio']=$fi_ok;
-    if ($novedades[$i]['fecha_fin']!==null){
-        $ff=$novedades[$i]['fecha_fin'];
-        $ff_ok= date("d/m/Y", strtotime($ff));
-        $novedades[$i]['fecha_fin']=$ff_ok;
+    $fi = $novedades[$i]['fecha_inicio'];
+    $fi_ok = date("d/m/Y", strtotime($fi));
+    $novedades[$i]['fecha_inicio'] = $fi_ok;
+    if ($novedades[$i]['fecha_fin'] !== null) {
+        $ff = $novedades[$i]['fecha_fin'];
+        $ff_ok = date("d/m/Y", strtotime($ff));
+        $novedades[$i]['fecha_fin'] = $ff_ok;
     }
 }
 ?>
@@ -87,8 +87,9 @@ for ($i = 0; $i < $size; $i++) {
 <body id="root">
 <header class="sombra0">
     <h1 class="txt0 fs0" style="color:var(--txt-r1)">NOVEDADES</h1>
-    <button class="tituloButton"><?php echo file_get_contents('../img/account.svg') ?><span><?=$nombre?></span></button>
-    <span class="fecha"><?php echo date('d/m/Y')?></span>
+    <button class="tituloButton"><?php echo file_get_contents('../img/account.svg') ?><span><?= $nombre ?></span>
+    </button>
+    <span class="fecha"><?php echo date('d/m/Y') ?></span>
 </header>
 <main class="altura0">
     <div class="mainGrid altura0">

@@ -296,14 +296,14 @@ where id_usuario=?';
 $sql_usuario = 'UPDATE `usuarios` SET `usuario` = ?, `email_usu` = ?, `password` = ? WHERE `usuarios`.`id_usuario` = ?';
 
 // BUSCAR NOTICIAS ADMINS // (FECHAS MIN Y MAX 1000-01-01 hasta 9999-12-31 )
-$sql_buscar_admin = 'select id_noticia, titulo, cuerpo, nombre, apellido1, fecha_inicio, fecha_fin, timestamp_not
-from noticias
-join usuarios u on noticias.id_usuario = u.id_usuario
+$sql_buscar_admin = 'select n.id_usuario, id_noticia, titulo, cuerpo, fecha_inicio, fecha_fin, timestamp_not, num_version, nombre, apellido1
+from noticias n
+         join usuarios u on n.id_usuario = u.id_usuario
 where fecha_inicio >= ? and (fecha_fin <= ? or fecha_fin is null) and titulo like ? and cuerpo like ? and nombre like ?
 order by fecha_fin';
 
 // BUSCAR NOTICIAS NORMAL
-$sql_buscar = 'select n.id_noticia, n.titulo, n.cuerpo, u.nombre, u.apellido1, n.fecha_inicio, n.fecha_fin, n.timestamp_not
+$sql_buscar = 'select n.id_usuario, id_noticia, titulo, cuerpo, fecha_inicio, fecha_fin, timestamp_not, num_version, nombre, apellido1
 from noticias n
 join usuarios u on n.id_usuario= u.id_usuario where fecha_inicio >= ?
 and (fecha_fin <= ? or fecha_fin is null) and titulo like ? and cuerpo like ? and nombre like ?

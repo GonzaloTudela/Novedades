@@ -40,20 +40,27 @@ if (isset($_POST['id_noticia'])) {
 }
 //endregion
 
-//region RECOGIDA VARIABLES SESSION DE NOVEDADES Y NORMAS
+//region RECOGIDA VARIABLES SESSION DE NOVEDADES, NORMAS Y RESULTADOS
 // Recuperamos de SESSION las noticias de Novedades y Normas, las unimos en un único array ordenado.
 if (isset($_SESSION['novedades'])) {
     $novedades = $_SESSION['novedades'];
-    foreach ($novedades as $item) {
-        $noticias[$item['id_noticia']] = $item;
+    foreach ($novedades as $nitem) {
+        $rec_novedades[$nitem['id_noticia']] = $nitem;
     }
 }
 if (isset($_SESSION['activas'])) {
     $normas = $_SESSION['activas'];
-    foreach ($normas as $item) {
-        $noticias[$item['id_noticia']] = $item;
+    foreach ($normas as $aitem) {
+        $rec_activas[$aitem['id_noticia']] = $aitem;
     }
 }
+if (isset($_SESSION['buscar'])) {
+    $resultados = $_SESSION['buscar'];
+    foreach ($resultados as $bitem) {
+        $rec_resultados[$bitem['id_noticia']] = $bitem;
+    }
+}
+$noticias = $rec_novedades + $rec_activas + $rec_resultados;
 ksort($noticias);
 //endregion
 // CAMBIO DEL ORDEN DE LAS FECHAS SOLO PARA MOSTRAR EN HTML
@@ -145,8 +152,9 @@ if (isset($sql_leida)) {
 <body id="root">
 <header class="sombra0">
     <h1 class="txt0 fs0" style="color:var(--txt-r1)">DATOS DE LA NOTICIA</h1>
-    <button class="tituloButton"><?php echo file_get_contents('../img/account.svg') ?><span><?=$nombre?></span></button>
-    <span class="fecha"><?php echo date('d/m/Y')?></span>
+    <button class="tituloButton"><?php echo file_get_contents('../img/account.svg') ?><span><?= $nombre ?></span>
+    </button>
+    <span class="fecha"><?php echo date('d/m/Y') ?></span>
 </header>
 <main class="altura0">
     <div class="mainGrid altura0">

@@ -50,7 +50,7 @@ if (isset($_SESSION['id_usuario'], $_SESSION['nombre'], $_SESSION['apellido1'], 
     <span class="fecha"><?php echo date('d/m/Y')?></span>
 </header>
 <main class="altura0">
-    <form id="buscar" method="get" action="resultados.php"></form>
+    <form id="buscar" method="post" action="resultados.php"></form>
     <div class="mainGrid altura0">
         <div class="ayuda">
             <p class="txt1 fs2">Instrucciones:</p>
